@@ -21,7 +21,7 @@ const Index = () => {
       
       {/* Hero Section with Background Image */}
       <section 
-        className="relative min-h-[75vh] flex flex-col items-center justify-center overflow-hidden pt-16"
+        className="relative min-h-[75vh] flex flex-col items-center justify-center pt-16 pb-24"
         style={{
           backgroundImage: `url(${heroBackground})`,
           backgroundSize: 'cover',
