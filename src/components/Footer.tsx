@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import welinkyouLogo from "@/assets/welinkyou-logo.png";
 
 const footerLinks = {
   plateforme: [
@@ -28,11 +27,9 @@ export const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
-              <img 
-                src={welinkyouLogo} 
-                alt="WeLinkYou" 
-                className="h-12 w-auto brightness-0 invert"
-              />
+              <span className="text-2xl font-display font-semibold text-primary-light">
+                WeLinkYou
+              </span>
             </Link>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
               La plateforme de confiance qui connecte la diaspora France-Maroc
