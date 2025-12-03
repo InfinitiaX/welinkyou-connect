@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Eye, Target, Users, ArrowRight, Sparkles, Globe, Heart, Lightbulb } from "lucide-react";
+import visionImage from "@/assets/vision-collaboration.jpg";
+import teamMember1 from "@/assets/team-member-1.jpg";
+import teamMember2 from "@/assets/team-member-2.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -190,7 +193,7 @@ const About = () => {
               >
                 <div className="relative">
                   <img
-                    src="https://images.unsplash.com/photo-600880292203-757bb62b4baf?w=800&h=900&fit=crop"
+                    src={visionImage}
                     alt="Collaboration professionnelle"
                     className="rounded-3xl shadow-2xl w-full object-cover aspect-[4/5]"
                   />
@@ -313,7 +316,7 @@ const About = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop"
+                    src={teamMember1}
                     alt="Membre de l'équipe"
                     className="rounded-2xl shadow-lg w-full object-cover aspect-[4/5]"
                   />
@@ -322,7 +325,7 @@ const About = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.4 }}
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop"
+                    src={teamMember2}
                     alt="Membre de l'équipe"
                     className="rounded-2xl shadow-lg w-full object-cover aspect-[4/5] mt-12"
                   />
