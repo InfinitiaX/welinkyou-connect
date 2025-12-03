@@ -3,58 +3,126 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Eye, Target, Users, ArrowRight, Sparkles, Globe, Heart, Lightbulb } from "lucide-react";
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
 const About = () => {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 40 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const },
-  };
-
-  const staggerContainer = {
-    initial: {},
-    whileInView: { transition: { staggerChildren: 0.15 } },
-    viewport: { once: true },
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-24 overflow-hidden">
-          {/* Background decorations */}
-          <div className="absolute inset-0 bg-gradient-hero" />
-          <div className="absolute top-20 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-3xl" />
+        <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+          {/* Background with gradient overlay */}
+          <div className="absolute inset-0">
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80')`,
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-accent/70" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent" />
+          </div>
 
-          <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          {/* Floating elements */}
+          <motion.div
+            animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gold/20 blur-xl"
+          />
+          <motion.div
+            animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-accent/20 blur-xl"
+          />
+
+          <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-24">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
               className="max-w-4xl mx-auto text-center"
             >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8"
-              >
-                <Sparkles className="w-4 h-4" />
-                Qui sommes-nous ?
+              <motion.div variants={fadeInUp} className="mb-6">
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium">
+                  <Sparkles className="w-4 h-4" />
+                  Qui sommes-nous ?
+                </span>
               </motion.div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-foreground mb-6 leading-tight">
-                Connecter les professionnels, <span className="text-gradient-primary">simplifier la confiance</span>
-              </h1>
+              <motion.h1 
+                variants={fadeInUp}
+                className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight"
+              >
+                Connecter les professionnels,{" "}
+                <span className="relative">
+                  <span className="relative z-10 text-gold">simplifier la confiance</span>
+                  <motion.span
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ delay: 0.8, duration: 0.6 }}
+                    className="absolute bottom-2 left-0 h-3 bg-gold/30 -z-0"
+                  />
+                </span>
+              </motion.h1>
 
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                WeLinkYou est la plateforme qui réunit professionnels de confiance et utilisateurs en quête d'expertise
-                biculturelle France-Maroc.
-              </p>
+              <motion.p 
+                variants={fadeInUp}
+                className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto"
+              >
+                WeLinkYou est la plateforme qui réunit professionnels de confiance et utilisateurs 
+                en quête d'expertise biculturelle <strong>France-Maroc</strong>.
+              </motion.p>
+
+              {/* Values badges */}
+              <motion.div 
+                variants={fadeInUp}
+                className="flex flex-wrap justify-center gap-3 mt-10"
+              >
+                {[
+                  { icon: Globe, text: "Double expertise" },
+                  { icon: Heart, text: "Confiance" },
+                  { icon: Users, text: "Communauté" },
+                ].map((value, index) => (
+                  <motion.div
+                    key={value.text}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1 + index * 0.1 }}
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20"
+                  >
+                    <value.icon className="w-4 h-4 text-gold" />
+                    <span className="text-white/90 text-sm font-medium">{value.text}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
             </motion.div>
+          </div>
+
+          {/* Bottom wave */}
+          <div className="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" className="w-full">
+              <path
+                d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+                className="fill-background"
+              />
+            </svg>
           </div>
         </section>
 
@@ -62,7 +130,13 @@ const About = () => {
         <section className="py-24 bg-background relative">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
-              <motion.div {...fadeInUp} className="order-2 lg:order-1">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+                className="order-2 lg:order-1"
+              >
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
                   <Eye className="w-4 h-4" />
                   Notre vision
@@ -116,7 +190,7 @@ const About = () => {
               >
                 <div className="relative">
                   <img
-                    src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=900&fit=crop"
+                    src="https://images.unsplash.com/photo-600880292203-757bb62b4baf?w=800&h=900&fit=crop"
                     alt="Collaboration professionnelle"
                     className="rounded-3xl shadow-2xl w-full object-cover aspect-[4/5]"
                   />
@@ -153,7 +227,12 @@ const About = () => {
 
           <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <div className="max-w-7xl mx-auto">
-              <motion.div {...fadeInUp} className="text-center mb-16">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 text-gold-foreground text-sm font-medium mb-6 border border-gold/20">
                   <Target className="w-4 h-4 text-gold" />
                   <span className="text-foreground">Notre mission</span>
@@ -252,7 +331,12 @@ const About = () => {
                 <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-primary/30 to-primary/10 rounded-full -z-10" />
               </motion.div>
 
-              <motion.div {...fadeInUp}>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
                   <Users className="w-4 h-4" />
                   Notre équipe
@@ -293,14 +377,6 @@ const About = () => {
                     </div>
                   </div>
                 </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 }}
-                  className="mt-8 flex flex-wrap gap-4"
-                ></motion.div>
               </motion.div>
             </div>
           </div>
@@ -341,7 +417,7 @@ const About = () => {
                   whileTap={{ scale: 0.98 }}
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary-foreground/10 text-primary-foreground font-semibold border border-primary-foreground/20 hover:bg-primary-foreground/20 transition-all duration-300"
                 >
-                  Je suis professionnel
+                  Espace professionnel
                 </motion.a>
               </div>
             </motion.div>
