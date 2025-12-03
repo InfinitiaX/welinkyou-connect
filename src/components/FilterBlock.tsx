@@ -189,14 +189,13 @@ export const FilterBlock = () => {
                         setOpenDropdown(null);
                       }}
                       className={cn(
-                        "w-full flex items-center gap-3 px-4 py-3 text-left transition-colors",
+                        "w-full px-4 py-3 text-left text-sm font-medium transition-colors",
                         selectedCategory === category.id
                           ? "bg-primary/10 text-primary"
                           : "hover:bg-muted"
                       )}
                     >
-                      <span className="text-lg">{category.icon}</span>
-                      <span className="text-sm font-medium">{category.name}</span>
+                      {category.name}
                     </button>
                   ))}
                 </motion.div>
