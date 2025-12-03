@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FilterBlock } from "@/components/FilterBlock";
 import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
 import { Shield, Users, Globe, Star } from "lucide-react";
+import heroBackground from "@/assets/hero-background.jpg";
 
 const stats = [
   { icon: Users, value: "500+", label: "Professionnels vérifiés" },
@@ -15,47 +15,30 @@ const stats = [
 ];
 
 const Index = () => {
-  const { scrollY } = useScroll();
-  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const heroY = useTransform(scrollY, [0, 400], [0, 100]);
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero pt-20">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            animate={{ 
-              scale: [1, 1.2, 1],
-              rotate: [0, 180, 360],
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 rounded-full bg-gradient-to-br from-primary/5 to-primary-light/5 blur-3xl"
-          />
-          <motion.div
-            animate={{ 
-              scale: [1.2, 1, 1.2],
-              rotate: [360, 180, 0],
-            }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 rounded-full bg-gradient-to-tr from-gold/5 to-primary/5 blur-3xl"
-          />
-        </div>
+      {/* Hero Section with Background Image */}
+      <section 
+        className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden pt-20"
+        style={{
+          backgroundImage: `url(${heroBackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
 
-        <motion.div 
-          style={{ opacity: heroOpacity, y: heroY }}
-          className="container mx-auto px-4 lg:px-8 relative z-10"
-        >
-          <div className="max-w-4xl mx-auto text-center mb-12">
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto text-center mb-10">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6"
             >
               <span className="text-lg">🇫🇷</span>
               <span>×</span>
@@ -68,10 +51,9 @@ const Index = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-foreground mb-6 leading-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-4 leading-tight drop-shadow-lg"
             >
-              Trouvez les{" "}
-              <span className="text-gradient-primary">meilleurs experts</span>
+              Trouvez les <span className="text-gold-light">meilleurs experts</span>
               <br />
               de la diaspora France-Maroc
             </motion.h1>
@@ -81,7 +63,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
+              className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-8 drop-shadow-md"
             >
               Avocats, médecins, experts-comptables, coachs... Des professionnels
               vérifiés qui comprennent vos besoins biculturels.
@@ -90,20 +72,46 @@ const Index = () => {
 
           {/* Filter Block */}
           <FilterBlock />
+        </div>
 
-          {/* Stats */}
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mt-16"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-6 h-10 rounded-full border-2 border-white/50 flex items-start justify-center p-1"
+          >
+            <motion.div
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1.5 h-3 rounded-full bg-white"
+            />
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-12 bg-background border-b border-border">
+        <div className="container mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
           >
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
@@ -118,27 +126,7 @@ const Index = () => {
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-6 h-10 rounded-full border-2 border-primary/30 flex items-start justify-center p-1"
-          >
-            <motion.div
-              animate={{ opacity: [1, 0.5, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1.5 h-3 rounded-full bg-primary"
-            />
-          </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* How it works */}
