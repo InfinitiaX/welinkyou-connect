@@ -6,7 +6,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
 import { Shield, Users, Globe, Star } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
-
+import welinkyouLogo from "@/assets/welinkyou-logo.png";
 const stats = [
   { icon: Users, value: "500+", label: "Professionnels vérifiés" },
   { icon: Shield, value: "100%", label: "Profils authentifiés" },
@@ -21,7 +21,7 @@ const Index = () => {
       
       {/* Hero Section with Background Image */}
       <section 
-        className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden pt-20"
+        className="relative min-h-[70vh] flex flex-col items-center justify-center overflow-hidden pt-20"
         style={{
           backgroundImage: `url(${heroBackground})`,
           backgroundSize: 'cover',
@@ -33,17 +33,18 @@ const Index = () => {
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-10">
-            {/* Badge */}
+            {/* Logo */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6"
+              className="mb-6"
             >
-              <span className="text-lg">🇫🇷</span>
-              <span>×</span>
-              <span className="text-lg">🇲🇦</span>
-              <span className="ml-2">La plateforme de confiance</span>
+              <img 
+                src={welinkyouLogo} 
+                alt="WeLinkYou" 
+                className="h-20 md:h-24 mx-auto"
+              />
             </motion.div>
 
             {/* Headline */}
