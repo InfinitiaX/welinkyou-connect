@@ -48,7 +48,10 @@ export const Navbar = () => {
             <Link to="/" className="flex items-center gap-2 group">
               <motion.span
                 whileHover={{ scale: 1.02 }}
-                className="text-2xl md:text-3xl font-display font-semibold text-gradient-primary"
+                className={cn(
+                  "text-2xl md:text-3xl font-display font-semibold transition-colors duration-300",
+                  isScrolled ? "text-gradient-primary" : "text-primary-foreground"
+                )}
               >
                 WeLinkYou
               </motion.span>
@@ -62,9 +65,13 @@ export const Navbar = () => {
                   to={link.href}
                   className={cn(
                     "px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
-                    location.pathname === link.href
-                      ? "text-primary bg-primary/10"
-                      : "text-foreground/70 hover:text-foreground hover:bg-muted"
+                    isScrolled
+                      ? location.pathname === link.href
+                        ? "text-primary bg-primary/10"
+                        : "text-foreground/70 hover:text-foreground hover:bg-muted"
+                      : location.pathname === link.href
+                        ? "text-gold bg-white/10"
+                        : "text-white/80 hover:text-white hover:bg-white/10"
                   )}
                 >
                   {link.label}
@@ -75,7 +82,14 @@ export const Navbar = () => {
             {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-3">
               <Link to="/espace-professionnel">
-                <Button variant="outline" size="sm" className="font-medium">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className={cn(
+                    "font-medium transition-all duration-300",
+                    !isScrolled && "bg-white/90 border-white/90 text-primary hover:bg-white hover:border-white"
+                  )}
+                >
                   Connexion Pro
                 </Button>
               </Link>
@@ -89,7 +103,10 @@ export const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+              className={cn(
+                "lg:hidden p-2 rounded-lg transition-colors",
+                isScrolled ? "hover:bg-muted text-foreground" : "hover:bg-white/10 text-white"
+              )}
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
