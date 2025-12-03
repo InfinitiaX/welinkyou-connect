@@ -6,7 +6,6 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
 import { Shield, Users, Globe, Star } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
-import welinkyouLogo from "@/assets/welinkyou-logo.png";
 const stats = [
   { icon: Users, value: "500+", label: "Professionnels vérifiés" },
   { icon: Shield, value: "100%", label: "Profils authentifiés" },
@@ -33,20 +32,6 @@ const Index = () => {
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-10">
-            {/* Logo */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-6"
-            >
-              <img 
-                src={welinkyouLogo} 
-                alt="WeLinkYou" 
-                className="h-20 md:h-24 mx-auto"
-              />
-            </motion.div>
-
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}

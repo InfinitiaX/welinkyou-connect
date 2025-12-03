@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import welinkyouLogo from "@/assets/welinkyou-logo.png";
 
 const navLinks = [
   { href: "/a-propos", label: "À propos" },
@@ -45,13 +46,14 @@ export const Navbar = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 group">
-              <motion.span
-                whileHover={{ scale: 1.02 }}
-                className="text-2xl md:text-3xl font-display font-semibold text-gradient-primary"
-              >
-                WeLinkYou
-              </motion.span>
+            <Link to="/" className="flex items-center group">
+              <motion.div whileHover={{ scale: 1.02 }}>
+                <img 
+                  src={welinkyouLogo} 
+                  alt="WeLinkYou" 
+                  className="h-10 md:h-12 w-auto"
+                />
+              </motion.div>
             </Link>
 
             {/* Desktop Navigation */}
