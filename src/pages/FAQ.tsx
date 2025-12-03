@@ -128,7 +128,7 @@ const FAQ = () => {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
           <div className="absolute inset-0">
             <div 
@@ -153,7 +153,7 @@ const FAQ = () => {
             className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-accent/20 blur-xl"
           />
 
-          <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-24 pb-12">
+          <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-28 pb-16">
             <motion.div
               initial="hidden"
               animate="visible"
