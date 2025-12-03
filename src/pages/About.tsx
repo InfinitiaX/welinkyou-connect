@@ -47,7 +47,7 @@ const About = () => {
               </motion.div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-foreground mb-6 leading-tight">
-                Connecter les talents, <span className="text-gradient-primary">simplifier la confiance</span>
+                Connecter les professionnels, <span className="text-gradient-primary">simplifier la confiance</span>
               </h1>
 
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
