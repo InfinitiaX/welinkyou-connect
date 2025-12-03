@@ -6,8 +6,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
 
 const Contact = () => {
   const { toast } = useToast();
@@ -48,37 +65,95 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      <main className="flex-1 pt-24 pb-12">
-        {/* Hero */}
-        <section className="py-16 bg-gradient-hero">
-          <div className="container mx-auto px-4 lg:px-8">
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+          {/* Background with gradient overlay */}
+          <div className="absolute inset-0">
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80')`,
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-accent/70" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent" />
+          </div>
+
+          {/* Floating elements */}
+          <motion.div
+            animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gold/20 blur-xl"
+          />
+          <motion.div
+            animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-accent/20 blur-xl"
+          />
+
+          <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-24 pb-12">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
               className="max-w-3xl mx-auto text-center"
             >
-              <h1 className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-6">
-                Nous contacter
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                Une question, une suggestion ? Notre équipe est là pour vous
-                aider.
-              </p>
+              <motion.div variants={fadeInUp} className="mb-6">
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium">
+                  <MessageSquare className="w-4 h-4" />
+                  Contactez-nous
+                </span>
+              </motion.div>
+
+              <motion.h1 
+                variants={fadeInUp}
+                className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight"
+              >
+                Nous sommes là pour{" "}
+                <span className="relative">
+                  <span className="relative z-10 text-gold">vous aider</span>
+                  <motion.span
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ delay: 0.8, duration: 0.6 }}
+                    className="absolute bottom-2 left-0 h-3 bg-gold/30 -z-0"
+                  />
+                </span>
+              </motion.h1>
+
+              <motion.p 
+                variants={fadeInUp}
+                className="text-lg md:text-xl text-white/90 leading-relaxed"
+              >
+                Une question, une suggestion ? Notre équipe est disponible pour vous accompagner.
+              </motion.p>
             </motion.div>
+          </div>
+
+          {/* Bottom wave */}
+          <div className="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" className="w-full">
+              <path
+                d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+                className="fill-background"
+              />
+            </svg>
           </div>
         </section>
 
         {/* Contact Section */}
-        <section className="py-12">
+        <section className="py-16">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
               {/* Contact Info */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-6">
@@ -91,9 +166,15 @@ const Contact = () => {
                 </p>
 
                 <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-primary" />
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className="flex items-start gap-4 p-4 rounded-2xl bg-card border border-border/50"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">Email</h3>
@@ -104,11 +185,17 @@ const Contact = () => {
                         contact@welinkyou.com
                       </a>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-primary" />
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="flex items-start gap-4 p-4 rounded-2xl bg-card border border-border/50"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold to-gold-light flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">
@@ -120,11 +207,17 @@ const Contact = () => {
                         🇲🇦 +212 5 22 12 34 56
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-6 h-6 text-primary" />
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    className="flex items-start gap-4 p-4 rounded-2xl bg-card border border-border/50"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">
@@ -136,14 +229,15 @@ const Contact = () => {
                         Casablanca, Maroc
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
 
               {/* Contact Form */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
                 <div className="card-premium p-8">
