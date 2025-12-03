@@ -40,7 +40,7 @@ export const FilterBlock = () => {
       transition={{ delay: 0.3, duration: 0.5 }}
       className="w-full max-w-5xl mx-auto"
     >
-      <div className="glass-strong rounded-2xl p-4 md:p-6 shadow-xl">
+      <div className="glass-strong rounded-2xl p-4 md:p-6 shadow-xl relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {/* Country */}
           <div className="relative">
@@ -71,7 +71,7 @@ export const FilterBlock = () => {
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.15 }}
-                  className="absolute z-50 top-full mt-2 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden"
+                  className="absolute z-[100] top-full mt-2 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden"
                 >
                   {countries.map((country) => (
                     <button
@@ -125,7 +125,7 @@ export const FilterBlock = () => {
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.15 }}
-                  className="absolute z-50 top-full mt-2 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden max-h-60 overflow-y-auto"
+                  className="absolute z-[100] top-full mt-2 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden max-h-60 overflow-y-auto"
                 >
                   {availableCities.map((city) => (
                     <button
@@ -178,7 +178,7 @@ export const FilterBlock = () => {
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.15 }}
-                  className="absolute z-50 top-full mt-2 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden max-h-80 overflow-y-auto"
+                  className="absolute z-[100] top-full mt-2 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden max-h-80 overflow-y-auto"
                 >
                   {categories.map((category) => (
                     <button
@@ -232,7 +232,7 @@ export const FilterBlock = () => {
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.15 }}
-                  className="absolute z-50 top-full mt-2 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden max-h-60 overflow-y-auto"
+                  className="absolute z-[100] top-full mt-2 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden max-h-60 overflow-y-auto"
                 >
                   {currentCategory.subcategories.map((sub) => (
                     <button
