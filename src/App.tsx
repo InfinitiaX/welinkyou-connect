@@ -26,7 +26,7 @@ import { AdminSettings } from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const Ap = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
