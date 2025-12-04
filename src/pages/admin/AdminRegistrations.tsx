@@ -94,8 +94,8 @@ export const AdminRegistrations = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-slate-900">Demandes d'inscription</h1>
-        <p className="text-slate-500 mt-1">Gérez les nouvelles demandes de praticiens depuis /inscription-pro</p>
+        <h1 className="text-3xl font-bold text-primary">Demandes d'inscription</h1>
+        <p className="text-muted-foreground mt-1">Gérez les nouvelles demandes de praticiens depuis /inscription-pro</p>
       </motion.div>
 
       {/* Stats Cards */}
@@ -105,14 +105,14 @@ export const AdminRegistrations = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <Card className="border-l-4 border-l-yellow-500">
+          <Card className="border-l-4 border-l-gold">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-bold text-slate-900">{pendingRequests.length}</p>
-                  <p className="text-sm text-slate-500">En attente</p>
+                  <p className="text-2xl font-bold text-primary">{pendingRequests.length}</p>
+                  <p className="text-sm text-muted-foreground">En attente</p>
                 </div>
-                <Clock className="w-8 h-8 text-yellow-500" />
+                <Clock className="w-8 h-8 text-gold" />
               </div>
             </CardContent>
           </Card>
@@ -127,10 +127,10 @@ export const AdminRegistrations = () => {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-bold text-slate-900">
+                  <p className="text-2xl font-bold text-primary">
                     {requests.filter(r => r.status === 'approved').length}
                   </p>
-                  <p className="text-sm text-slate-500">Approuvées</p>
+                  <p className="text-sm text-muted-foreground">Approuvées</p>
                 </div>
                 <Check className="w-8 h-8 text-green-500" />
               </div>
@@ -147,10 +147,10 @@ export const AdminRegistrations = () => {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-bold text-slate-900">
+                  <p className="text-2xl font-bold text-primary">
                     {requests.filter(r => r.status === 'rejected').length}
                   </p>
-                  <p className="text-sm text-slate-500">Refusées</p>
+                  <p className="text-sm text-muted-foreground">Refusées</p>
                 </div>
                 <X className="w-8 h-8 text-red-500" />
               </div>
@@ -168,13 +168,13 @@ export const AdminRegistrations = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <UserPlus className="w-5 h-5 text-yellow-500" />
+              <UserPlus className="w-5 h-5 text-gold" />
               Demandes en attente ({pendingRequests.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
             {pendingRequests.length === 0 ? (
-              <div className="text-center py-12 text-slate-500">
+              <div className="text-center py-12 text-muted-foreground">
                 <UserPlus className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <p>Aucune demande en attente</p>
               </div>
@@ -183,18 +183,18 @@ export const AdminRegistrations = () => {
                 {pendingRequests.map((request) => (
                   <div
                     key={request.id}
-                    className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors"
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold text-lg">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold to-gold/70 flex items-center justify-center text-white font-bold text-lg">
                         {request.firstName[0]}{request.lastName[0]}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-slate-900">
+                        <h3 className="font-semibold text-primary">
                           {request.firstName} {request.lastName}
                         </h3>
-                        <p className="text-sm text-slate-600">{request.specialty}</p>
-                        <div className="flex items-center gap-4 mt-1 text-xs text-slate-500">
+                        <p className="text-sm text-muted-foreground">{request.specialty}</p>
+                        <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Mail className="w-3 h-3" />
                             {request.email}
@@ -259,17 +259,17 @@ export const AdminRegistrations = () => {
                 {processedRequests.map((request) => (
                   <div
                     key={request.id}
-                    className="flex items-center justify-between p-3 bg-slate-50 rounded-lg"
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-medium">
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-muted-foreground font-medium">
                         {request.firstName[0]}{request.lastName[0]}
                       </div>
                       <div>
-                        <p className="font-medium text-slate-900">
+                        <p className="font-medium text-primary">
                           {request.firstName} {request.lastName}
                         </p>
-                        <p className="text-xs text-slate-500">{request.specialty}</p>
+                        <p className="text-xs text-muted-foreground">{request.specialty}</p>
                       </div>
                     </div>
                     {getStatusBadge(request.status)}
@@ -292,49 +292,49 @@ export const AdminRegistrations = () => {
           </DialogHeader>
           {selectedRequest && (
             <div className="space-y-6 py-4">
-              <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
+              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-white font-bold text-xl">
                   {selectedRequest.firstName[0]}{selectedRequest.lastName[0]}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900">
+                  <h3 className="text-xl font-bold text-primary">
                     {selectedRequest.firstName} {selectedRequest.lastName}
                   </h3>
-                  <p className="text-slate-600">{selectedRequest.specialty}</p>
+                  <p className="text-muted-foreground">{selectedRequest.specialty}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <Label className="text-slate-500">Email</Label>
+                  <Label className="text-muted-foreground">Email</Label>
                   <p className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-slate-400" />
+                    <Mail className="w-4 h-4 text-muted-foreground" />
                     {selectedRequest.email}
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-slate-500">Téléphone</Label>
+                  <Label className="text-muted-foreground">Téléphone</Label>
                   <p className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-slate-400" />
+                    <Phone className="w-4 h-4 text-muted-foreground" />
                     {selectedRequest.phone}
                   </p>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-500">Description</Label>
-                <p className="text-slate-700 bg-slate-50 p-3 rounded-lg">
+                <Label className="text-muted-foreground">Description</Label>
+                <p className="text-foreground bg-gray-50 p-3 rounded-lg">
                   {selectedRequest.description}
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-500">Documents fournis</Label>
+                <Label className="text-muted-foreground">Documents fournis</Label>
                 <div className="flex flex-wrap gap-2">
                   {selectedRequest.documents.map((doc, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-2 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg"
+                      className="flex items-center gap-2 px-3 py-2 bg-gold/10 text-gold rounded-lg"
                     >
                       <FileText className="w-4 h-4" />
                       <span className="text-sm">{doc}</span>
@@ -344,9 +344,9 @@ export const AdminRegistrations = () => {
               </div>
 
               <div className="space-y-1">
-                <Label className="text-slate-500">Date de soumission</Label>
-                <p className="flex items-center gap-2 text-slate-700">
-                  <Clock className="w-4 h-4 text-slate-400" />
+                <Label className="text-muted-foreground">Date de soumission</Label>
+                <p className="flex items-center gap-2 text-foreground">
+                  <Clock className="w-4 h-4 text-muted-foreground" />
                   {new Date(selectedRequest.submittedAt).toLocaleDateString('fr-FR', {
                     weekday: 'long',
                     year: 'numeric',

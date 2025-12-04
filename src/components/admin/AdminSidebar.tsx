@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -49,10 +48,10 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
       initial={false}
       animate={{ width: collapsed ? 80 : 280 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="fixed left-0 top-0 h-screen bg-slate-900 text-white z-50 flex flex-col shadow-2xl"
+      className="fixed left-0 top-0 h-screen bg-white border-r border-gray-200 z-50 flex flex-col shadow-sm"
     >
       {/* Header */}
-      <div className="p-4 border-b border-slate-700">
+      <div className="p-4 border-b border-gray-100">
         <div className="flex items-center justify-between">
           <AnimatePresence mode="wait">
             {!collapsed && (
@@ -62,19 +61,19 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 exit={{ opacity: 0 }}
                 className="flex items-center gap-3"
               >
-                <div className="w-10 h-10 rounded-xl bg-red-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold to-gold/70 flex items-center justify-center">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h1 className="font-bold text-lg">Admin</h1>
-                  <p className="text-xs text-slate-400">WeLinkYou</p>
+                  <h1 className="font-bold text-lg text-primary">Super Admin</h1>
+                  <p className="text-xs text-muted-foreground">WeLinkYou</p>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
           
           {collapsed && (
-            <div className="w-10 h-10 rounded-xl bg-red-500 flex items-center justify-center mx-auto">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold to-gold/70 flex items-center justify-center mx-auto">
               <Shield className="w-5 h-5 text-white" />
             </div>
           )}
@@ -84,12 +83,12 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
       {/* Toggle Button */}
       <button
         onClick={onToggle}
-        className="absolute -right-3 top-20 w-6 h-6 bg-slate-700 rounded-full flex items-center justify-center shadow-lg hover:bg-slate-600 transition-colors"
+        className="absolute -right-3 top-20 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
       >
         {collapsed ? (
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="w-4 h-4 text-gray-600" />
         ) : (
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="w-4 h-4 text-gray-600" />
         )}
       </button>
 
@@ -104,11 +103,11 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200",
                 isActive
-                  ? "bg-red-500 text-white shadow-lg shadow-red-500/30"
-                  : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                  ? "bg-gradient-to-r from-gold/20 to-gold/5 text-primary border border-gold/20"
+                  : "text-muted-foreground hover:bg-gray-50 hover:text-primary"
               )}
             >
-              <item.icon className="w-5 h-5 flex-shrink-0" />
+              <item.icon className={cn("w-5 h-5 flex-shrink-0", isActive && "text-gold")} />
               <AnimatePresence mode="wait">
                 {!collapsed && (
                   <motion.span
@@ -127,8 +126,8 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-slate-700">
-        <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-all w-full">
+      <div className="p-4 border-t border-gray-100">
+        <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-gray-50 hover:text-primary transition-all w-full">
           <LogOut className="w-5 h-5 flex-shrink-0" />
           <AnimatePresence mode="wait">
             {!collapsed && (
