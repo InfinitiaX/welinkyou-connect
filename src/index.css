@@ -34,9 +34,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 15%;
     
-    /* Secondary */
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 220 20% 15%;
+    /* Secondary - Rose/Pink */
+    --secondary: 340 82% 52%;
+    --secondary-light: 340 82% 65%;
+    --secondary-dark: 340 82% 42%;
+    --secondary-foreground: 0 0% 100%;
     
     /* Muted */
     --muted: 210 15% 94%;
@@ -100,8 +102,10 @@
     --popover: 220 20% 10%;
     --popover-foreground: 210 20% 98%;
     
-    --secondary: 220 20% 15%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 340 82% 52%;
+    --secondary-light: 340 82% 65%;
+    --secondary-dark: 340 82% 42%;
+    --secondary-foreground: 0 0% 100%;
     
     --muted: 220 15% 18%;
     --muted-foreground: 210 10% 60%;
@@ -155,6 +159,10 @@
   /* Gradient backgrounds */
   .gradient-primary {
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-light)) 100%);
+  }
+  
+  .gradient-secondary {
+    background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary-light)) 100%);
   }
   
   .gradient-gold {
@@ -275,5 +283,25 @@
   
   .filter-pill.active {
     @apply bg-primary text-primary-foreground;
+  }
+  
+  /* Filter block animated border */
+  .filter-block-animated {
+    @apply relative;
+  }
+  
+  .filter-block-animated::before {
+    content: '';
+    @apply absolute -inset-[3px] rounded-3xl;
+    background: linear-gradient(90deg, hsl(var(--secondary)) 0%, hsl(var(--secondary-light)) 50%, hsl(var(--secondary)) 100%);
+    background-size: 200% 100%;
+    animation: gradient-border 3s ease infinite;
+    z-index: -1;
+  }
+  
+  @keyframes gradient-border {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 }
