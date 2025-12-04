@@ -18,6 +18,11 @@ import { PractitionerDashboard } from "./pages/practitioner/PractitionerDashboar
 import { PractitionerProfile } from "./pages/practitioner/PractitionerProfile";
 import { PractitionerSubscription } from "./pages/practitioner/PractitionerSubscription";
 import { PractitionerSettings } from "./pages/practitioner/PractitionerSettings";
+import { AdminLayout } from "./components/admin/AdminLayout";
+import { AdminDashboard } from "./pages/admin/AdminDashboard";
+import { AdminPractitioners } from "./pages/admin/AdminPractitioners";
+import { AdminRegistrations } from "./pages/admin/AdminRegistrations";
+import { AdminSettings } from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +49,14 @@ const App = () => (
             <Route path="profil" element={<PractitionerProfile />} />
             <Route path="abonnement" element={<PractitionerSubscription />} />
             <Route path="parametres" element={<PractitionerSettings />} />
+          </Route>
+
+          {/* Admin Dashboard Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="praticiens" element={<AdminPractitioners />} />
+            <Route path="demandes" element={<AdminRegistrations />} />
+            <Route path="parametres" element={<AdminSettings />} />
           </Route>
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
