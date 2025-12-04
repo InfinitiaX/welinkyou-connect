@@ -389,33 +389,41 @@ const ProfessionalSpace = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
+              className="min-h-[70vh]"
             >
-              <div className="container mx-auto px-4 lg:px-8 py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  {/* Login form */}
-                  <div className="max-w-md">
-                    <h2 className="text-3xl font-display font-semibold text-foreground mb-2">
-                      Connexion
+              <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[70vh]">
+                {/* Left side - Login form */}
+                <div className="flex flex-col justify-center px-6 py-12 lg:px-16 xl:px-24 bg-background">
+                  <div className="max-w-md w-full mx-auto lg:mx-0">
+                    <h2 className="text-3xl font-display font-bold text-foreground mb-2">
+                      Identifiez-vous
                     </h2>
                     <p className="text-muted-foreground mb-8">
-                      Connectez-vous pour accéder à votre tableau de bord
+                      Ou{" "}
+                      <Link to="/inscription-pro" className="text-primary hover:underline font-medium">
+                        créez votre compte gratuitement
+                      </Link>
                     </p>
 
-                    <form onSubmit={handleLogin} className="space-y-6">
+                    <form onSubmit={handleLogin} className="space-y-5">
                       <div className="space-y-2">
-                        <Label htmlFor="email">Adresse email</Label>
+                        <Label htmlFor="email" className="text-foreground font-medium">
+                          Adresse e-mail
+                        </Label>
                         <Input
                           id="email"
                           type="email"
                           placeholder="votre@email.com"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="h-12"
+                          className="h-14 text-base border-2 border-border focus:border-primary transition-colors"
                         />
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="password">Mot de passe</Label>
+                        <Label htmlFor="password" className="text-foreground font-medium">
+                          Mot de passe
+                        </Label>
                         <div className="relative">
                           <Input
                             id="password"
@@ -423,12 +431,12 @@ const ProfessionalSpace = () => {
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="h-12 pr-12"
+                            className="h-14 text-base pr-12 border-2 border-border focus:border-primary transition-colors"
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                           >
                             {showPassword ? (
                               <EyeOff className="w-5 h-5" />
@@ -439,73 +447,113 @@ const ProfessionalSpace = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            className="w-4 h-4 rounded border-border text-primary focus:ring-primary"
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            Se souvenir de moi
-                          </span>
-                        </label>
-                        <a
-                          href="#"
-                          className="text-sm text-primary hover:underline"
-                        >
-                          Mot de passe oublié ?
-                        </a>
-                      </div>
-
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full btn-ripple gradient-primary border-0"
+                        className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-primary border-0"
                       >
-                        Se connecter
+                        Continuer
                       </Button>
+
+                      <a
+                        href="#"
+                        className="block text-center text-sm text-primary hover:underline font-medium"
+                      >
+                        Un problème pour vous connecter ?
+                      </a>
                     </form>
 
-                    <div className="mt-8 pt-8 border-t border-border">
-                      <p className="text-center text-muted-foreground mb-4">
-                        Pas encore inscrit ?
-                      </p>
-                      <Link to="/inscription-pro">
-                        <Button variant="outline" className="w-full">
-                          Créer un compte professionnel
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* News sidebar */}
-                  <div className="hidden lg:block">
-                    <div className="bg-background-soft rounded-2xl p-8">
-                      <h2 className="text-xl font-semibold text-foreground mb-6">
-                        Actualités WeLinkYou Pro
-                      </h2>
-                      <div className="space-y-6">
-                        {news.map((item, index) => (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                            className="border-l-2 border-primary pl-4"
-                          >
-                            <span className="text-xs text-muted-foreground">
-                              {item.date}
-                            </span>
-                            <h3 className="font-medium text-foreground mb-1">
-                              {item.title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground">
-                              {item.description}
-                            </p>
-                          </motion.div>
-                        ))}
+                    <div className="relative my-8">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-border"></div>
+                      </div>
+                      <div className="relative flex justify-center text-sm">
+                        <span className="px-4 bg-background text-muted-foreground">ou</span>
                       </div>
                     </div>
+
+                    <Link to="/inscription-pro">
+                      <Button 
+                        variant="outline" 
+                        className="w-full h-14 text-base font-semibold border-2 hover:bg-primary/5"
+                      >
+                        Créer un compte professionnel
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right side - Promotional content */}
+                <div className="hidden lg:flex flex-col justify-center bg-primary text-white px-12 xl:px-20 py-16 relative overflow-hidden">
+                  {/* Background decoration */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark" />
+                  <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-primary-dark/50 to-transparent" />
+                  
+                  <div className="relative z-10 max-w-lg">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <h3 className="text-3xl xl:text-4xl font-display font-bold mb-6 leading-tight">
+                        Développez votre activité avec WeLinkYou
+                      </h3>
+                      <p className="text-lg text-white/90 mb-8 font-medium">
+                        Découvrez les avantages de notre plateforme
+                      </p>
+
+                      <ul className="space-y-4 mb-10">
+                        <li className="flex items-start gap-3">
+                          <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
+                          <span className="text-white/95">Visibilité auprès d'une clientèle ciblée</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
+                          <span className="text-white/95">Badge "Profil vérifié" pour rassurer vos clients</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
+                          <span className="text-white/95">Contact direct sans commission</span>
+                        </li>
+                      </ul>
+
+                      <Link to="/inscription-pro">
+                        <Button
+                          size="lg"
+                          className="bg-gold hover:bg-gold-light text-primary font-semibold h-12 px-8"
+                        >
+                          Rejoindre WeLinkYou
+                        </Button>
+                      </Link>
+                    </motion.div>
+
+                    {/* News section */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="mt-12 pt-8 border-t border-white/20"
+                    >
+                      <h4 className="text-lg font-semibold mb-4">Actualités WeLinkYou Pro</h4>
+                      <div className="space-y-4">
+                        {news.map((item, index) => (
+                          <div
+                            key={index}
+                            className="border-l-2 border-gold pl-4"
+                          >
+                            <span className="text-xs text-white/60">
+                              {item.date}
+                            </span>
+                            <h5 className="font-medium text-white mb-0.5">
+                              {item.title}
+                            </h5>
+                            <p className="text-sm text-white/70">
+                              {item.description}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
                   </div>
                 </div>
               </div>
