@@ -1,23 +1,23 @@
 import { motion } from "framer-motion";
-import { Search, UserCheck, MessageSquare } from "lucide-react";
+import { Search, Phone, Star } from "lucide-react";
 
 const steps = [
   {
     icon: Search,
-    title: "Recherchez",
-    description: "Trouvez le professionnel idéal grâce à nos filtres intelligents par domaine, ville et spécialité.",
+    title: "Trouver un praticien",
+    description: "Des professionnels sélectionnés par l'équipe Binatna",
     gradient: "from-primary to-primary-light",
   },
   {
-    icon: UserCheck,
-    title: "Vérifiez",
-    description: "Consultez les profils détaillés, les avis et le badge de vérification pour faire votre choix en confiance.",
+    icon: Phone,
+    title: "Contacter votre praticien",
+    description: "Par téléphone, WhatsApp ou email. Sans intermédiaire et sans frais",
     gradient: "from-primary-light to-accent",
   },
   {
-    icon: MessageSquare,
-    title: "Contactez",
-    description: "Entrez en relation directement via WhatsApp, téléphone ou email. C'est simple et gratuit !",
+    icon: Star,
+    title: "Évaluer et partager votre expérience",
+    description: "Faites bénéficier la communauté des MRE de votre expérience et recommandations",
     gradient: "from-accent to-primary",
   },
 ];
