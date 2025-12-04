@@ -5,7 +5,6 @@ import { FilterBlock } from "@/components/FilterBlock";
 import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
 import { Shield, Users, Globe, Star } from "lucide-react";
-import heroBackground from "@/assets/hero-background.jpg";
 
 const stats = [
   { icon: Users, value: "500+", label: "Professionnels vérifiés" },
@@ -19,17 +18,24 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      {/* Hero Section with Background Image */}
-      <section
-        className="relative min-h-[75vh] flex flex-col items-center justify-center pt-16 pb-24"
-        style={{
-          backgroundImage: `url(${heroBackground})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      {/* Hero Section with Background Video */}
+      <section className="relative min-h-[75vh] flex flex-col items-center justify-center pt-16 pb-24 overflow-hidden">
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source
+            src="https://videos.pexels.com/video-files/7646285/7646285-uhd_2560_1440_25fps.mp4"
+            type="video/mp4"
+          />
+        </video>
+
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-8">
