@@ -42,8 +42,8 @@ export const AdminDashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-slate-900">Tableau de bord</h1>
-        <p className="text-slate-500 mt-1">Vue d'ensemble de la plateforme WeLinkYou</p>
+        <h1 className="text-3xl font-bold text-primary">Tableau de bord</h1>
+        <p className="text-muted-foreground mt-1">Vue d'ensemble de la plateforme WeLinkYou</p>
       </motion.div>
 
       {/* Stats Grid */}
@@ -52,7 +52,6 @@ export const AdminDashboard = () => {
           title="Praticiens actifs"
           value={mockPlatformStats.activePractitioners}
           icon={Users}
-          color="blue"
           trend={{ value: 12, isPositive: true }}
           delay={0}
         />
@@ -60,7 +59,6 @@ export const AdminDashboard = () => {
           title="Vues totales"
           value={mockPlatformStats.totalProfileViews.toLocaleString()}
           icon={Eye}
-          color="green"
           trend={{ value: 8, isPositive: true }}
           delay={0.1}
         />
@@ -68,7 +66,6 @@ export const AdminDashboard = () => {
           title="Clics totaux"
           value={mockPlatformStats.totalProfileClicks.toLocaleString()}
           icon={MousePointerClick}
-          color="amber"
           trend={{ value: 5, isPositive: true }}
           delay={0.2}
         />
@@ -76,7 +73,6 @@ export const AdminDashboard = () => {
           title="Praticiens certifiés"
           value={mockPlatformStats.certifiedPractitioners}
           icon={Award}
-          color="purple"
           delay={0.3}
         />
       </div>
@@ -93,7 +89,7 @@ export const AdminDashboard = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-blue-500" />
+                <TrendingUp className="w-5 h-5 text-gold" />
                 Trafic de la semaine
               </CardTitle>
             </CardHeader>
@@ -102,39 +98,39 @@ export const AdminDashboard = () => {
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={visitData}>
                     <defs>
-                      <linearGradient id="colorVisites" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                      <linearGradient id="colorVisitesAdmin" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--gold))" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(var(--gold))" stopOpacity={0} />
                       </linearGradient>
-                      <linearGradient id="colorClics" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                      <linearGradient id="colorClicsAdmin" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                    <XAxis dataKey="name" stroke="#64748b" fontSize={12} />
-                    <YAxis stroke="#64748b" fontSize={12} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="name" stroke="#6b7280" fontSize={12} />
+                    <YAxis stroke="#6b7280" fontSize={12} />
                     <Tooltip 
                       contentStyle={{ 
                         backgroundColor: 'white', 
-                        border: '1px solid #e2e8f0',
+                        border: '1px solid #e5e7eb',
                         borderRadius: '8px'
                       }} 
                     />
                     <Area
                       type="monotone"
                       dataKey="visites"
-                      stroke="#3b82f6"
+                      stroke="hsl(var(--gold))"
                       fillOpacity={1}
-                      fill="url(#colorVisites)"
+                      fill="url(#colorVisitesAdmin)"
                       name="Visites"
                     />
                     <Area
                       type="monotone"
                       dataKey="clics"
-                      stroke="#f59e0b"
+                      stroke="hsl(var(--primary))"
                       fillOpacity={1}
-                      fill="url(#colorClics)"
+                      fill="url(#colorClicsAdmin)"
                       name="Clics"
                     />
                   </AreaChart>
@@ -153,10 +149,10 @@ export const AdminDashboard = () => {
           <Card className="h-full">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <UserPlus className="w-5 h-5 text-green-500" />
+                <UserPlus className="w-5 h-5 text-gold" />
                 Nouvelles demandes
               </CardTitle>
-              <Badge variant="secondary" className="bg-red-100 text-red-600">
+              <Badge variant="secondary" className="bg-gold/10 text-gold">
                 {pendingRequests.length}
               </Badge>
             </CardHeader>
@@ -164,20 +160,20 @@ export const AdminDashboard = () => {
               {pendingRequests.slice(0, 3).map((request) => (
                 <div
                   key={request.id}
-                  className="flex items-center justify-between p-3 bg-slate-50 rounded-xl"
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-xl"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-medium">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-gold/70 flex items-center justify-center text-white font-medium">
                       {request.firstName[0]}{request.lastName[0]}
                     </div>
                     <div>
-                      <p className="font-medium text-slate-900 text-sm">
+                      <p className="font-medium text-primary text-sm">
                         {request.firstName} {request.lastName}
                       </p>
-                      <p className="text-xs text-slate-500">{request.specialty}</p>
+                      <p className="text-xs text-muted-foreground">{request.specialty}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-slate-400">
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock className="w-3 h-3" />
                     {new Date(request.submittedAt).toLocaleDateString('fr-FR')}
                   </div>
@@ -204,7 +200,7 @@ export const AdminDashboard = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
-              <Star className="w-5 h-5 text-amber-500" />
+              <Star className="w-5 h-5 text-gold" />
               Top praticiens (vues)
             </CardTitle>
             <Button variant="outline" onClick={() => navigate('/admin/praticiens')}>
@@ -216,10 +212,10 @@ export const AdminDashboard = () => {
               {topPractitioners.map((practitioner, index) => (
                 <div
                   key={practitioner.id}
-                  className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors"
+                  className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600">
+                    <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center font-bold text-gold">
                       {index + 1}
                     </div>
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-white font-medium">
@@ -227,29 +223,29 @@ export const AdminDashboard = () => {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <p className="font-medium text-slate-900">
+                        <p className="font-medium text-primary">
                           {practitioner.firstName} {practitioner.lastName}
                         </p>
                         {practitioner.isCertified && (
-                          <Badge className="bg-blue-100 text-blue-600 text-xs">
+                          <Badge className="bg-gold/10 text-gold text-xs">
                             <Award className="w-3 h-3 mr-1" />
                             Certifié
                           </Badge>
                         )}
                       </div>
-                      <p className="text-sm text-slate-500">{practitioner.specialty}</p>
+                      <p className="text-sm text-muted-foreground">{practitioner.specialty}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-8">
                     <div className="text-right">
-                      <p className="text-lg font-bold text-slate-900">{practitioner.profileViews.toLocaleString()}</p>
-                      <p className="text-xs text-slate-500">vues</p>
+                      <p className="text-lg font-bold text-primary">{practitioner.profileViews.toLocaleString()}</p>
+                      <p className="text-xs text-muted-foreground">vues</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-slate-900">{practitioner.profileClicks}</p>
-                      <p className="text-xs text-slate-500">clics</p>
+                      <p className="text-lg font-bold text-primary">{practitioner.profileClicks}</p>
+                      <p className="text-xs text-muted-foreground">clics</p>
                     </div>
-                    <div className="flex items-center gap-1 text-amber-500">
+                    <div className="flex items-center gap-1 text-gold">
                       <Star className="w-4 h-4 fill-current" />
                       <span className="font-medium">{practitioner.rating}</span>
                     </div>

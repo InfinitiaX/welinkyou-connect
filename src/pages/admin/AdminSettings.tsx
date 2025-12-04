@@ -35,8 +35,8 @@ export const AdminSettings = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-slate-900">Paramètres</h1>
-        <p className="text-slate-500 mt-1">Configurez les paramètres de la plateforme</p>
+        <h1 className="text-3xl font-bold text-primary">Paramètres</h1>
+        <p className="text-muted-foreground mt-1">Configurez les paramètres de la plateforme</p>
       </motion.div>
 
       <div className="grid gap-6">
@@ -49,7 +49,7 @@ export const AdminSettings = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Bell className="w-5 h-5 text-blue-500" />
+                <Bell className="w-5 h-5 text-gold" />
                 Notifications
               </CardTitle>
               <CardDescription>
@@ -60,7 +60,7 @@ export const AdminSettings = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Notifications par email</Label>
-                  <p className="text-sm text-slate-500">Recevoir les alertes par email</p>
+                  <p className="text-sm text-muted-foreground">Recevoir les alertes par email</p>
                 </div>
                 <Switch
                   checked={settings.emailNotifications}
@@ -72,7 +72,7 @@ export const AdminSettings = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Alertes nouvelles inscriptions</Label>
-                  <p className="text-sm text-slate-500">Être notifié des nouvelles demandes</p>
+                  <p className="text-sm text-muted-foreground">Être notifié des nouvelles demandes</p>
                 </div>
                 <Switch
                   checked={settings.newRegistrationAlert}
@@ -84,7 +84,7 @@ export const AdminSettings = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Rapport hebdomadaire</Label>
-                  <p className="text-sm text-slate-500">Recevoir un résumé chaque semaine</p>
+                  <p className="text-sm text-muted-foreground">Recevoir un résumé chaque semaine</p>
                 </div>
                 <Switch
                   checked={settings.weeklyReport}
@@ -106,7 +106,7 @@ export const AdminSettings = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Globe className="w-5 h-5 text-green-500" />
+                <Globe className="w-5 h-5 text-gold" />
                 Paramètres de la plateforme
               </CardTitle>
               <CardDescription>
@@ -144,7 +144,7 @@ export const AdminSettings = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-red-500" />
+                <Shield className="w-5 h-5 text-gold" />
                 Sécurité & Modération
               </CardTitle>
               <CardDescription>
@@ -155,7 +155,7 @@ export const AdminSettings = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Approbation automatique</Label>
-                  <p className="text-sm text-slate-500">Approuver automatiquement les nouvelles inscriptions</p>
+                  <p className="text-sm text-muted-foreground">Approuver automatiquement les nouvelles inscriptions</p>
                 </div>
                 <Switch
                   checked={settings.autoApprove}
@@ -167,7 +167,7 @@ export const AdminSettings = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Label className="text-red-600">Mode maintenance</Label>
-                  <p className="text-sm text-slate-500">Désactiver temporairement la plateforme</p>
+                  <p className="text-sm text-muted-foreground">Désactiver temporairement la plateforme</p>
                 </div>
                 <Switch
                   checked={settings.maintenanceMode}

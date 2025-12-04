@@ -152,8 +152,8 @@ export const AdminPractitioners = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-slate-900">Gestion des praticiens</h1>
-        <p className="text-slate-500 mt-1">Gérez les profils, badges et visibilité des praticiens</p>
+        <h1 className="text-3xl font-bold text-primary">Gestion des praticiens</h1>
+        <p className="text-muted-foreground mt-1">Gérez les profils, badges et visibilité des praticiens</p>
       </motion.div>
 
       {/* Filters */}
@@ -166,7 +166,7 @@ export const AdminPractitioners = () => {
           <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   placeholder="Rechercher par nom, spécialité ou email..."
                   value={searchQuery}
@@ -200,7 +200,7 @@ export const AdminPractitioners = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Users className="w-5 h-5" />
+              <Users className="w-5 h-5 text-gold" />
               Praticiens ({filteredPractitioners.length})
             </CardTitle>
           </CardHeader>
@@ -228,8 +228,8 @@ export const AdminPractitioners = () => {
                           {practitioner.firstName[0]}{practitioner.lastName[0]}
                         </div>
                         <div>
-                          <p className="font-medium">{practitioner.firstName} {practitioner.lastName}</p>
-                          <p className="text-xs text-slate-500">{practitioner.email}</p>
+                          <p className="font-medium text-primary">{practitioner.firstName} {practitioner.lastName}</p>
+                          <p className="text-xs text-muted-foreground">{practitioner.email}</p>
                         </div>
                       </div>
                     </TableCell>
@@ -237,7 +237,7 @@ export const AdminPractitioners = () => {
                     <TableCell className="text-center font-medium">{practitioner.profileViews.toLocaleString()}</TableCell>
                     <TableCell className="text-center font-medium">{practitioner.profileClicks}</TableCell>
                     <TableCell className="text-center">
-                      <div className="flex items-center justify-center gap-1 text-amber-500">
+                      <div className="flex items-center justify-center gap-1 text-gold">
                         <Star className="w-4 h-4 fill-current" />
                         {practitioner.rating}
                       </div>
@@ -247,7 +247,7 @@ export const AdminPractitioners = () => {
                         variant={practitioner.isCertified ? "default" : "outline"}
                         size="sm"
                         onClick={() => toggleCertification(practitioner.id)}
-                        className={practitioner.isCertified ? "bg-blue-500 hover:bg-blue-600" : ""}
+                        className={practitioner.isCertified ? "bg-gold hover:bg-gold/90" : ""}
                       >
                         <Award className="w-4 h-4" />
                       </Button>
