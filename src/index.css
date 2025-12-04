@@ -14,9 +14,9 @@
     --primary-dark: 187 100% 28%;
     --primary-foreground: 0 0% 100%;
     
-    /* Gold accent */
-    --gold: 43 74% 49%;
-    --gold-light: 43 74% 65%;
+    /* Accent Pink/Purple */
+    --gold: 285 91% 63%;
+    --gold-light: 285 91% 73%;
     --gold-foreground: 0 0% 100%;
     
     /* Backgrounds */
@@ -85,8 +85,8 @@
     --primary-dark: 187 100% 33%;
     --primary-foreground: 0 0% 100%;
     
-    --gold: 43 74% 55%;
-    --gold-light: 43 74% 65%;
+    --gold: 285 91% 68%;
+    --gold-light: 285 91% 78%;
     
     --background: 220 20% 8%;
     --background-soft: 220 20% 10%;
