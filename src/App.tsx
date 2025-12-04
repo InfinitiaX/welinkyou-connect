@@ -13,6 +13,11 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import ProRegistration from "./pages/ProRegistration";
 import NotFound from "./pages/NotFound";
+import { PractitionerLayout } from "./components/practitioner/PractitionerLayout";
+import { PractitionerDashboard } from "./pages/practitioner/PractitionerDashboard";
+import { PractitionerProfile } from "./pages/practitioner/PractitionerProfile";
+import { PractitionerSubscription } from "./pages/practitioner/PractitionerSubscription";
+import { PractitionerSettings } from "./pages/practitioner/PractitionerSettings";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +37,15 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/inscription-pro" element={<ProRegistration />} />
+          
+          {/* Practitioner Dashboard Routes */}
+          <Route path="/praticien" element={<PractitionerLayout />}>
+            <Route path="dashboard" element={<PractitionerDashboard />} />
+            <Route path="profil" element={<PractitionerProfile />} />
+            <Route path="abonnement" element={<PractitionerSubscription />} />
+            <Route path="parametres" element={<PractitionerSettings />} />
+          </Route>
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
