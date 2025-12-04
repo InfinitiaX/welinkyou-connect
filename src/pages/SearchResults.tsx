@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Filter, Grid, List, SlidersHorizontal, X } from "lucide-react";
+import { Filter, Grid, List } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProfessionalCard, ProfessionalCardSkeleton } from "@/components/ProfessionalCard";
@@ -9,12 +9,12 @@ import { professionals } from "@/data/professionals";
 import { categories, countries, cities } from "@/data/categories";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { FilterBlock } from "@/components/FilterBlock";
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [showFilters, setShowFilters] = useState(false);
   
   const countryParam = searchParams.get("country");
   const cityParam = searchParams.get("city");
@@ -91,23 +91,18 @@ const SearchResults = () => {
             )}
           </motion.div>
 
-          {/* Toolbar */}
+          {/* Filter Block */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="flex items-center justify-between gap-4 mb-8 p-4 bg-card rounded-xl border border-border"
+            className="mb-8"
           >
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowFilters(!showFilters)}
-              className="gap-2"
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              Filtres
-            </Button>
+            <FilterBlock />
+          </motion.div>
 
+          {/* View Mode Toggle */}
+          <div className="flex items-center justify-end gap-4 mb-8">
             <div className="flex items-center gap-2">
               <span className="text-sm text-muted-foreground hidden sm:inline">
                 Affichage :
@@ -137,7 +132,7 @@ const SearchResults = () => {
                 </button>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Results */}
           <div
