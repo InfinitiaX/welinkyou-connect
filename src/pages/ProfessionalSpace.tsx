@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { PricingSection } from "@/components/PricingSection";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -303,6 +304,9 @@ const ProfessionalSpace = () => {
                   </motion.div>
                 </div>
               </section>
+
+              {/* Pricing Section */}
+              <PricingSection showHeader={true} className="bg-background-soft" />
 
               {/* How it works Section */}
               <section className="py-24 bg-background-soft">
