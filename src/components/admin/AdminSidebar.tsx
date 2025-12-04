@@ -15,6 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import logo from "@/assets/logo.png";
 
 const menuItems = [
   {
@@ -66,11 +67,8 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 exit={{ opacity: 0, x: -20 }}
                 className="flex items-center gap-3"
               >
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold to-gold-light flex items-center justify-center">
-                  <span className="text-primary font-bold text-lg">W</span>
-                </div>
+                <img src={logo} alt="WeLinkYou" className="h-12 w-auto" />
                 <div>
-                  <h2 className="text-white font-semibold text-sm">WeLinkYou</h2>
                   <p className="text-white/60 text-xs">Super Admin</p>
                 </div>
               </motion.div>
@@ -78,9 +76,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
           </AnimatePresence>
           
           {collapsed && (
-            <div className="w-10 h-10 mx-auto rounded-xl bg-gradient-to-br from-gold to-gold-light flex items-center justify-center">
-              <span className="text-primary font-bold text-lg">W</span>
-            </div>
+            <img src={logo} alt="WeLinkYou" className="h-10 w-auto mx-auto" />
           )}
         </div>
       </div>
