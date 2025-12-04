@@ -126,7 +126,9 @@ const Index = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="text-primary font-medium text-sm uppercase tracking-wider mb-4 block">WeLinkYou</span>
+                <span className="text-primary font-medium text-sm uppercase tracking-wider mb-4 block">
+                  We Link You
+                </span>
                 <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-6">
                   Des professionnels rigoureusement <span className="text-gradient-primary">sélectionnés</span>
                 </h2>
