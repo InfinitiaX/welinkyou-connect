@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { href: "/a-propos", label: "À propos" },
@@ -45,16 +46,13 @@ export const Navbar = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 group">
-              <motion.span
+            <Link to="/" className="flex items-center group">
+              <motion.img
+                src={logo}
+                alt="WeLinkYou"
                 whileHover={{ scale: 1.02 }}
-                className={cn(
-                  "text-2xl md:text-3xl font-display font-semibold transition-colors duration-300",
-                  isScrolled ? "text-gradient-primary" : "text-primary-foreground"
-                )}
-              >
-                WeLinkYou
-              </motion.span>
+                className="h-12 w-auto"
+              />
             </Link>
 
             {/* Desktop Navigation */}
