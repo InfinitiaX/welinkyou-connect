@@ -28,7 +28,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
-              <img src={logo} alt="WeLinkYou" className="h-20 w-auto" />
+              <img src={logo} alt="WeLinkYou" className="h-24 w-auto" />
             </Link>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
               La plateforme de confiance qui connecte la diaspora France-Maroc
