@@ -26,7 +26,7 @@ import { AdminSettings } from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const Ap = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -42,7 +42,7 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/inscription-pro" element={<ProRegistration />} />
-          
+
           {/* Practitioner Dashboard Routes */}
           <Route path="/praticien" element={<PractitionerLayout />}>
             <Route path="dashboard" element={<PractitionerDashboard />} />
@@ -58,7 +58,7 @@ const App = () => (
             <Route path="demandes" element={<AdminRegistrations />} />
             <Route path="parametres" element={<AdminSettings />} />
           </Route>
-          
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
