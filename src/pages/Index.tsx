@@ -18,14 +18,14 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      
+
       {/* Hero Section with Background Image */}
-      <section 
+      <section
         className="relative min-h-[75vh] flex flex-col items-center justify-center pt-16 pb-24"
         style={{
           backgroundImage: `url(${heroBackground})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         {/* Dark overlay for text readability */}
@@ -52,8 +52,8 @@ const Index = () => {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-8 drop-shadow-md"
             >
-              Avocats, médecins, experts-comptables, coachs... Des professionnels
-              vérifiés qui comprennent vos besoins biculturels.
+              Avocats, médecins, experts-comptables, coachs... Des professionnels vérifiés qui comprennent vos besoins
+              biculturels.
             </motion.p>
           </div>
 
@@ -104,12 +104,8 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
                   <stat.icon className="w-6 h-6 text-primary" />
                 </div>
-                <div className="text-2xl md:text-3xl font-bold text-foreground">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {stat.label}
-                </div>
+                <div className="text-2xl md:text-3xl font-bold text-foreground">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -130,17 +126,13 @@ const Index = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="text-primary font-medium text-sm uppercase tracking-wider mb-4 block">
-                  Notre promesse
-                </span>
+                <span className="text-primary font-medium text-sm uppercase tracking-wider mb-4 block">WeLinkYou</span>
                 <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-6">
-                  Des professionnels rigoureusement{" "}
-                  <span className="text-gradient-primary">sélectionnés</span>
+                  Des professionnels rigoureusement <span className="text-gradient-primary">sélectionnés</span>
                 </h2>
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                  Chaque professionnel sur WeLinkYou passe par un processus de
-                  vérification strict. Diplômes, expérience, références... Nous
-                  nous assurons que vous êtes entre de bonnes mains.
+                  Chaque professionnel sur WeLinkYou passe par un processus de vérification strict. Diplômes,
+                  expérience, références... Nous nous assurons que vous êtes entre de bonnes mains.
                 </p>
                 <ul className="space-y-4">
                   {[
@@ -158,18 +150,8 @@ const Index = () => {
                       className="flex items-center gap-3"
                     >
                       <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <svg
-                          className="w-4 h-4 text-primary"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
+                        <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
                       <span className="text-foreground">{item}</span>
@@ -216,26 +198,16 @@ const Index = () => {
               Vous êtes professionnel ?
             </h2>
             <p className="text-primary-foreground/80 text-lg mb-8">
-              Rejoignez notre réseau d'experts et connectez-vous avec une
-              clientèle qualifiée de la diaspora France-Maroc.
+              Rejoignez notre réseau d'experts et connectez-vous avec une clientèle qualifiée de la diaspora
+              France-Maroc.
             </p>
             <a
               href="/espace-professionnel"
               className="inline-flex items-center gap-2 px-8 py-4 bg-background text-primary rounded-xl font-semibold hover:bg-background/90 transition-colors shadow-lg"
             >
               Rejoindre WeLinkYou
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
           </motion.div>
