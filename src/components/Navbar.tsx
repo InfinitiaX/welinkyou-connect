@@ -51,7 +51,7 @@ export const Navbar = () => {
                 src={logo}
                 alt="WeLinkYou"
                 whileHover={{ scale: 1.02 }}
-                className="h-16 w-auto"
+                className="h-20 w-auto"
               />
             </Link>
 
