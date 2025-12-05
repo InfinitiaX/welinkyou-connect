@@ -134,7 +134,7 @@ const Login = () => {
           </div>
 
           {/* Right side - Login form */}
-          <div className="flex flex-col justify-center px-6 py-12 lg:px-16 xl:px-24 bg-background">
+          <div className="flex flex-col justify-center px-6 py-12 pt-24 lg:px-16 xl:px-24 bg-background">
             <div className="max-w-md w-full mx-auto lg:mx-0">
               {/* Back link */}
               <Link
