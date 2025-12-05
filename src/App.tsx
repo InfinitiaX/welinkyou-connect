@@ -12,6 +12,7 @@ import WhyWeLinkYou from "./pages/WhyWeLinkYou";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import ProRegistration from "./pages/ProRegistration";
+import Login from "./pages/Login";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
 import NotFound from "./pages/NotFound";
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/inscription-pro" element={<ProRegistration />} />
+          <Route path="/connexion" element={<Login />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogDetail />} />
 
