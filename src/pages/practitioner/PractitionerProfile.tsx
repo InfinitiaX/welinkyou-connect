@@ -12,6 +12,9 @@ import {
   Plus,
   X,
   CheckCircle,
+  File,
+  Download,
+  ExternalLink,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -52,6 +55,15 @@ const regions = [
   "Marrakech",
   "Tanger",
   "Fès",
+];
+
+const mockDocuments = [
+  { id: 1, name: "Diplôme de médecine", type: "diploma", status: "validated", date: "2024-01-15" },
+  { id: 2, name: "Pièce d'identité", type: "identity", status: "validated", date: "2024-01-15" },
+  { id: 3, name: "Attestation d'exercice", type: "registration", status: "validated", date: "2024-01-15" },
+  { id: 4, name: "Extrait KBIS / RC", type: "business", status: "pending", date: "2024-01-20" },
+  { id: 5, name: "Attestation assurance RC Pro", type: "insurance", status: "validated", date: "2024-01-15" },
+  { id: 6, name: "Charte WeLinkYou signée", type: "charter", status: "validated", date: "2024-01-15" },
 ];
 
 export const PractitionerProfile = () => {
@@ -149,6 +161,10 @@ export const PractitionerProfile = () => {
           <TabsTrigger value="experience" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <FileText className="w-4 h-4" />
             Expériences
+          </TabsTrigger>
+          <TabsTrigger value="documents" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+            <File className="w-4 h-4" />
+            Mes Documents
           </TabsTrigger>
         </TabsList>
 
@@ -431,6 +447,76 @@ export const PractitionerProfile = () => {
                     <Briefcase className="w-12 h-12 mx-auto mb-3 opacity-30" />
                     <p>Aucune expérience ajoutée</p>
                     <p className="text-sm">Cliquez sur "Ajouter" pour commencer</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </motion.div>
+        </TabsContent>
+
+        {/* Documents Tab */}
+        <TabsContent value="documents">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <Card className="border-0 shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <File className="w-5 h-5 text-gold" />
+                  Documents soumis lors de l'inscription
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {mockDocuments.map((doc) => (
+                  <div
+                    key={doc.id}
+                    className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gold/30 transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <FileText className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-foreground">{doc.name}</h4>
+                          <p className="text-xs text-muted-foreground">
+                            Soumis le {new Date(doc.date).toLocaleDateString("fr-FR")}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Badge
+                          variant="secondary"
+                          className={
+                            doc.status === "validated"
+                              ? "bg-green-100 text-green-700"
+                              : doc.status === "pending"
+                              ? "bg-yellow-100 text-yellow-700"
+                              : "bg-red-100 text-red-700"
+                          }
+                        >
+                          {doc.status === "validated"
+                            ? "Validé"
+                            : doc.status === "pending"
+                            ? "En attente"
+                            : "Rejeté"}
+                        </Badge>
+                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+                          <Download className="w-4 h-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+                          <ExternalLink className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {mockDocuments.length === 0 && (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <File className="w-12 h-12 mx-auto mb-3 opacity-30" />
+                    <p>Aucun document soumis</p>
                   </div>
                 )}
               </CardContent>
