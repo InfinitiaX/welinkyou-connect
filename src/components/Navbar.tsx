@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
 
 const navLinks = [
+  { href: "/", label: "Accueil" },
   { href: "/a-propos", label: "À propos" },
   { href: "/pourquoi-welinkyou", label: "Pourquoi WeLinkYou" },
-  { href: "/espace-professionnel", label: "Espace professionnel" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Nous contacter" },
 ];
@@ -62,7 +62,7 @@ export const Navbar = () => {
                   key={link.href}
                   to={link.href}
                   className={cn(
-                    "px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
+                    "px-4 py-2 text-sm font-bold rounded-lg transition-all duration-200",
                     isScrolled
                       ? location.pathname === link.href
                         ? "text-primary bg-primary/10"
@@ -84,11 +84,11 @@ export const Navbar = () => {
                   variant="outline" 
                   size="sm" 
                   className={cn(
-                    "font-medium transition-all duration-300",
+                    "font-bold transition-all duration-300",
                     !isScrolled && "bg-white/90 border-white/90 text-primary hover:bg-white hover:border-white"
                   )}
                 >
-                  Connexion Pro
+                  Espace Professionnel
                 </Button>
               </Link>
               <Link to="/recherche">
@@ -138,7 +138,7 @@ export const Navbar = () => {
                     <Link
                       to={link.href}
                       className={cn(
-                        "block px-4 py-3 text-lg font-medium rounded-lg transition-all duration-200",
+                        "block px-4 py-3 text-lg font-bold rounded-lg transition-all duration-200",
                         location.pathname === link.href
                           ? "text-primary bg-primary/10"
                           : "text-foreground/70 hover:text-foreground hover:bg-muted"
@@ -150,8 +150,8 @@ export const Navbar = () => {
                 ))}
                 <div className="mt-6 flex flex-col gap-3">
                   <Link to="/espace-professionnel">
-                    <Button variant="outline" className="w-full">
-                      Connexion Pro
+                    <Button variant="outline" className="w-full font-bold">
+                      Espace Professionnel
                     </Button>
                   </Link>
                   <Link to="/recherche">
