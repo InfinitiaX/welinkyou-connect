@@ -55,7 +55,7 @@ const Login = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentNewsIndex((prev) => (prev + 1) % news.length);
-    }, 4000);
+    }, 3500); // Time between transitions
     return () => clearInterval(interval);
   }, []);
 
@@ -125,10 +125,13 @@ const Login = () => {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentNewsIndex}
-                    initial={{ y: 50, opacity: 0 }}
+                    initial={{ y: 80, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -50, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    exit={{ y: -80, opacity: 0 }}
+                    transition={{ 
+                      duration: 0.8, 
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }}
                     className="absolute w-full"
                   >
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
