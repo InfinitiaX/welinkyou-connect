@@ -64,7 +64,6 @@ const requiredDocuments = [
   { id: "diploma", name: "Diplôme", description: "Si profession non réglementée, pas obligatoire", icon: Award, optional: true },
   { id: "identity", name: "Preuve d'identité", description: "Passeport ou CIN - Si profession non réglementée, pas obligatoire", icon: User, optional: true },
   { id: "registration", name: "Numéro d'enregistrement", description: "Attestation d'exercice - Si profession non réglementée, pas obligatoire", icon: FileText, optional: true },
-  { id: "website", name: "Lien professionnel", description: "Site web, page LinkedIn ou autre profil professionnel", icon: Globe, optional: false },
   { id: "kbis", name: "Extrait d'immatriculation", description: "KBIS ou Registre de Commerce", icon: Building, optional: false },
   { id: "charter", name: "Charte WeLinkYou signée", description: "Si profession non réglementée, pas obligatoire", icon: Shield, optional: true },
   { id: "insurance", name: "Attestation d'assurance", description: "Assurance responsabilité professionnelle", icon: Shield, optional: false },
@@ -90,6 +89,7 @@ const ProRegistration = () => {
     description: "",
     experience: "",
     languages: [] as string[],
+    professionalLink: "",
     // Photo
     photo: null as File | null,
     photoPreview: "",
@@ -691,6 +691,26 @@ const ProRegistration = () => {
                         />
                         <p className="text-xs text-muted-foreground">
                           Cette description apparaîtra sur votre profil public
+                        </p>
+                      </div>
+
+                      {/* Professional Link */}
+                      <div className="space-y-2">
+                        <Label htmlFor="professionalLink" className="flex items-center gap-2">
+                          <Globe className="w-4 h-4 text-primary" />
+                          Lien professionnel
+                        </Label>
+                        <Input
+                          id="professionalLink"
+                          name="professionalLink"
+                          type="url"
+                          value={formData.professionalLink}
+                          onChange={handleInputChange}
+                          placeholder="https://www.linkedin.com/in/votre-profil ou votre site web"
+                          className="h-12 rounded-xl"
+                        />
+                        <p className="text-xs text-muted-foreground">
+                          Site web, page LinkedIn ou autre profil professionnel
                         </p>
                       </div>
                     </div>
