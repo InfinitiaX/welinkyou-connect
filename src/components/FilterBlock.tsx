@@ -125,7 +125,7 @@ export const FilterBlock = () => {
                   : "border-gray-200 hover:border-primary/50 bg-white"
               )}
             >
-              <span className={cn("text-sm font-medium", selectedCity ? "text-black" : "text-gray-500")}>
+              <span className={cn("text-sm font-medium whitespace-nowrap", selectedCity ? "text-black" : "text-gray-500")}>
                 {selectedCity
                   ? availableCities.find((c) => c.id === selectedCity)?.name
                   : "Ville"}
