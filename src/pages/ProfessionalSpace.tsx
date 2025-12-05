@@ -186,14 +186,15 @@ const ProfessionalSpace = () => {
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </Link>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => setActiveTab("login")}
-                  className="bg-white/10 border-white/30 text-white hover:bg-white/20 gap-2 text-base px-8"
-                >
-                  Se connecter
-                </Button>
+                <Link to="/connexion">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="bg-white/10 border-white/30 text-white hover:bg-white/20 gap-2 text-base px-8"
+                  >
+                    Se connecter
+                  </Button>
+                </Link>
               </motion.div>
             </motion.div>
           </div>
@@ -224,17 +225,12 @@ const ProfessionalSpace = () => {
               >
                 Pourquoi rejoindre WeLinkYou ?
               </button>
-              <button
-                onClick={() => setActiveTab("login")}
-                className={cn(
-                  "px-6 py-4 text-sm font-medium border-b-2 transition-colors",
-                  activeTab === "login"
-                    ? "border-primary text-primary"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
-                )}
+              <Link
+                to="/connexion"
+                className="px-6 py-4 text-sm font-medium border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors"
               >
                 Identification
-              </button>
+              </Link>
             </div>
           </div>
         </div>
