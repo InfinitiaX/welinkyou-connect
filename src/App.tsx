@@ -12,6 +12,8 @@ import WhyWeLinkYou from "./pages/WhyWeLinkYou";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import ProRegistration from "./pages/ProRegistration";
+import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 import NotFound from "./pages/NotFound";
 import { PractitionerLayout } from "./components/practitioner/PractitionerLayout";
 import { PractitionerDashboard } from "./pages/practitioner/PractitionerDashboard";
@@ -42,6 +44,8 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/inscription-pro" element={<ProRegistration />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
 
           {/* Practitioner Dashboard Routes */}
           <Route path="/praticien" element={<PractitionerLayout />}>
