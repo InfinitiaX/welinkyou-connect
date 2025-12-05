@@ -56,10 +56,9 @@ const Index = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-8 drop-shadow-md"
+              className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-8 drop-shadow-md"
             >
-              Avocats, médecins, experts-comptables, coachs... Des professionnels vérifiés qui comprennent vos besoins
-              biculturels.
+              Trouvez en quelques clics des professionnels de confiance qui comprennent vos besoins, vos projets et les spécificités professionnelles, culturelles et/ou linguistiques du Maroc
             </motion.p>
           </div>
 
