@@ -812,15 +812,15 @@ const ProRegistration = () => {
 
                   {/* Step 5: Preview */}
                   {currentStep === 5 && (
-                    <div className="space-y-6">
-                      {/* Preview Card - Matching reference design */}
-                      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
-                        {/* Profile Header */}
-                        <div className="p-6 border-b border-border">
-                          <div className="flex items-start gap-5">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      {/* Main content */}
+                      <div className="lg:col-span-2 space-y-6">
+                        {/* Hero card */}
+                        <div className="card-premium p-6">
+                          <div className="flex flex-col sm:flex-row gap-6">
                             {/* Photo */}
                             <div className="relative flex-shrink-0">
-                              <div className="w-20 h-20 rounded-xl bg-muted overflow-hidden border-2 border-border">
+                              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-muted overflow-hidden ring-4 ring-primary/20">
                                 {formData.photoPreview ? (
                                   <img
                                     src={formData.photoPreview}
@@ -829,76 +829,104 @@ const ProRegistration = () => {
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                                    <User className="w-8 h-8 text-muted-foreground" />
+                                    <User className="w-12 h-12 text-muted-foreground" />
                                   </div>
                                 )}
                               </div>
+                              {/* Verified Badge */}
+                              <div className="absolute -bottom-2 -right-2">
+                                <div className="badge-verified">
+                                  <Shield className="w-4 h-4" />
+                                  Vérifié
+                                </div>
+                              </div>
                             </div>
-                            
+
                             {/* Info */}
                             <div className="flex-1">
-                              <h3 className="text-xl font-bold text-foreground">
+                              <h3 className="text-2xl sm:text-3xl font-display font-semibold text-foreground mb-2">
                                 {formData.firstName || "Prénom"} {formData.lastName || "Nom"}
                               </h3>
-                              <p className="text-primary font-medium mt-0.5">
+                              <p className="text-primary text-lg font-medium mb-4">
                                 {currentCategory?.name || "Domaine"} - {
                                   currentCategory?.subcategories.find(s => s.id === formData.subcategory)?.name || "Spécialité"
                                 }
                               </p>
-                              <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
-                                <span className="flex items-center gap-1">
+
+                              <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-4">
+                                <div className="flex items-center gap-1.5">
                                   <MapPin className="w-4 h-4" />
-                                  {formData.city
-                                    ? availableCities.find((c) => c.id === formData.city)?.name
-                                    : "Ville"}, {formData.country
-                                    ? countries.find((c) => c.id === formData.country)?.name
-                                    : "Pays"}
-                                </span>
-                                {formData.experience && (
-                                  <span className="flex items-center gap-1">
-                                    <Clock className="w-4 h-4" />
-                                    Plus de {experienceOptions.find(e => e.value === formData.experience)?.label.replace(" ans", "")} ans d'expérience
+                                  <span>
+                                    {formData.city
+                                      ? availableCities.find((c) => c.id === formData.city)?.name
+                                      : "Ville"}, {formData.country
+                                      ? countries.find((c) => c.id === formData.country)?.name
+                                      : "Pays"} {formData.country === "france" ? "🇫🇷" : formData.country === "morocco" ? "🇲🇦" : ""}
                                   </span>
+                                </div>
+                                {formData.experience && (
+                                  <div className="flex items-center gap-1.5">
+                                    <Clock className="w-4 h-4" />
+                                    <span>{experienceOptions.find(e => e.value === formData.experience)?.label.replace(" ans", "")} ans d'expérience</span>
+                                  </div>
                                 )}
                               </div>
-                              {/* Verified Badge */}
-                              <div className="mt-3">
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
-                                  <Shield className="w-3.5 h-3.5" />
-                                  Vérifié
-                                </span>
+
+                              <div className="flex items-center gap-1.5">
+                                <Star className="w-5 h-5 fill-gold text-gold" />
+                                <span className="font-semibold text-foreground text-lg">4.9</span>
+                                <span className="text-muted-foreground">(0 avis)</span>
                               </div>
                             </div>
                           </div>
                         </div>
 
                         {/* À propos */}
-                        <div className="p-6 border-b border-border">
-                          <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                            <FileText className="w-4 h-4 text-primary" />
+                        <div className="card-premium p-6">
+                          <h4 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+                            <Briefcase className="w-5 h-5 text-primary" />
                             À propos
                           </h4>
-                          <p className="text-muted-foreground text-sm">
+                          <p className="text-muted-foreground leading-relaxed">
                             {formData.description || "Aucune description ajoutée"}
                           </p>
                         </div>
 
+                        {/* Spécialités */}
+                        {formData.specialties.length > 0 && (
+                          <div className="card-premium p-6">
+                            <h4 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+                              <Award className="w-5 h-5 text-primary" />
+                              Spécialités
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {formData.specialties.map((specialty) => (
+                                <span
+                                  key={specialty}
+                                  className="px-4 py-2 rounded-full bg-primary/10 text-primary font-medium"
+                                >
+                                  {specialty}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
                         {/* Langues parlées */}
                         {formData.languages.length > 0 && (
-                          <div className="p-6 border-b border-border">
-                            <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                              <Languages className="w-4 h-4 text-primary" />
+                          <div className="card-premium p-6">
+                            <h4 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+                              <Globe className="w-5 h-5 text-primary" />
                               Langues parlées
                             </h4>
-                            <div className="flex flex-wrap gap-3">
+                            <div className="flex flex-wrap gap-2">
                               {formData.languages.map((langId) => {
                                 const lang = availableLanguages.find(l => l.id === langId);
                                 return lang ? (
-                                  <span 
-                                    key={langId} 
-                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted rounded-lg text-sm font-medium text-foreground"
+                                  <span
+                                    key={langId}
+                                    className="px-4 py-2 rounded-full bg-secondary text-secondary-foreground font-medium"
                                   >
-                                    <span className="text-xs font-bold text-muted-foreground">{lang.code}</span>
                                     {lang.name}
                                   </span>
                                 ) : null;
@@ -906,29 +934,72 @@ const ProRegistration = () => {
                             </div>
                           </div>
                         )}
-
-                        {/* Contact */}
-                        <div className="p-6">
-                          <h4 className="font-semibold text-foreground mb-3">Contact</h4>
-                          <div className="flex flex-wrap items-center gap-6 text-sm">
-                            <span className="flex items-center gap-2 text-muted-foreground">
-                              <Phone className="w-4 h-4 text-primary" />
-                              {formData.phone || "+212 6 XX XX XX XX"}
-                            </span>
-                            <span className="flex items-center gap-2 text-muted-foreground">
-                              <Mail className="w-4 h-4 text-primary" />
-                              {formData.email || "email@example.com"}
-                            </span>
-                          </div>
-                        </div>
                       </div>
 
-                      {/* Note */}
-                      <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
-                        <p className="text-sm text-foreground">
-                          <strong className="text-primary">Note :</strong> Votre profil sera visible après validation de vos documents 
-                          par notre équipe (24-48h ouvrées).
-                        </p>
+                      {/* Sidebar - Contact */}
+                      <div className="lg:col-span-1">
+                        <div className="card-premium p-6 sticky top-28">
+                          <h4 className="text-lg font-semibold text-foreground mb-6">
+                            Contacter {formData.firstName || "Prénom"}
+                          </h4>
+
+                          <div className="space-y-3">
+                            {/* WhatsApp */}
+                            <Button
+                              size="lg"
+                              className="w-full btn-ripple gap-2 bg-[#25D366] hover:bg-[#20BD5A] border-0"
+                            >
+                              <MessageCircle className="w-5 h-5" />
+                              WhatsApp
+                            </Button>
+
+                            {/* Phone */}
+                            <Button
+                              variant="outline"
+                              size="lg"
+                              className="w-full gap-2"
+                            >
+                              <Phone className="w-5 h-5" />
+                              Appeler
+                            </Button>
+
+                            {/* Email */}
+                            <Button
+                              variant="outline"
+                              size="lg"
+                              className="w-full gap-2"
+                            >
+                              <Mail className="w-5 h-5" />
+                              Email
+                            </Button>
+                          </div>
+
+                          <div className="mt-6 pt-6 border-t border-border">
+                            <p className="text-sm text-muted-foreground text-center">
+                              <span className="flex items-center justify-center gap-2 mb-1">
+                                <Phone className="w-4 h-4 text-primary" />
+                                {formData.phone || "+212 6 XX XX XX XX"}
+                              </span>
+                              <span className="flex items-center justify-center gap-2">
+                                <Mail className="w-4 h-4 text-primary" />
+                                {formData.email || "email@example.com"}
+                              </span>
+                            </p>
+                          </div>
+
+                          {/* Category badge */}
+                          <div className="mt-6 pt-6 border-t border-border">
+                            <div className="text-center">
+                              <span className="text-sm text-muted-foreground">Catégorie</span>
+                              <p className="font-medium text-foreground">
+                                {currentCategory?.icon} {currentCategory?.name || "Domaine"}
+                              </p>
+                              <p className="text-sm text-primary">
+                                {currentCategory?.subcategories.find(s => s.id === formData.subcategory)?.name || "Spécialité"}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
