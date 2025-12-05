@@ -34,13 +34,28 @@ export const FilterBlock = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.6, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-      className="w-full max-w-5xl mx-auto"
-    >
-      <div className="bg-white rounded-2xl p-4 md:p-6 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)] relative z-50">
+    <>
+      {/* Overlay to close dropdown */}
+      <AnimatePresence>
+        {openDropdown && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/20 z-40"
+            onClick={() => setOpenDropdown(null)}
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.6, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        className="w-full max-w-5xl mx-auto relative z-50"
+      >
+        <div className="bg-white rounded-2xl p-4 md:p-6 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)] relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.3fr_1.3fr_auto] gap-4">
           {/* Country */}
           <div className="relative">
@@ -267,5 +282,6 @@ export const FilterBlock = () => {
         </div>
       </div>
     </motion.div>
+    </>
   );
 };
