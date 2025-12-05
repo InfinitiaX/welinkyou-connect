@@ -78,7 +78,7 @@ export const Navbar = () => {
               <Button
                   variant="outline"
                   size="sm"
-                  className="font-bold transition-all duration-300 bg-transparent border-secondary text-secondary hover:bg-secondary/10"
+                  className="font-bold transition-all duration-300 bg-transparent border-gold text-gold hover:bg-gold/10"
                 >
                   Espace Professionnel
                 </Button>
