@@ -76,14 +76,8 @@ export const Navbar = () => {
             <div className="hidden lg:flex items-center gap-3">
               <Link to="/espace-professionnel">
               <Button
-                  variant="outline"
                   size="sm"
-                  className={cn(
-                    "font-bold transition-all duration-300",
-                    isScrolled 
-                      ? "bg-secondary border-secondary text-white hover:bg-secondary/90 hover:border-secondary/90"
-                      : "bg-white/90 border-white/90 text-primary hover:bg-white hover:border-white",
-                  )}
+                  className="font-bold transition-all duration-300 bg-secondary border-secondary text-white hover:bg-secondary/90 hover:border-secondary/90"
                 >
                   Espace Professionnel
                 </Button>
