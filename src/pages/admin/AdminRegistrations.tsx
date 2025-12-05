@@ -8,9 +8,12 @@ import {
   FileText, 
   Mail, 
   Phone,
-  Eye
+  Eye,
+  Download,
+  CheckCircle,
+  XCircle
 } from "lucide-react";
-import { mockRegistrationRequests, RegistrationRequest } from "@/data/mockPractitioners";
+import { mockRegistrationRequests, RegistrationRequest, Document } from "@/data/mockPractitioners";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +28,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 export const AdminRegistrations = () => {
   const { toast } = useToast();
@@ -33,6 +37,8 @@ export const AdminRegistrations = () => {
   const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
   const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
 
   const pendingRequests = requests.filter(r => r.status === 'pending');
   const processedRequests = requests.filter(r => r.status !== 'pending');
@@ -68,6 +74,29 @@ export const AdminRegistrations = () => {
     setRejectionReason("");
   };
 
+  const handleDocumentValidation = (requestId: string, docIndex: number, status: 'validated' | 'rejected') => {
+    setRequests(prev =>
+      prev.map(r => {
+        if (r.id === requestId) {
+          const updatedDocs = [...r.documents];
+          updatedDocs[docIndex] = { ...updatedDocs[docIndex], status };
+          return { ...r, documents: updatedDocs };
+        }
+        return r;
+      })
+    );
+    toast({
+      title: status === 'validated' ? "Document validé" : "Document rejeté",
+      description: `Le document a été ${status === 'validated' ? 'validé' : 'rejeté'} avec succès.`,
+      variant: status === 'validated' ? 'default' : 'destructive',
+    });
+  };
+
+  const openPdfViewer = (doc: Document) => {
+    setSelectedDocument(doc);
+    setIsPdfViewerOpen(true);
+  };
+
   const openDetails = (request: RegistrationRequest) => {
     setSelectedRequest(request);
     setIsDetailDialogOpen(true);
@@ -81,6 +110,19 @@ export const AdminRegistrations = () => {
         return <Badge className="bg-green-100 text-green-700">Approuvée</Badge>;
       case 'rejected':
         return <Badge className="bg-red-100 text-red-700">Refusée</Badge>;
+      default:
+        return <Badge variant="outline">{status}</Badge>;
+    }
+  };
+
+  const getDocStatusBadge = (status: string) => {
+    switch (status) {
+      case 'pending':
+        return <Badge variant="outline" className="text-yellow-600 border-yellow-300">En attente</Badge>;
+      case 'validated':
+        return <Badge className="bg-green-100 text-green-700">Validé</Badge>;
+      case 'rejected':
+        return <Badge className="bg-red-100 text-red-700">Rejeté</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -283,11 +325,11 @@ export const AdminRegistrations = () => {
 
       {/* Detail Dialog */}
       <Dialog open={isDetailDialogOpen} onOpenChange={setIsDetailDialogOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Détails de la demande</DialogTitle>
             <DialogDescription>
-              Examinez les informations du candidat avant de prendre une décision
+              Examinez les informations du candidat et validez chaque document
             </DialogDescription>
           </DialogHeader>
           {selectedRequest && (
@@ -328,16 +370,54 @@ export const AdminRegistrations = () => {
                 </p>
               </div>
 
-              <div className="space-y-2">
-                <Label className="text-muted-foreground">Documents fournis</Label>
-                <div className="flex flex-wrap gap-2">
+              {/* Documents Section with PDF Viewer */}
+              <div className="space-y-3">
+                <Label className="text-muted-foreground text-base font-semibold">Documents à vérifier</Label>
+                <div className="space-y-3">
                   {selectedRequest.documents.map((doc, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-2 px-3 py-2 bg-gold/10 text-gold rounded-lg"
+                      className="flex items-center justify-between p-4 bg-white border rounded-xl shadow-sm"
                     >
-                      <FileText className="w-4 h-4" />
-                      <span className="text-sm">{doc}</span>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
+                          <FileText className="w-5 h-5 text-gold" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-primary">{doc.name}</p>
+                          {getDocStatusBadge(doc.status)}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => openPdfViewer(doc)}
+                        >
+                          <Eye className="w-4 h-4 mr-1" />
+                          Voir
+                        </Button>
+                        {doc.status === 'pending' && (
+                          <>
+                            <Button
+                              size="sm"
+                              className="bg-green-500 hover:bg-green-600"
+                              onClick={() => handleDocumentValidation(selectedRequest.id, index, 'validated')}
+                            >
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              Valider
+                            </Button>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => handleDocumentValidation(selectedRequest.id, index, 'rejected')}
+                            >
+                              <XCircle className="w-4 h-4 mr-1" />
+                              Rejeter
+                            </Button>
+                          </>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -378,6 +458,65 @@ export const AdminRegistrations = () => {
                 >
                   <Check className="w-4 h-4 mr-1" />
                   Approuver
+                </Button>
+              </>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* PDF Viewer Dialog */}
+      <Dialog open={isPdfViewerOpen} onOpenChange={setIsPdfViewerOpen}>
+        <DialogContent className="max-w-5xl h-[85vh]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-gold" />
+              {selectedDocument?.name}
+            </DialogTitle>
+            <DialogDescription>
+              Visualisez le document et décidez de sa validation
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex-1 h-full min-h-[500px] bg-gray-100 rounded-lg overflow-hidden">
+            {selectedDocument && (
+              <iframe
+                src={selectedDocument.url}
+                className="w-full h-full min-h-[500px]"
+                title={selectedDocument.name}
+              />
+            )}
+          </div>
+          <DialogFooter className="gap-2 mt-4">
+            <Button variant="outline" onClick={() => setIsPdfViewerOpen(false)}>
+              Fermer
+            </Button>
+            {selectedDocument && selectedRequest && selectedDocument.status === 'pending' && (
+              <>
+                <Button
+                  variant="destructive"
+                  onClick={() => {
+                    const docIndex = selectedRequest.documents.findIndex(d => d.name === selectedDocument.name);
+                    if (docIndex !== -1) {
+                      handleDocumentValidation(selectedRequest.id, docIndex, 'rejected');
+                      setIsPdfViewerOpen(false);
+                    }
+                  }}
+                >
+                  <XCircle className="w-4 h-4 mr-1" />
+                  Rejeter ce document
+                </Button>
+                <Button
+                  className="bg-green-500 hover:bg-green-600"
+                  onClick={() => {
+                    const docIndex = selectedRequest.documents.findIndex(d => d.name === selectedDocument.name);
+                    if (docIndex !== -1) {
+                      handleDocumentValidation(selectedRequest.id, docIndex, 'validated');
+                      setIsPdfViewerOpen(false);
+                    }
+                  }}
+                >
+                  <CheckCircle className="w-4 h-4 mr-1" />
+                  Valider ce document
                 </Button>
               </>
             )}

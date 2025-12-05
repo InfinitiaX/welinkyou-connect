@@ -20,6 +20,12 @@ export interface Practitioner {
   avatarUrl?: string;
 }
 
+export interface Document {
+  name: string;
+  url: string;
+  status: 'pending' | 'validated' | 'rejected';
+}
+
 export interface RegistrationRequest {
   id: string;
   firstName: string;
@@ -28,7 +34,7 @@ export interface RegistrationRequest {
   phone: string;
   specialty: string;
   description: string;
-  documents: string[];
+  documents: Document[];
   submittedAt: string;
   status: 'pending' | 'approved' | 'rejected';
 }
@@ -145,7 +151,10 @@ export const mockRegistrationRequests: RegistrationRequest[] = [
     phone: '+33 6 11 22 33 44',
     specialty: 'Agent immobilier',
     description: 'Expert en investissement immobilier au Maroc pour la diaspora française.',
-    documents: ['carte_pro.pdf', 'diplome.pdf'],
+    documents: [
+      { name: 'Carte professionnelle', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' },
+      { name: 'Diplôme', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' }
+    ],
     submittedAt: '2024-11-28',
     status: 'pending',
   },
@@ -157,7 +166,11 @@ export const mockRegistrationRequests: RegistrationRequest[] = [
     phone: '+212 6 55 66 77 88',
     specialty: 'Avocat - Droit de la famille',
     description: 'Spécialisée dans les affaires familiales transfrontalières.',
-    documents: ['barreau.pdf', 'cv.pdf', 'assurance.pdf'],
+    documents: [
+      { name: 'Attestation du barreau', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' },
+      { name: 'CV', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' },
+      { name: 'Assurance professionnelle', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' }
+    ],
     submittedAt: '2024-11-30',
     status: 'pending',
   },
@@ -169,7 +182,9 @@ export const mockRegistrationRequests: RegistrationRequest[] = [
     phone: '+33 6 99 88 77 66',
     specialty: 'Conseiller fiscal',
     description: 'Optimisation fiscale pour entrepreneurs binationaux.',
-    documents: ['diplome.pdf'],
+    documents: [
+      { name: 'Diplôme', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' }
+    ],
     submittedAt: '2024-11-25',
     status: 'pending',
   },
