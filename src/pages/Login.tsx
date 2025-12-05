@@ -121,48 +121,41 @@ const Login = () => {
               className="relative z-10 mt-12"
             >
               <h3 className="text-xl font-display font-semibold mb-4 text-white">Actualités WeLinkYou Pro</h3>
-              <div className="relative h-[200px] overflow-hidden">
-                <AnimatePresence mode="popLayout">
-                  {[0, 1].map((offset) => {
-                    const index = (currentNewsIndex + offset) % news.length;
-                    const item = news[index];
-                    return (
-                      <motion.div
-                        key={`${currentNewsIndex}-${offset}`}
-                        initial={{ y: offset === 0 ? 0 : 100, opacity: offset === 0 ? 1 : 0.7 }}
-                        animate={{ y: offset * 90, opacity: offset === 0 ? 1 : 0.7 }}
-                        exit={{ y: -100, opacity: 0 }}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
-                        className="absolute w-full"
-                        style={{ top: 0 }}
-                      >
-                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                          <p className="text-xs text-gold-light mb-1 font-medium">{item.date}</p>
-                          <h4 className="font-semibold text-white mb-1">{item.title}</h4>
-                          <p className="text-sm text-white/80">{item.description}</p>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
+              <div className="relative h-[100px] overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentNewsIndex}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -50, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="absolute w-full"
+                  >
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                      <p className="text-xs text-gold-light mb-1 font-medium">{news[currentNewsIndex].date}</p>
+                      <h4 className="font-semibold text-white mb-1">{news[currentNewsIndex].title}</h4>
+                      <p className="text-sm text-white/80">{news[currentNewsIndex].description}</p>
+                    </div>
+                  </motion.div>
                 </AnimatePresence>
-                {/* Dots indicator */}
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2">
-                  {news.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentNewsIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        index === currentNewsIndex ? "bg-white w-4" : "bg-white/40"
-                      }`}
-                    />
-                  ))}
-                </div>
+              </div>
+              {/* Dots indicator */}
+              <div className="flex justify-center gap-2 mt-4">
+                {news.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentNewsIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentNewsIndex ? "bg-white w-4" : "bg-white/40"
+                    }`}
+                  />
+                ))}
               </div>
             </motion.div>
           </div>
 
           {/* Right side - Login form */}
-          <div className="flex flex-col justify-center px-6 py-12 pt-24 lg:px-16 xl:px-24 bg-background">
+          <div className="flex flex-col items-center justify-center px-6 py-12 pt-24 lg:px-16 xl:px-24 bg-background">
             <div className="max-w-md w-full mx-auto lg:mx-0">
               {/* Back link */}
               <Link
