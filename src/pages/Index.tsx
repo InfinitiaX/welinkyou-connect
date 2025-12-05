@@ -1,10 +1,70 @@
 import { motion } from "framer-motion";
+import type { Easing, Variants } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FilterBlock } from "@/components/FilterBlock";
 import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
-import { Shield, Users, Globe, Star } from "lucide-react";
+import { Shield, Users, Globe, Star, Check } from "lucide-react";
+import trustHandshake from "@/assets/trust-handshake.jpg";
+
+// Easing constant
+const easeOut: Easing = [0.4, 0, 0.2, 1];
+
+// Animation variants
+const sectionVariants: Variants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.8, ease: easeOut }
+  }
+};
+
+const titleWordVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.5, ease: easeOut }
+  })
+};
+
+const bulletVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.8, x: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: { 
+      delay: 0.4 + i * 0.15, 
+      duration: 0.5, 
+      ease: easeOut 
+    }
+  })
+};
+
+const checkIconVariants: Variants = {
+  hidden: { scale: 0 },
+  visible: (i: number) => ({
+    scale: 1,
+    transition: { 
+      delay: 0.5 + i * 0.15,
+      type: "spring" as const,
+      stiffness: 400,
+      damping: 10
+    }
+  })
+};
+
+const imageVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { 
+    opacity: 1, 
+    scale: 1,
+    transition: { duration: 0.8, ease: easeOut }
+  }
+};
 
 const stats = [
   { icon: Users, value: "500+", label: "Professionnels vérifiés" },
@@ -121,26 +181,68 @@ const Index = () => {
       <HowItWorks />
 
       {/* Trust Section */}
-      <section className="py-24 bg-background">
+      <motion.section 
+        className="py-24 bg-background overflow-hidden"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={sectionVariants}
+      >
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <span className="text-primary font-medium text-sm uppercase tracking-wider mb-4 block">
+              {/* Text Content */}
+              <div>
+                <motion.span 
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="text-primary font-medium text-sm uppercase tracking-wider mb-4 block"
+                >
                   We Link You
-                </span>
+                </motion.span>
+                
+                {/* Split text title */}
                 <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-6">
-                  Des professionnels rigoureusement <span className="text-gradient-primary">sélectionnés</span>
+                  {["Des", "professionnels", "rigoureusement"].map((word, i) => (
+                    <motion.span
+                      key={i}
+                      custom={i}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={titleWordVariants}
+                      className="inline-block mr-2"
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
+                  <br />
+                  <motion.span
+                    custom={3}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={titleWordVariants}
+                    className="text-gradient-primary inline-block"
+                  >
+                    sélectionnés
+                  </motion.span>
                 </h2>
-                <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="text-muted-foreground text-lg mb-8 leading-relaxed"
+                >
                   Chaque professionnel sur WeLinkYou passe par un processus de vérification strict. Diplômes,
                   expérience, références... Nous nous assurons que vous êtes entre de bonnes mains.
-                </p>
+                </motion.p>
+                
+                {/* Bullet points with staggered animation */}
                 <ul className="space-y-4">
                   {[
                     "Vérification des diplômes et certifications",
@@ -150,44 +252,75 @@ const Index = () => {
                   ].map((item, index) => (
                     <motion.li
                       key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      custom={index}
+                      initial="hidden"
+                      whileInView="visible"
                       viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
+                      variants={bulletVariants}
                       className="flex items-center gap-3"
                     >
-                      <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
+                      <motion.div 
+                        custom={index}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={checkIconVariants}
+                        className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0"
+                      >
+                        <Check className="w-4 h-4 text-primary" />
+                      </motion.div>
                       <span className="text-foreground">{item}</span>
                     </motion.li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
 
+              {/* Image with parallax hover effect */}
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="relative"
+                variants={imageVariants}
+                className="relative group"
               >
-                <div className="relative z-10">
-                  <img
-                    src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=600&fit=crop"
-                    alt="Professionnels de confiance"
-                    className="rounded-2xl shadow-xl"
-                  />
+                <div className="relative z-10 overflow-hidden rounded-2xl shadow-xl">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="relative"
+                  >
+                    <motion.img
+                      src={trustHandshake}
+                      alt="Professionnels de confiance - Poignée de main"
+                      className="w-full h-auto object-cover"
+                      style={{ transformOrigin: "center center" }}
+                    />
+                    {/* Subtle overlay on hover */}
+                    <motion.div 
+                      className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                  </motion.div>
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-primary/20 to-gold/20 rounded-2xl -z-10" />
-                <div className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-gold/20 to-primary/20 rounded-2xl -z-10" />
+                {/* Decorative elements */}
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                  className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-primary/20 to-gold/20 rounded-2xl -z-10" 
+                />
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                  className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-gold/20 to-primary/20 rounded-2xl -z-10" 
+                />
               </motion.div>
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Blog Section */}
       <BlogSection />
