@@ -101,7 +101,7 @@ export const PractitionerProfile = () => {
             <Eye className="w-4 h-4" />
             Prévisualiser
           </Button>
-          <Button className="gap-2 bg-gold hover:bg-gold-light text-primary">
+          <Button className="gap-2 bg-gold hover:bg-gold-light text-white">
             <Save className="w-4 h-4" />
             Enregistrer
           </Button>
@@ -126,7 +126,7 @@ export const PractitionerProfile = () => {
                   </p>
                 </div>
               </div>
-              <Badge className="bg-gold text-primary">85%</Badge>
+              <Badge className="bg-gold text-white">85%</Badge>
             </div>
           </CardContent>
         </Card>
@@ -174,7 +174,7 @@ export const PractitionerProfile = () => {
                     </Avatar>
                     <Button
                       size="icon"
-                      className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-gold hover:bg-gold-light text-primary"
+                      className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-gold hover:bg-gold-light text-white"
                     >
                       <Camera className="w-4 h-4" />
                     </Button>

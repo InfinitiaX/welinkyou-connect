@@ -87,7 +87,7 @@ export const PractitionerSubscription = () => {
               : "border-border hover:border-gold/30"
           )}
         >
-          <Badge className="absolute -top-3 right-4 bg-gold text-primary">
+          <Badge className="absolute -top-3 right-4 bg-gold text-white">
             -63%
           </Badge>
           <p className="text-muted-foreground text-sm mb-2">Annuel</p>
