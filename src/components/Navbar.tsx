@@ -9,7 +9,7 @@ import logo from "@/assets/logo.png";
 const navLinks = [
   { href: "/", label: "Accueil" },
   { href: "/a-propos", label: "À propos" },
-  { href: "/pourquoi-welinkyou", label: "Pourquoi WeLinkYou" },
+  { href: "/pourquoi-welinkyou", label: "Pourquoi WeLinkYou?" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Nous contacter" },
 ];
@@ -40,19 +40,14 @@ export const Navbar = () => {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "navbar-solid" : "navbar-transparent"
+          isScrolled ? "navbar-solid" : "navbar-transparent",
         )}
       >
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center group">
-              <motion.img
-                src={logo}
-                alt="WeLinkYou"
-                whileHover={{ scale: 1.02 }}
-                className="h-24 w-auto"
-              />
+              <motion.img src={logo} alt="WeLinkYou" whileHover={{ scale: 1.02 }} className="h-24 w-auto" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -69,7 +64,7 @@ export const Navbar = () => {
                         : "text-foreground/70 hover:text-foreground hover:bg-muted"
                       : location.pathname === link.href
                         ? "text-gold bg-white/10"
-                        : "text-white/80 hover:text-white hover:bg-white/10"
+                        : "text-white/80 hover:text-white hover:bg-white/10",
                   )}
                 >
                   {link.label}
@@ -80,12 +75,12 @@ export const Navbar = () => {
             {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-3">
               <Link to="/espace-professionnel">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+                <Button
+                  variant="outline"
+                  size="sm"
                   className={cn(
                     "font-bold transition-all duration-300",
-                    !isScrolled && "bg-white/90 border-white/90 text-primary hover:bg-white hover:border-white"
+                    !isScrolled && "bg-white/90 border-white/90 text-primary hover:bg-white hover:border-white",
                   )}
                 >
                   Espace Professionnel
@@ -103,14 +98,10 @@ export const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={cn(
                 "lg:hidden p-2 rounded-lg transition-colors",
-                isScrolled ? "hover:bg-muted text-foreground" : "hover:bg-white/10 text-white"
+                isScrolled ? "hover:bg-muted text-foreground" : "hover:bg-white/10 text-white",
               )}
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -141,7 +132,7 @@ export const Navbar = () => {
                         "block px-4 py-3 text-lg font-bold rounded-lg transition-all duration-200",
                         location.pathname === link.href
                           ? "text-primary bg-primary/10"
-                          : "text-foreground/70 hover:text-foreground hover:bg-muted"
+                          : "text-foreground/70 hover:text-foreground hover:bg-muted",
                       )}
                     >
                       {link.label}
@@ -155,9 +146,7 @@ export const Navbar = () => {
                     </Button>
                   </Link>
                   <Link to="/recherche">
-                    <Button className="w-full btn-ripple gradient-primary border-0">
-                      Trouver un expert
-                    </Button>
+                    <Button className="w-full btn-ripple gradient-primary border-0">Trouver un expert</Button>
                   </Link>
                 </div>
               </div>
