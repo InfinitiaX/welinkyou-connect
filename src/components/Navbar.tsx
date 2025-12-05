@@ -75,12 +75,14 @@ export const Navbar = () => {
             {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-3">
               <Link to="/espace-professionnel">
-                <Button
+              <Button
                   variant="outline"
                   size="sm"
                   className={cn(
                     "font-bold transition-all duration-300",
-                    !isScrolled && "bg-white/90 border-white/90 text-primary hover:bg-white hover:border-white",
+                    isScrolled 
+                      ? "bg-secondary border-secondary text-white hover:bg-secondary/90 hover:border-secondary/90"
+                      : "bg-white/90 border-white/90 text-primary hover:bg-white hover:border-white",
                   )}
                 >
                   Espace Professionnel
