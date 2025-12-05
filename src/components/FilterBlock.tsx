@@ -40,7 +40,7 @@ export const FilterBlock = () => {
       transition={{ delay: 0.6, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
       className="w-full max-w-5xl mx-auto"
     >
-      <div className="bg-white rounded-2xl p-4 md:p-6 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)] relative z-10">
+      <div className="bg-white rounded-2xl p-4 md:p-6 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)] relative z-50">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.3fr_1.3fr_auto] gap-4">
           {/* Country */}
           <div className="relative">
