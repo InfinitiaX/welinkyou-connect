@@ -1,24 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Eye, EyeOff, ArrowLeft, CheckCircle, Shield, Users } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Shield, Users, Mail } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-const news = [
-  {
-    title: "Nouveau : Statistiques avancées",
-    date: "3 Dec 2024",
-    description: "Suivez en temps réel les vues et contacts de votre profil.",
-  },
-  {
-    title: "Webinaire : Développer sa clientèle",
-    date: "28 Nov 2024",
-    description: "Inscrivez-vous à notre prochain webinaire gratuit.",
-  },
-];
+import { toast } from "@/hooks/use-toast";
 
 const benefits = [
   {
@@ -35,14 +23,18 @@ const benefits = [
   },
 ];
 
-const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
+    console.log("Password reset requested for:", email);
+    setIsSubmitted(true);
+    toast({
+      title: "Email envoyé",
+      description: "Si cette adresse existe, vous recevrez un lien de réinitialisation.",
+    });
   };
 
   return (
@@ -93,98 +85,76 @@ const Login = () => {
                 </Link>
               </motion.div>
             </div>
-
-            {/* News Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="relative z-10 mt-12"
-            >
-              <h3 className="text-xl font-display font-semibold mb-4 text-white">Actualités WeLinkYou Pro</h3>
-              <div className="space-y-4">
-                {news.map((item, index) => (
-                  <div
-                    key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/15 transition-colors"
-                  >
-                    <p className="text-xs text-gold-light mb-1 font-medium">{item.date}</p>
-                    <h4 className="font-semibold text-white mb-1">{item.title}</h4>
-                    <p className="text-sm text-white/80">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
           </div>
 
-          {/* Right side - Login form */}
+          {/* Right side - Forgot Password form */}
           <div className="flex flex-col justify-center px-6 py-12 pt-24 lg:px-16 xl:px-24 bg-background">
             <div className="max-w-md w-full mx-auto lg:mx-0">
               {/* Back link */}
               <Link
-                to="/espace-professionnel"
+                to="/connexion"
                 className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Retour à l'espace professionnel
+                Retour à la connexion
               </Link>
 
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-                <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2">Identifiez-vous</h1>
+                <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2">
+                  Mot de passe oublié ?
+                </h1>
+                <p className="text-muted-foreground mb-8">
+                  Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+                </p>
 
-                <form onSubmit={handleLogin} className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-foreground font-medium">
-                      Adresse e-mail
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="votre@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="h-14 text-base border-2 border-border focus:border-primary transition-colors rounded-xl"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="password" className="text-foreground font-medium">
-                      Mot de passe
-                    </Label>
-                    <div className="relative">
+                {!isSubmitted ? (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-foreground font-medium">
+                        Adresse e-mail
+                      </Label>
                       <Input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="h-14 text-base pr-12 border-2 border-border focus:border-primary transition-colors rounded-xl"
+                        id="email"
+                        type="email"
+                        placeholder="votre@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="h-14 text-base border-2 border-border focus:border-primary transition-colors rounded-xl"
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                      </button>
                     </div>
-                  </div>
 
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-primary border-0 rounded-xl text-white"
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-primary border-0 rounded-xl text-white"
+                    >
+                      Envoyer le lien
+                    </Button>
+                  </form>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-8"
                   >
-                    Continuer
-                  </Button>
-
-                  <Link
-                    to="/mot-de-passe-oublie"
-                    className="block text-center text-sm text-primary hover:text-primary-dark hover:underline font-medium transition-colors"
-                  >
-                    Mot de passe oublié ?
-                  </Link>
-                </form>
+                    <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                      <Mail className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Email envoyé !</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Si un compte existe avec l'adresse <strong>{email}</strong>, vous recevrez un lien de
+                      réinitialisation.
+                    </p>
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsSubmitted(false)}
+                      className="border-2 border-border hover:border-primary"
+                    >
+                      Essayer une autre adresse
+                    </Button>
+                  </motion.div>
+                )}
 
                 <div className="relative my-8">
                   <div className="absolute inset-0 flex items-center">
@@ -212,4 +182,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
