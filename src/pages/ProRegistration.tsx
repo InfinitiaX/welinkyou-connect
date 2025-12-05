@@ -72,6 +72,8 @@ const requiredDocuments = [
 
 const ProRegistration = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
     // Step 1 - Personal Info
     firstName: "",
@@ -192,6 +194,69 @@ const ProRegistration = () => {
 
       <main className="flex-1 pt-24 pb-12">
         <div className="container mx-auto px-4 lg:px-8">
+          {isSuccess ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="max-w-2xl mx-auto text-center py-16"
+            >
+              <div className="w-24 h-24 mx-auto mb-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/30">
+                <Check className="w-12 h-12 text-white" />
+              </div>
+              
+              <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
+                Inscription réussie ! 🎉
+              </h1>
+              
+              <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
+                Votre demande d'inscription a été soumise avec succès. Notre équipe va examiner vos documents et valider votre profil dans les 24-48h ouvrées.
+              </p>
+
+              <div className="bg-card border border-border rounded-2xl p-6 mb-8">
+                <h3 className="font-semibold text-foreground mb-4">Prochaines étapes</h3>
+                <div className="space-y-3 text-left">
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-primary">1</span>
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      Vous recevrez un email de confirmation à <strong className="text-foreground">{formData.email || "votre adresse"}</strong>
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-primary">2</span>
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      Notre équipe vérifiera vos documents sous 24-48h
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-primary">3</span>
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      Une fois validé, votre profil sera visible sur notre plateforme
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/">
+                  <Button variant="outline" className="h-12 px-6 rounded-xl">
+                    Retour à l'accueil
+                  </Button>
+                </Link>
+                <Link to="/recherche">
+                  <Button className="h-12 px-6 rounded-xl gradient-primary border-0">
+                    Découvrir les professionnels
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
+          ) : (
+            <>
           {/* Header */}
           <div className="max-w-5xl mx-auto mb-8">
             <Link
@@ -1026,9 +1091,28 @@ const ProRegistration = () => {
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
                     ) : (
-                      <Button className="h-12 px-8 rounded-xl btn-ripple gradient-primary border-0">
-                        Finaliser mon inscription
-                        <Check className="w-4 h-4 ml-2" />
+                      <Button 
+                        onClick={() => {
+                          setIsSubmitting(true);
+                          setTimeout(() => {
+                            setIsSubmitting(false);
+                            setIsSuccess(true);
+                          }, 2000);
+                        }}
+                        disabled={isSubmitting}
+                        className="h-12 px-8 rounded-xl btn-ripple gradient-primary border-0"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 mr-2 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            Traitement...
+                          </>
+                        ) : (
+                          <>
+                            Finaliser mon inscription
+                            <Check className="w-4 h-4 ml-2" />
+                          </>
+                        )}
                       </Button>
                     )}
                   </div>
@@ -1036,6 +1120,8 @@ const ProRegistration = () => {
               </motion.div>
             </AnimatePresence>
           </div>
+        </>
+          )}
         </div>
       </main>
 
