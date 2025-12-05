@@ -6,9 +6,11 @@ import {
   Eye,
   EyeOff,
   ArrowLeft,
+  CheckCircle,
+  Shield,
+  Users,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +25,21 @@ const news = [
     title: "Webinaire : Développer sa clientèle",
     date: "28 Nov 2024",
     description: "Inscrivez-vous à notre prochain webinaire gratuit.",
+  },
+];
+
+const benefits = [
+  {
+    icon: Users,
+    text: "Visibilité auprès d'une clientèle ciblée France-Maroc",
+  },
+  {
+    icon: Shield,
+    text: "Badge \"Profil vérifié\" pour rassurer vos clients",
+  },
+  {
+    icon: CheckCircle,
+    text: "Contact direct sans commission",
   },
 ];
 
@@ -42,13 +59,87 @@ const Login = () => {
 
       <main className="flex-1 pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-4rem)]">
-          {/* Left side - Login form */}
+          {/* Left side - Promotional content */}
+          <div className="hidden lg:flex flex-col justify-between px-12 xl:px-20 py-16 relative overflow-hidden">
+            {/* Background gradient with secondary color */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-gold/80" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gold/30 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary-dark/50 rounded-full blur-3xl" />
+            
+            <div className="relative z-10 max-w-lg">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <h2 className="text-3xl xl:text-4xl font-display font-bold mb-6 leading-tight text-white">
+                  Développez votre activité avec WeLinkYou
+                </h2>
+                <p className="text-lg text-white/90 mb-8 font-medium">
+                  Découvrez les avantages de notre plateforme
+                </p>
+
+                <ul className="space-y-5 mb-10">
+                  {benefits.map((benefit, index) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                        <benefit.icon className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="text-white/95 text-lg pt-2">{benefit.text}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+
+                <Link to="/inscription-pro">
+                  <Button 
+                    size="lg"
+                    className="bg-white text-primary hover:bg-white/90 gap-2 rounded-xl font-semibold shadow-lg"
+                  >
+                    Rejoindre WeLinkYou
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* News Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="relative z-10 mt-12"
+            >
+              <h3 className="text-xl font-display font-semibold mb-4 text-white">
+                Actualités WeLinkYou Pro
+              </h3>
+              <div className="space-y-4">
+                {news.map((item, index) => (
+                  <div 
+                    key={index}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/15 transition-colors"
+                  >
+                    <p className="text-xs text-gold-light mb-1 font-medium">{item.date}</p>
+                    <h4 className="font-semibold text-white mb-1">{item.title}</h4>
+                    <p className="text-sm text-white/80">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right side - Login form */}
           <div className="flex flex-col justify-center px-6 py-12 lg:px-16 xl:px-24 bg-background">
             <div className="max-w-md w-full mx-auto lg:mx-0">
               {/* Back link */}
               <Link
                 to="/espace-professionnel"
-                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Retour à l'espace professionnel
@@ -64,7 +155,7 @@ const Login = () => {
                 </h1>
                 <p className="text-muted-foreground mb-8">
                   Ou{" "}
-                  <Link to="/inscription-pro" className="text-primary hover:underline font-medium">
+                  <Link to="/inscription-pro" className="text-gold hover:text-gold-light font-medium transition-colors">
                     créez votre compte gratuitement
                   </Link>
                 </p>
@@ -114,14 +205,14 @@ const Login = () => {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-primary border-0 rounded-xl"
+                    className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-primary border-0 rounded-xl text-white"
                   >
                     Continuer
                   </Button>
 
                   <a
                     href="#"
-                    className="block text-center text-sm text-primary hover:underline font-medium"
+                    className="block text-center text-sm text-primary hover:text-primary-dark hover:underline font-medium transition-colors"
                   >
                     Un problème pour vous connecter ?
                   </a>
@@ -139,83 +230,13 @@ const Login = () => {
                 <Link to="/inscription-pro">
                   <Button 
                     variant="outline" 
-                    className="w-full h-14 text-base font-semibold border-2 hover:bg-primary/5 rounded-xl"
+                    className="w-full h-14 text-base font-semibold border-2 border-gold text-gold hover:bg-gold hover:text-white rounded-xl transition-all duration-300"
                   >
                     Créer un compte professionnel
                   </Button>
                 </Link>
               </motion.div>
             </div>
-          </div>
-
-          {/* Right side - Promotional content */}
-          <div className="hidden lg:flex flex-col justify-between bg-primary text-white px-12 xl:px-20 py-16 relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark" />
-            <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-primary-dark/50 to-transparent" />
-            
-            <div className="relative z-10 max-w-lg">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <h2 className="text-3xl xl:text-4xl font-display font-bold mb-6 leading-tight">
-                  Développez votre activité avec WeLinkYou
-                </h2>
-                <p className="text-lg text-white/90 mb-8 font-medium">
-                  Découvrez les avantages de notre plateforme
-                </p>
-
-                <ul className="space-y-4 mb-10">
-                  <li className="flex items-start gap-3">
-                    <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
-                    <span className="text-white/95">Visibilité auprès d'une clientèle ciblée</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
-                    <span className="text-white/95">Badge "Profil vérifié" pour rassurer vos clients</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
-                    <span className="text-white/95">Contact direct sans commission</span>
-                  </li>
-                </ul>
-
-                <Link to="/inscription-pro">
-                  <Button 
-                    variant="outline" 
-                    className="bg-accent/20 border-accent/40 text-white hover:bg-accent/30 gap-2 rounded-xl"
-                  >
-                    Rejoindre WeLinkYou
-                  </Button>
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* News Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="relative z-10 mt-12"
-            >
-              <h3 className="text-xl font-display font-semibold mb-4">
-                Actualités WeLinkYou Pro
-              </h3>
-              <div className="space-y-4">
-                {news.map((item, index) => (
-                  <div 
-                    key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10"
-                  >
-                    <p className="text-xs text-white/60 mb-1">{item.date}</p>
-                    <h4 className="font-semibold text-white mb-1">{item.title}</h4>
-                    <p className="text-sm text-white/80">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
           </div>
         </div>
       </main>
