@@ -45,12 +45,12 @@ const steps = [
 ];
 
 const availableLanguages = [
-  { id: "fr", name: "Français", flag: "🇫🇷" },
-  { id: "ar", name: "Arabe", flag: "🇲🇦" },
-  { id: "en", name: "Anglais", flag: "🇬🇧" },
-  { id: "es", name: "Espagnol", flag: "🇪🇸" },
-  { id: "de", name: "Allemand", flag: "🇩🇪" },
-  { id: "it", name: "Italien", flag: "🇮🇹" },
+  { id: "fr", name: "Français", flag: "🇫🇷", code: "FR" },
+  { id: "ar", name: "Arabe", flag: "🇲🇦", code: "MA" },
+  { id: "en", name: "Anglais", flag: "🇬🇧", code: "GB" },
+  { id: "es", name: "Espagnol", flag: "🇪🇸", code: "ES" },
+  { id: "de", name: "Allemand", flag: "🇩🇪", code: "DE" },
+  { id: "it", name: "Italien", flag: "🇮🇹", code: "IT" },
 ];
 
 const experienceOptions = [
@@ -61,9 +61,13 @@ const experienceOptions = [
 ];
 
 const requiredDocuments = [
-  { id: "identity", name: "Pièce d'identité", description: "CIN, Passeport ou Carte de séjour", icon: User },
-  { id: "diploma", name: "Diplôme(s)", description: "Attestation de formation ou diplôme", icon: Award },
-  { id: "professional", name: "Justificatif professionnel", description: "Inscription à l'ordre, registre de commerce", icon: Building },
+  { id: "diploma", name: "Diplôme", description: "Si profession non réglementée, pas obligatoire", icon: Award, optional: true },
+  { id: "identity", name: "Preuve d'identité", description: "Passeport ou CIN - Si profession non réglementée, pas obligatoire", icon: User, optional: true },
+  { id: "registration", name: "Numéro d'enregistrement", description: "Attestation d'exercice - Si profession non réglementée, pas obligatoire", icon: FileText, optional: true },
+  { id: "website", name: "Lien professionnel", description: "Site web, page LinkedIn ou autre profil professionnel", icon: Globe, optional: false },
+  { id: "kbis", name: "Extrait d'immatriculation", description: "KBIS ou Registre de Commerce", icon: Building, optional: false },
+  { id: "charter", name: "Charte WeLinkYou signée", description: "Si profession non réglementée, pas obligatoire", icon: Shield, optional: true },
+  { id: "insurance", name: "Attestation d'assurance", description: "Assurance responsabilité professionnelle", icon: Shield, optional: false },
 ];
 
 const ProRegistration = () => {
@@ -173,7 +177,8 @@ const ProRegistration = () => {
       case 2:
         return formData.category && formData.languages.length > 0;
       case 3:
-        return Object.keys(formData.documents).length >= 2;
+        // At least one document uploaded
+        return Object.keys(formData.documents).length >= 1;
       case 4:
         return formData.plan;
       default:
@@ -633,7 +638,7 @@ const ProRegistration = () => {
                         <div className="flex items-start gap-3">
                           <Shield className="w-5 h-5 text-primary mt-0.5" />
                           <div>
-                            <p className="font-medium text-foreground">Pourquoi ces documents ?</p>
+                            <p className="font-medium text-foreground">Mes documents – Profil vérifié</p>
                             <p className="text-sm text-muted-foreground">
                               La vérification de vos documents nous permet d'attribuer le badge "Profil vérifié" 
                               et d'assurer la confiance des utilisateurs.
@@ -642,12 +647,12 @@ const ProRegistration = () => {
                         </div>
                       </div>
 
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         {requiredDocuments.map((doc) => (
                           <div
                             key={doc.id}
                             className={cn(
-                              "p-5 rounded-xl border-2 transition-all",
+                              "p-4 rounded-xl border-2 transition-all",
                               formData.documents[doc.id]
                                 ? "border-primary/50 bg-primary/5"
                                 : "border-dashed border-border hover:border-primary/30"
@@ -655,34 +660,45 @@ const ProRegistration = () => {
                           >
                             <div className="flex items-start gap-4">
                               <div className={cn(
-                                "w-12 h-12 rounded-xl flex items-center justify-center",
+                                "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
                                 formData.documents[doc.id]
                                   ? "bg-primary text-primary-foreground"
                                   : "bg-muted text-muted-foreground"
                               )}>
-                                <doc.icon className="w-6 h-6" />
+                                <doc.icon className="w-5 h-5" />
                               </div>
-                              <div className="flex-1">
-                                <h4 className="font-medium text-foreground">{doc.name}</h4>
-                                <p className="text-sm text-muted-foreground">{doc.description}</p>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <h4 className="font-medium text-foreground">{doc.name}</h4>
+                                  {doc.optional ? (
+                                    <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-full">
+                                      Optionnel*
+                                    </span>
+                                  ) : (
+                                    <span className="text-xs px-2 py-0.5 bg-destructive/10 text-destructive rounded-full">
+                                      Requis
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-sm text-muted-foreground mt-0.5">{doc.description}</p>
                                 
                                 {formData.documents[doc.id] ? (
-                                  <div className="flex items-center gap-3 mt-3">
-                                    <div className="flex items-center gap-2 px-3 py-2 bg-background rounded-lg">
+                                  <div className="flex items-center gap-3 mt-2">
+                                    <div className="flex items-center gap-2 px-3 py-1.5 bg-background rounded-lg border border-border">
                                       <FileText className="w-4 h-4 text-primary" />
-                                      <span className="text-sm text-foreground truncate max-w-[200px]">
+                                      <span className="text-sm text-foreground truncate max-w-[180px]">
                                         {formData.documents[doc.id].name}
                                       </span>
                                     </div>
                                     <button
                                       onClick={() => removeDocument(doc.id)}
-                                      className="p-2 text-muted-foreground hover:text-destructive transition-colors"
+                                      className="p-1.5 text-muted-foreground hover:text-destructive transition-colors"
                                     >
                                       <X className="w-4 h-4" />
                                     </button>
                                   </div>
                                 ) : (
-                                  <label className="inline-flex items-center gap-2 mt-3 px-4 py-2 bg-primary/10 text-primary rounded-lg cursor-pointer hover:bg-primary/20 transition-colors">
+                                  <label className="inline-flex items-center gap-2 mt-2 px-3 py-1.5 bg-primary/10 text-primary rounded-lg cursor-pointer hover:bg-primary/20 transition-colors">
                                     <Upload className="w-4 h-4" />
                                     <span className="text-sm font-medium">Choisir un fichier</span>
                                     <input
@@ -695,7 +711,7 @@ const ProRegistration = () => {
                                 )}
                               </div>
                               {formData.documents[doc.id] && (
-                                <div className="flex items-center gap-1 px-2 py-1 bg-gold/20 text-gold rounded-full text-xs font-medium">
+                                <div className="flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium flex-shrink-0">
                                   <Clock className="w-3 h-3" />
                                   En attente
                                 </div>
@@ -705,7 +721,8 @@ const ProRegistration = () => {
                         ))}
                       </div>
 
-                      <p className="text-sm text-muted-foreground text-center mt-6">
+                      <p className="text-xs text-muted-foreground text-center mt-4">
+                        * Pour les professions non réglementées, ces documents ne sont pas obligatoires<br />
                         Formats acceptés : PDF, JPG, PNG • Max 10 MB par fichier
                       </p>
                     </div>
@@ -796,13 +813,14 @@ const ProRegistration = () => {
                   {/* Step 5: Preview */}
                   {currentStep === 5 && (
                     <div className="space-y-6">
-                      {/* Preview Card - Like the reference image */}
-                      <div className="bg-background-soft rounded-2xl p-6">
-                        <div className="flex flex-col md:flex-row gap-6">
-                          {/* Left: Photo & Info */}
-                          <div className="flex items-start gap-4">
-                            <div className="relative">
-                              <div className="w-24 h-24 rounded-2xl bg-muted overflow-hidden">
+                      {/* Preview Card - Matching reference design */}
+                      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+                        {/* Profile Header */}
+                        <div className="p-6 border-b border-border">
+                          <div className="flex items-start gap-5">
+                            {/* Photo */}
+                            <div className="relative flex-shrink-0">
+                              <div className="w-20 h-20 rounded-xl bg-muted overflow-hidden border-2 border-border">
                                 {formData.photoPreview ? (
                                   <img
                                     src={formData.photoPreview}
@@ -810,21 +828,19 @@ const ProRegistration = () => {
                                     className="w-full h-full object-cover"
                                   />
                                 ) : (
-                                  <div className="w-full h-full flex items-center justify-center">
-                                    <User className="w-10 h-10 text-muted-foreground" />
+                                  <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                                    <User className="w-8 h-8 text-muted-foreground" />
                                   </div>
                                 )}
                               </div>
-                              <div className="absolute -bottom-2 -right-2 badge-verified text-[10px] px-2 py-0.5">
-                                <Shield className="w-3 h-3" />
-                                Vérifié
-                              </div>
                             </div>
-                            <div>
+                            
+                            {/* Info */}
+                            <div className="flex-1">
                               <h3 className="text-xl font-bold text-foreground">
                                 {formData.firstName || "Prénom"} {formData.lastName || "Nom"}
                               </h3>
-                              <p className="text-primary font-medium">
+                              <p className="text-primary font-medium mt-0.5">
                                 {currentCategory?.name || "Domaine"} - {
                                   currentCategory?.subcategories.find(s => s.id === formData.subcategory)?.name || "Spécialité"
                                 }
@@ -841,66 +857,60 @@ const ProRegistration = () => {
                                 {formData.experience && (
                                   <span className="flex items-center gap-1">
                                     <Clock className="w-4 h-4" />
-                                    {experienceOptions.find(e => e.value === formData.experience)?.label} d'expérience
+                                    Plus de {experienceOptions.find(e => e.value === formData.experience)?.label.replace(" ans", "")} ans d'expérience
                                   </span>
                                 )}
+                              </div>
+                              {/* Verified Badge */}
+                              <div className="mt-3">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
+                                  <Shield className="w-3.5 h-3.5" />
+                                  Vérifié
+                                </span>
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        {/* Description */}
-                        {formData.description && (
-                          <div className="mt-6 pt-6 border-t border-border">
-                            <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                              <FileText className="w-4 h-4 text-primary" />
-                              À propos
-                            </h4>
-                            <p className="text-muted-foreground text-sm">{formData.description}</p>
-                          </div>
-                        )}
+                        {/* À propos */}
+                        <div className="p-6 border-b border-border">
+                          <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                            <FileText className="w-4 h-4 text-primary" />
+                            À propos
+                          </h4>
+                          <p className="text-muted-foreground text-sm">
+                            {formData.description || "Aucune description ajoutée"}
+                          </p>
+                        </div>
 
-                        {/* Specialties */}
-                        {formData.specialties.length > 0 && (
-                          <div className="mt-6 pt-6 border-t border-border">
-                            <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                              <Star className="w-4 h-4 text-primary" />
-                              Spécialités
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {formData.specialties.map((s) => (
-                                <Badge key={s} variant="outline" className="bg-primary/10 border-primary/30 text-primary">
-                                  {s}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Languages */}
+                        {/* Langues parlées */}
                         {formData.languages.length > 0 && (
-                          <div className="mt-6 pt-6 border-t border-border">
+                          <div className="p-6 border-b border-border">
                             <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
                               <Languages className="w-4 h-4 text-primary" />
                               Langues parlées
                             </h4>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-3">
                               {formData.languages.map((langId) => {
                                 const lang = availableLanguages.find(l => l.id === langId);
                                 return lang ? (
-                                  <Badge key={langId} variant="secondary" className="gap-1">
-                                    {lang.flag} {lang.name}
-                                  </Badge>
+                                  <span 
+                                    key={langId} 
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted rounded-lg text-sm font-medium text-foreground"
+                                  >
+                                    <span className="text-xs font-bold text-muted-foreground">{lang.code}</span>
+                                    {lang.name}
+                                  </span>
                                 ) : null;
                               })}
                             </div>
                           </div>
                         )}
 
-                        {/* Contact Info */}
-                        <div className="mt-6 pt-6 border-t border-border">
+                        {/* Contact */}
+                        <div className="p-6">
                           <h4 className="font-semibold text-foreground mb-3">Contact</h4>
-                          <div className="flex flex-wrap gap-4 text-sm">
+                          <div className="flex flex-wrap items-center gap-6 text-sm">
                             <span className="flex items-center gap-2 text-muted-foreground">
                               <Phone className="w-4 h-4 text-primary" />
                               {formData.phone || "+212 6 XX XX XX XX"}
@@ -913,9 +923,10 @@ const ProRegistration = () => {
                         </div>
                       </div>
 
-                      <div className="bg-gold/10 border border-gold/30 rounded-xl p-4">
+                      {/* Note */}
+                      <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
                         <p className="text-sm text-foreground">
-                          <strong>Note :</strong> Votre profil sera visible après validation de vos documents 
+                          <strong className="text-primary">Note :</strong> Votre profil sera visible après validation de vos documents 
                           par notre équipe (24-48h ouvrées).
                         </p>
                       </div>
