@@ -82,7 +82,7 @@ export const PricingSection = ({ showHeader = true, className }: PricingSectionP
                   : "border-border hover:border-gold/30"
               )}
             >
-              <Badge className="absolute -top-3 right-4 bg-gold text-primary">
+              <Badge className="absolute -top-3 right-4 bg-gold text-white">
                 -63%
               </Badge>
               <p className="text-muted-foreground text-sm mb-2">Annuel</p>
@@ -110,7 +110,7 @@ export const PricingSection = ({ showHeader = true, className }: PricingSectionP
                 </ul>
 
                 <Link to="/inscription-pro" className="block mt-8">
-                  <Button className="w-full bg-gold hover:bg-gold-light text-primary gap-2">
+                  <Button className="w-full bg-gold hover:bg-gold-light text-white gap-2">
                     Choisir cette formule
                     <ArrowRight className="w-4 h-4" />
                   </Button>

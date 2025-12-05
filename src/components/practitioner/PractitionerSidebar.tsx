@@ -85,7 +85,7 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
         variant="ghost"
         size="icon"
         onClick={onToggle}
-        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-gold text-primary hover:bg-gold-light shadow-lg"
+        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-gold text-white hover:bg-gold-light shadow-lg"
       >
         {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
       </Button>
@@ -146,7 +146,7 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
           <div className="relative">
             <Bell className="w-5 h-5" />
             {notifications > 0 && (
-              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-gold text-primary text-xs">
+              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-gold text-white text-xs">
                 {notifications}
               </Badge>
             )}

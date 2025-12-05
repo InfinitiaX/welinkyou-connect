@@ -217,7 +217,7 @@ export const PractitionerDashboard = () => {
             <CardHeader className="pb-2">
               <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
                 Notifications
-                <Badge className="bg-gold text-primary text-xs">3 nouvelles</Badge>
+                <Badge className="bg-gold text-white text-xs">3 nouvelles</Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">

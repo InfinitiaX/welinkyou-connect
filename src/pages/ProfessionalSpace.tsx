@@ -520,7 +520,7 @@ const ProfessionalSpace = () => {
                       <Link to="/inscription-pro">
                         <Button
                           size="lg"
-                          className="bg-gold hover:bg-gold-light text-primary font-semibold h-12 px-8"
+                          className="bg-gold hover:bg-gold-light text-white font-semibold h-12 px-8"
                         >
                           Rejoindre WeLinkYou
                         </Button>
