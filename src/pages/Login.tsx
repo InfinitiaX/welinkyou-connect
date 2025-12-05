@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Eye, EyeOff, ArrowLeft, CheckCircle, Shield, Users } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
@@ -17,6 +17,16 @@ const news = [
     title: "Webinaire : Développer sa clientèle",
     date: "28 Nov 2024",
     description: "Inscrivez-vous à notre prochain webinaire gratuit.",
+  },
+  {
+    title: "Mise à jour : Nouveau tableau de bord",
+    date: "15 Nov 2024",
+    description: "Une interface repensée pour gérer votre activité.",
+  },
+  {
+    title: "Astuce : Optimisez votre profil",
+    date: "10 Nov 2024",
+    description: "Nos conseils pour attirer plus de clients.",
   },
 ];
 
@@ -39,6 +49,15 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
+
+  // Auto-rotate news carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentNewsIndex((prev) => (prev + 1) % news.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +113,7 @@ const Login = () => {
               </motion.div>
             </div>
 
-            {/* News Section */}
+            {/* News Section - Vertical Carousel */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -102,17 +121,42 @@ const Login = () => {
               className="relative z-10 mt-12"
             >
               <h3 className="text-xl font-display font-semibold mb-4 text-white">Actualités WeLinkYou Pro</h3>
-              <div className="space-y-4">
-                {news.map((item, index) => (
-                  <div
-                    key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/15 transition-colors"
-                  >
-                    <p className="text-xs text-gold-light mb-1 font-medium">{item.date}</p>
-                    <h4 className="font-semibold text-white mb-1">{item.title}</h4>
-                    <p className="text-sm text-white/80">{item.description}</p>
-                  </div>
-                ))}
+              <div className="relative h-[200px] overflow-hidden">
+                <AnimatePresence mode="popLayout">
+                  {[0, 1].map((offset) => {
+                    const index = (currentNewsIndex + offset) % news.length;
+                    const item = news[index];
+                    return (
+                      <motion.div
+                        key={`${currentNewsIndex}-${offset}`}
+                        initial={{ y: offset === 0 ? 0 : 100, opacity: offset === 0 ? 1 : 0.7 }}
+                        animate={{ y: offset * 90, opacity: offset === 0 ? 1 : 0.7 }}
+                        exit={{ y: -100, opacity: 0 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        className="absolute w-full"
+                        style={{ top: 0 }}
+                      >
+                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                          <p className="text-xs text-gold-light mb-1 font-medium">{item.date}</p>
+                          <h4 className="font-semibold text-white mb-1">{item.title}</h4>
+                          <p className="text-sm text-white/80">{item.description}</p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+                {/* Dots indicator */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2">
+                  {news.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentNewsIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentNewsIndex ? "bg-white w-4" : "bg-white/40"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
