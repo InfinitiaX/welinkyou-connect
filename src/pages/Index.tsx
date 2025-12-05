@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { FilterBlock } from "@/components/FilterBlock";
 import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
+import { FeaturedPractitioners } from "@/components/FeaturedPractitioners";
 import { Shield, Users, Globe, Star, Check } from "lucide-react";
 import trustHandshake from "@/assets/trust-handshake.jpg";
 
@@ -66,6 +67,10 @@ const imageVariants: Variants = {
   }
 };
 
+// Apple-style split text animation
+const heroTitleWords = ["Trouvez", "les"];
+const heroAccentWords = ["meilleurs", "experts"];
+
 const stats = [
   { icon: Users, value: "500+", label: "Professionnels vérifiés" },
   { icon: Shield, value: "100%", label: "Profils authentifiés" },
@@ -78,8 +83,8 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      {/* Hero Section with Background Video */}
-      <section className="relative min-h-[75vh] flex flex-col items-center justify-center pt-16 pb-24 overflow-hidden">
+      {/* Hero Section - More Immersive */}
+      <section className="relative min-h-[65vh] flex flex-col items-center justify-center pt-24 pb-16 overflow-hidden">
         {/* Background Video */}
         <video
           autoPlay
@@ -95,34 +100,70 @@ const Index = () => {
         </video>
 
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/80" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center mb-8">
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-4 leading-tight drop-shadow-lg"
-            >
-              Trouvez les <span className="text-gold-light">meilleurs experts</span>
-              <br />
-              de la diaspora France-Maroc
-            </motion.h1>
+          <div className="max-w-4xl mx-auto text-center mb-10">
+            {/* Apple-style Split Text Animation for Title */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-2 leading-tight">
+              {/* First line: "Trouvez les" */}
+              <span className="block overflow-hidden">
+                {heroTitleWords.map((word, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ 
+                      delay: 0.1 + i * 0.08, 
+                      duration: 0.8, 
+                      ease: [0.25, 0.1, 0.25, 1] 
+                    }}
+                    className="inline-block mr-3"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+                {/* Accent words: "meilleurs experts" */}
+                {heroAccentWords.map((word, i) => (
+                  <motion.span
+                    key={`accent-${i}`}
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ 
+                      delay: 0.26 + i * 0.08, 
+                      duration: 0.8, 
+                      ease: [0.25, 0.1, 0.25, 1] 
+                    }}
+                    className="inline-block mr-3 text-primary"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </span>
+              
+              {/* Second line: "de la diaspora France-Maroc" */}
+              <motion.span 
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.45, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                className="block mt-1"
+              >
+                de la diaspora France-Maroc
+              </motion.span>
+            </h1>
 
-            {/* Subtitle */}
+            {/* Subtitle with delayed fade-in */}
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-8 drop-shadow-md"
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="text-lg md:text-xl text-white/85 max-w-3xl mx-auto mt-6 mb-10"
             >
               Trouvez en quelques clics des professionnels de confiance qui comprennent vos besoins, vos projets et les spécificités professionnelles, culturelles et/ou linguistiques du Maroc
             </motion.p>
           </div>
 
-          {/* Filter Block */}
+          {/* Floating Filter Block */}
           <FilterBlock />
         </div>
 
@@ -131,7 +172,7 @@ const Index = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
@@ -146,6 +187,9 @@ const Index = () => {
           </motion.div>
         </motion.div>
       </section>
+
+      {/* Featured Practitioners Section */}
+      <FeaturedPractitioners />
 
       {/* Stats Section */}
       <section className="py-12 bg-background border-b border-border">
