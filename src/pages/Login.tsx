@@ -1,15 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  Eye,
-  EyeOff,
-  ArrowLeft,
-  CheckCircle,
-  Shield,
-  Users,
-} from "lucide-react";
+import { ArrowRight, Eye, EyeOff, ArrowLeft, CheckCircle, Shield, Users } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,7 +27,7 @@ const benefits = [
   },
   {
     icon: Shield,
-    text: "Badge \"Profil vérifié\" pour rassurer vos clients",
+    text: 'Badge "Profil vérifié" pour rassurer vos clients',
   },
   {
     icon: CheckCircle,
@@ -65,19 +57,13 @@ const Login = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-gold/80" />
             <div className="absolute top-0 right-0 w-96 h-96 bg-gold/30 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary-dark/50 rounded-full blur-3xl" />
-            
+
             <div className="relative z-10 max-w-lg">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                 <h2 className="text-3xl xl:text-4xl font-display font-bold mb-6 leading-tight text-white">
                   Développez votre activité avec WeLinkYou
                 </h2>
-                <p className="text-lg text-white/90 mb-8 font-medium">
-                  Découvrez les avantages de notre plateforme
-                </p>
+                <p className="text-lg text-white/90 mb-8 font-medium">Découvrez les avantages de notre plateforme</p>
 
                 <ul className="space-y-5 mb-10">
                   {benefits.map((benefit, index) => (
@@ -97,7 +83,7 @@ const Login = () => {
                 </ul>
 
                 <Link to="/inscription-pro">
-                  <Button 
+                  <Button
                     size="lg"
                     className="bg-white text-primary hover:bg-white/90 gap-2 rounded-xl font-semibold shadow-lg"
                   >
@@ -115,12 +101,10 @@ const Login = () => {
               transition={{ delay: 0.5 }}
               className="relative z-10 mt-12"
             >
-              <h3 className="text-xl font-display font-semibold mb-4 text-white">
-                Actualités WeLinkYou Pro
-              </h3>
+              <h3 className="text-xl font-display font-semibold mb-4 text-white">Actualités WeLinkYou Pro</h3>
               <div className="space-y-4">
                 {news.map((item, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/15 transition-colors"
                   >
@@ -145,20 +129,8 @@ const Login = () => {
                 Retour à l'espace professionnel
               </Link>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2">
-                  Identifiez-vous
-                </h1>
-                <p className="text-muted-foreground mb-8">
-                  Ou{" "}
-                  <Link to="/inscription-pro" className="text-gold hover:text-gold-light font-medium transition-colors">
-                    créez votre compte gratuitement
-                  </Link>
-                </p>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2">Identifiez-vous</h1>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                   <div className="space-y-2">
@@ -193,11 +165,7 @@ const Login = () => {
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        {showPassword ? (
-                          <EyeOff className="w-5 h-5" />
-                        ) : (
-                          <Eye className="w-5 h-5" />
-                        )}
+                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                       </button>
                     </div>
                   </div>
@@ -228,8 +196,8 @@ const Login = () => {
                 </div>
 
                 <Link to="/inscription-pro">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full h-14 text-base font-semibold border-2 border-gold text-gold hover:bg-gold hover:text-white rounded-xl transition-all duration-300"
                   >
                     Créer un compte professionnel
