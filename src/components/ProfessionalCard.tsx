@@ -22,10 +22,10 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
       whileHover={{ y: -4 }}
       className="group"
     >
-      <div className="card-premium p-6 h-full flex flex-col">
+      <div className="card-premium p-6 h-full flex flex-col min-h-[380px]">
         {/* Header with photo and verified badge */}
         <div className="flex items-start gap-4 mb-4">
-          <div className="relative">
+          <div className="relative flex-shrink-0">
             <img
               src={professional.photo}
               alt={`${professional.firstName} ${professional.lastName}`}
@@ -49,34 +49,34 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
             <h3 className="font-semibold text-lg text-foreground truncate">
               {professional.firstName} {professional.lastName}
             </h3>
-            <p className="text-primary font-medium text-sm mb-1">
+            <p className="text-primary font-medium text-sm mb-1 line-clamp-1">
               {professional.title}
             </p>
             <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>{cityDisplay}</span>
+              <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+              <span className="truncate">{cityDisplay}</span>
               <span>{countryFlag}</span>
             </div>
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-muted-foreground text-sm line-clamp-2 mb-4 flex-1">
+        <p className="text-muted-foreground text-sm line-clamp-2 mb-4 h-10">
           {professional.description}
         </p>
 
         {/* Specialties */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-4 h-14">
           {professional.specialties.slice(0, 2).map((specialty) => (
             <span
               key={specialty}
-              className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium"
+              className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium h-fit"
             >
               {specialty}
             </span>
           ))}
           {professional.specialties.length > 2 && (
-            <span className="text-xs px-2.5 py-1 rounded-full bg-muted text-muted-foreground">
+            <span className="text-xs px-2.5 py-1 rounded-full bg-muted text-muted-foreground h-fit">
               +{professional.specialties.length - 2}
             </span>
           )}
