@@ -76,8 +76,9 @@ export const Navbar = () => {
             <div className="hidden lg:flex items-center gap-3">
               <Link to="/espace-professionnel">
               <Button
+                  variant="outline"
                   size="sm"
-                  className="font-bold transition-all duration-300 bg-secondary border-secondary text-white hover:bg-secondary/90 hover:border-secondary/90"
+                  className="font-bold transition-all duration-300 bg-transparent border-secondary text-secondary hover:bg-secondary/10"
                 >
                   Espace Professionnel
                 </Button>
