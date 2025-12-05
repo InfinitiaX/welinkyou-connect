@@ -85,7 +85,7 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section - More Immersive */}
-      <section className="relative min-h-[65vh] flex flex-col items-center justify-center pt-24 pb-16 overflow-hidden">
+      <section className="relative min-h-[65vh] flex flex-col items-center justify-center pt-24 pb-16 overflow-x-clip">
         {/* Background Video */}
         <video
           autoPlay
