@@ -25,77 +25,52 @@ const staggerContainer = {
 
 const faqs = [
   {
-    category: "Général",
+    category: "La plateforme",
     questions: [
       {
-        question: "Qu'est-ce que WeLinkYou ?",
+        question: "Comment fonctionne WeLinkYou ?",
         answer:
-          "WeLinkYou est une plateforme de mise en relation entre la diaspora franco-marocaine et des professionnels de confiance (avocats, médecins, experts-comptables, etc.). Tous nos experts sont rigoureusement vérifiés pour garantir un service de qualité.",
+          "WeLinkYou est une plateforme qui facilite la mise en relation entre particuliers, entreprises ou membres de la diaspora et des professionnels de confiance (avocats, médecins, coachs, experts, etc.). Vous pouvez rechercher un professionnel par domaine ou localisation et le contacter directement, sans création de compte ni intermédiaire.",
       },
       {
-        question: "WeLinkYou est-il gratuit pour les utilisateurs ?",
+        question: "Qu'a WeLinkYou de plus qu'un annuaire classique ?",
         answer:
-          "Oui, l'utilisation de WeLinkYou est entièrement gratuite pour les particuliers. Vous pouvez rechercher, consulter les profils et contacter les professionnels sans aucun frais.",
+          "Contrairement à un simple annuaire, WeLinkYou valorise la fiabilité, la vérification et la compréhension interculturelle. Nos professionnels sont vérifiés et choisis pour leur double compétence : maîtrise de leur métier et connaissance des spécificités marocaines (culturelles, linguistiques et réglementaires). Notre approche repose sur la confiance, pas sur la quantité.",
       },
       {
-        question: "Comment sont vérifiés les professionnels ?",
+        question: "Faut-il créer un compte pour utiliser la plateforme ?",
         answer:
-          "Chaque professionnel passe par un processus de vérification rigoureux : validation des diplômes, contrôle de l'inscription aux ordres professionnels (si applicable), vérification de l'expérience et analyse des premiers avis clients.",
+          "Non. Pour la version actuelle, vous pouvez consulter les profils librement, sans créer de compte ni transmettre de données personnelles.",
       },
     ],
   },
   {
-    category: "Recherche & Contact",
+    category: "Contact & Vérification",
     questions: [
       {
-        question: "Comment trouver un professionnel ?",
+        question: "Comment puis-je contacter un professionnel ?",
         answer:
-          "Utilisez notre barre de recherche en sélectionnant le pays, la ville, le domaine d'expertise et la spécialité souhaitée. Vous pouvez ensuite consulter les profils détaillés et contacter directement les professionnels.",
+          "Chaque fiche professionnelle contient les informations de contact direct (téléphone, e-mail, site web, réseaux…). WeLinkYou ne gère pas les prises de rendez-vous ni les échanges : vous contactez le professionnel directement.",
       },
       {
-        question: "Puis-je contacter un professionnel directement ?",
+        question: "Que signifie le badge \"Profil vérifié\" ?",
         answer:
-          "Oui, vous pouvez contacter les professionnels via WhatsApp, téléphone ou email directement depuis leur profil. Toutes les coordonnées sont affichées de manière transparente.",
-      },
-      {
-        question: "Les avis sont-ils vérifiés ?",
-        answer:
-          "Oui, nous modérons tous les avis pour garantir leur authenticité. Seuls les utilisateurs ayant effectivement consulté un professionnel peuvent laisser un avis.",
+          "Le badge \"Profil vérifié\" atteste que WeLinkYou a contrôlé les informations administratives du professionnel (identité, statut d'activité, diplômes ou équivalents). Ce n'est pas une évaluation de la qualité du service rendu, mais une garantie de fiabilité et de transparence.",
       },
     ],
   },
   {
-    category: "Espace Professionnel",
+    category: "Fonctionnement & Tarification",
     questions: [
       {
-        question: "Comment devenir partenaire WeLinkYou ?",
+        question: "WeLinkYou intervient-il dans la relation entre le professionnel et le client ?",
         answer:
-          "Rendez-vous sur notre Espace Professionnel et créez votre compte. Vous devrez fournir vos documents justificatifs (diplômes, attestations) qui seront vérifiés par notre équipe avant la publication de votre profil.",
+          "Non. WeLinkYou met simplement à disposition un espace de visibilité et de confiance. Les échanges, prestations et conditions relèvent exclusivement du professionnel et du client.",
       },
       {
-        question: "Quels sont les tarifs pour les professionnels ?",
+        question: "Est-ce que WeLinkYou prend une commission ?",
         answer:
-          "L'abonnement professionnel est de 450 DH/mois ou 2000 DH/an (soit une économie de 63%). Ce tarif inclut la visibilité sur la plateforme, le badge vérifié et l'accès aux statistiques.",
-      },
-      {
-        question: "Puis-je modifier mon profil à tout moment ?",
-        answer:
-          "Oui, vous pouvez modifier vos informations, photos et spécialités à tout moment depuis votre espace professionnel. Les modifications sont visibles immédiatement.",
-      },
-    ],
-  },
-  {
-    category: "Confidentialité & Sécurité",
-    questions: [
-      {
-        question: "Mes données sont-elles protégées ?",
-        answer:
-          "Absolument. Nous respectons le RGPD et ne partageons jamais vos données avec des tiers. Vos informations personnelles sont sécurisées et utilisées uniquement pour améliorer votre expérience sur la plateforme.",
-      },
-      {
-        question: "Comment signaler un problème ?",
-        answer:
-          "Si vous rencontrez un problème avec un professionnel ou sur la plateforme, contactez notre support via la page Contact ou par email. Nous traitons chaque signalement avec la plus grande attention.",
+          "Non. WeLinkYou ne prend aucune commission sur les échanges, contacts ou prestations réalisés entre les utilisateurs et les professionnels. Notre modèle repose sur un abonnement professionnel transparent destiné à soutenir la visibilité et la vérification des profils.",
       },
     ],
   },
