@@ -6,6 +6,7 @@ import { FilterBlock } from "@/components/FilterBlock";
 import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
 import { FeaturedPractitioners } from "@/components/FeaturedPractitioners";
+import SpecialtiesMarquee from "@/components/SpecialtiesMarquee";
 import { Shield, Users, Globe, Star, Check } from "lucide-react";
 import trustHandshake from "@/assets/trust-handshake.jpg";
 
@@ -190,6 +191,9 @@ const Index = () => {
 
       {/* Featured Practitioners Section */}
       <FeaturedPractitioners />
+
+      {/* Specialties Marquee */}
+      <SpecialtiesMarquee />
 
       {/* Stats Section */}
       <section className="py-12 bg-background border-b border-border">
