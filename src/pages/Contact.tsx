@@ -191,7 +191,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">Téléphone</h3>
-                      <p className="text-muted-foreground">🇫🇷 +33 1 23 45 67 89 🇲🇦 +212 5 22 12 34 56</p>
+                      <p className="text-muted-foreground">🇫🇷 +33 1 23 45 67 89 / 🇲🇦 +212 5 22 12 34 56</p>
                     </div>
                   </motion.div>
 
@@ -207,11 +207,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">Bureaux</h3>
-                      <p className="text-muted-foreground">
-                        Paris, France
-                        <br />
-                        Casablanca, Maroc
-                      </p>
+                      <p className="text-muted-foreground">Paris, France / Casablanca, Maroc</p>
                     </div>
                   </motion.div>
                 </div>
