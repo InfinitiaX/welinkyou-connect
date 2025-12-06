@@ -4,7 +4,7 @@ import logo from "@/assets/logo.png";
 
 const footerLinks = {
   plateforme: [
-    { label: "Comment ça marche", href: "/#how-it-works" },
+    { label: "Comment ça marche?", href: "/#how-it-works" },
     { label: "Nos experts", href: "/recherche" },
     { label: "Devenir partenaire", href: "/espace-professionnel" },
   ],
@@ -31,8 +31,7 @@ export const Footer = () => {
               <img src={logo} alt="WeLinkYou" className="h-24 w-auto" />
             </Link>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
-              La plateforme de confiance qui connecte la diaspora France-Maroc
-              avec des professionnels vérifiés.
+              La plateforme de confiance qui connecte la diaspora France-Maroc avec des professionnels vérifiés.
             </p>
             <div className="flex items-center gap-3">
               <span className="text-2xl">🇫🇷</span>
@@ -43,9 +42,7 @@ export const Footer = () => {
 
           {/* Plateforme */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-background/90">
-              Plateforme
-            </h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-background/90">Plateforme</h4>
             <ul className="space-y-3">
               {footerLinks.plateforme.map((link) => (
                 <li key={link.href}>
@@ -81,9 +78,7 @@ export const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-background/90">
-              Contact
-            </h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-background/90">Contact</h4>
             <ul className="space-y-3">
               {footerLinks.contact.map((link) => (
                 <li key={link.href}>
@@ -102,9 +97,7 @@ export const Footer = () => {
         {/* Bottom */}
         <div className="pt-8 border-t border-background/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-background/50 text-sm">
-              © {new Date().getFullYear()} WeLinkYou. Tous droits réservés.
-            </p>
+            <p className="text-background/50 text-sm">© {new Date().getFullYear()} WeLinkYou. Tous droits réservés.</p>
             <div className="flex items-center gap-6">
               <a
                 href="https://linkedin.com"
