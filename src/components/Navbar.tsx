@@ -15,7 +15,7 @@ const navLinks = [
 ];
 
 // Pages avec un fond clair (sans hero sombre) - navbar doit être sombre dès le départ
-const lightBackgroundPages = ["/recherche", "/blog", "/praticien", "/dashboard", "/connexion", "/mot-de-passe-oublie", "/inscription-pro"];
+const lightBackgroundPages = ["/recherche", "/blog", "/praticien", "/dashboard", "/connexion", "/mot-de-passe-oublie", "/inscription-pro", "/professionnel"];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
