@@ -75,20 +75,26 @@ export const Navbar = () => {
             {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-3">
               <Link to="/espace-professionnel">
-              <Button
+                <Button
                   variant="outline"
                   size="sm"
                   className={cn(
-                    "font-bold transition-all duration-300 bg-transparent border-gold hover:bg-gold/10",
+                    "font-bold transition-all duration-300 bg-transparent border-gold relative overflow-hidden group",
+                    "hover:bg-gold hover:text-white hover:border-gold hover:scale-105 hover:shadow-[0_0_20px_hsl(285_91%_63%/0.5)]",
                     isScrolled ? "text-gold" : "text-white"
                   )}
                 >
-                  Espace Professionnel
+                  <span className="relative z-10">Espace Professionnel</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-gold to-gold-light opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
               </Link>
               <Link to="/recherche">
-                <Button size="sm" className="btn-ripple font-medium gradient-primary border-0">
-                  Trouver un expert
+                <Button 
+                  size="sm" 
+                  className="font-medium gradient-primary border-0 relative overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_hsl(187_100%_33%/0.6)]"
+                >
+                  <span className="relative z-10">Trouver un expert</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
               </Link>
             </div>
