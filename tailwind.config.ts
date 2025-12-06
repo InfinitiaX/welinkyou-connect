@@ -129,6 +129,16 @@ export default {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
         },
+        "pulse-border": {
+          "0%, 100%": { 
+            borderColor: "hsl(285 91% 63%)",
+            boxShadow: "0 0 0 0 hsl(285 91% 63% / 0)"
+          },
+          "50%": { 
+            borderColor: "hsl(285 91% 73%)",
+            boxShadow: "0 0 20px 2px hsl(285 91% 63% / 0.4)"
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -140,6 +150,7 @@ export default {
         float: "float 3s ease-in-out infinite",
         "pulse-soft": "pulse-soft 2s ease-in-out infinite",
         shimmer: "shimmer 1.5s ease-in-out infinite",
+        "pulse-border": "pulse-border 2s ease-in-out infinite",
       },
     },
   },
