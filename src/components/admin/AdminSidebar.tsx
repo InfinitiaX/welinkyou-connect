@@ -11,6 +11,7 @@ import {
   LogOut,
   Bell,
   Shield,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,11 @@ const menuItems = [
     title: "Demandes d'inscription",
     icon: UserPlus,
     path: "/dashboard/superadmin/demandes",
+  },
+  {
+    title: "Documents",
+    icon: FileText,
+    path: "/dashboard/superadmin/documents",
   },
   {
     title: "Paramètres",
