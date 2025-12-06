@@ -54,18 +54,17 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className="fixed left-0 top-0 h-screen bg-[#0a0a0a] z-50 flex flex-col"
     >
-      {/* Header */}
       <div className="p-4 border-b border-white/5">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col items-center gap-2">
           <Link to="/">
-            <img src={logo} alt="WeLinkYou" className={cn("h-14 w-auto cursor-pointer hover:opacity-80 transition-opacity", collapsed && "mx-auto")} />
+            <img src={logo} alt="WeLinkYou" className="h-20 w-auto cursor-pointer hover:opacity-80 transition-opacity" />
           </Link>
           <AnimatePresence mode="wait">
             {!collapsed && (
               <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
                 className="text-white/80 text-sm font-medium"
               >
                 Espace Praticien
