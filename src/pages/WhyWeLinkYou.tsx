@@ -138,7 +138,7 @@ const WhyWeLinkYou = () => {
               {/* Values badges */}
               <motion.div 
                 variants={fadeInUp}
-                className="flex flex-wrap justify-center gap-3 mt-10"
+                className="flex flex-wrap justify-center gap-3 mt-10 mb-16"
               >
                 {values.map((value, index) => (
                   <motion.div
