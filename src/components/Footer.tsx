@@ -4,7 +4,7 @@ import logo from "@/assets/logo.png";
 
 const footerLinks = {
   plateforme: [
-    { label: "Comment ça marche?", href: "/#how-it-works" },
+    { label: "Comment ça marche ?", href: "/#how-it-works" },
     { label: "Nos experts", href: "/recherche" },
     { label: "Devenir partenaire", href: "/espace-professionnel" },
   ],
