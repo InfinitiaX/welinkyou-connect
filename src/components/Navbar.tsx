@@ -63,8 +63,8 @@ export const Navbar = () => {
                         ? "text-primary bg-primary/10"
                         : "text-foreground/70 hover:text-foreground hover:bg-muted"
                       : location.pathname === link.href
-                        ? "text-gold bg-white/10"
-                        : "text-white/80 hover:text-white hover:bg-white/10",
+                        ? "text-gold border border-gold bg-transparent"
+                        : "text-white hover:text-white hover:bg-white/10",
                   )}
                 >
                   {link.label}
@@ -78,7 +78,10 @@ export const Navbar = () => {
               <Button
                   variant="outline"
                   size="sm"
-                  className="font-bold transition-all duration-300 bg-transparent border-gold text-gold hover:bg-gold/10"
+                  className={cn(
+                    "font-bold transition-all duration-300 bg-transparent border-gold hover:bg-gold/10",
+                    isScrolled ? "text-gold" : "text-white"
+                  )}
                 >
                   Espace Professionnel
                 </Button>
