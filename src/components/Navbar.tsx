@@ -63,7 +63,7 @@ export const Navbar = () => {
                         ? "text-primary bg-primary/10"
                         : "text-foreground/70 hover:text-foreground hover:bg-muted"
                       : location.pathname === link.href
-                        ? "text-gold border border-gold bg-transparent"
+                        ? "text-white bg-gold"
                         : "text-white hover:text-white hover:bg-white/10",
                   )}
                 >
