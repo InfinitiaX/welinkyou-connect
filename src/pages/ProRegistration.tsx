@@ -60,13 +60,13 @@ const experienceOptions = [
   { value: "12+", label: "Plus de 12 ans" },
 ];
 
-const requiredDocuments = [
-  { id: "diploma", name: "Diplôme", description: "Si profession non réglementée, pas obligatoire", icon: Award, optional: true },
-  { id: "identity", name: "Preuve d'identité", description: "Passeport ou CIN - Si profession non réglementée, pas obligatoire", icon: User, optional: true },
-  { id: "registration", name: "Numéro d'enregistrement", description: "Attestation d'exercice - Si profession non réglementée, pas obligatoire", icon: FileText, optional: true },
-  { id: "kbis", name: "Extrait d'immatriculation", description: "KBIS ou Registre de Commerce", icon: Building, optional: false },
-  { id: "charter", name: "Charte WeLinkYou signée", description: "Si profession non réglementée, pas obligatoire", icon: Shield, optional: true },
-  { id: "insurance", name: "Attestation d'assurance", description: "Assurance responsabilité professionnelle", icon: Shield, optional: false },
+const allDocuments = [
+  { id: "diploma", name: "Diplôme", description: "Diplôme ou certificat professionnel", icon: Award, requiredForRegulated: true },
+  { id: "identity", name: "Preuve d'identité", description: "Passeport ou CIN", icon: User, requiredForRegulated: true },
+  { id: "registration", name: "Numéro d'enregistrement", description: "Attestation d'exercice", icon: FileText, requiredForRegulated: true },
+  { id: "kbis", name: "Extrait d'immatriculation", description: "KBIS ou Registre de Commerce", icon: Building, requiredForRegulated: true },
+  { id: "charter", name: "Charte WeLinkYou signée", description: "Engagement sur les conditions d'utilisation", icon: Shield, requiredForRegulated: true },
+  { id: "insurance", name: "Attestation d'assurance", description: "Assurance responsabilité professionnelle", icon: Shield, requiredForRegulated: true },
 ];
 
 const ProRegistration = () => {
@@ -83,6 +83,7 @@ const ProRegistration = () => {
     country: "",
     city: "",
     // Step 2 - Professional Profile
+    professionType: "" as "" | "regulated" | "non-regulated",
     category: "",
     subcategory: "",
     specialties: [] as string[],
@@ -177,10 +178,18 @@ const ProRegistration = () => {
           formData.country
         );
       case 2:
-        return formData.category && formData.languages.length > 0;
-      case 3:
-        // At least one document uploaded
-        return Object.keys(formData.documents).length >= 1;
+        return formData.professionType && formData.category && formData.languages.length > 0;
+      case 3: {
+        // For regulated professions, all documents are required
+        // For non-regulated, at least KBIS and insurance are required
+        if (formData.professionType === "regulated") {
+          const requiredDocs = allDocuments.map(d => d.id);
+          return requiredDocs.every(docId => formData.documents[docId]);
+        } else {
+          // Non-regulated: only kbis and insurance are required
+          return formData.documents["kbis"] && formData.documents["insurance"];
+        }
+      }
       case 4:
         return formData.plan;
       default:
@@ -532,6 +541,71 @@ const ProRegistration = () => {
                   {/* Step 2: Professional Profile */}
                   {currentStep === 2 && (
                     <div className="space-y-8">
+                      {/* Profession Type Selection */}
+                      <div className="space-y-3">
+                        <Label className="flex items-center gap-2">
+                          <Shield className="w-4 h-4 text-primary" />
+                          Type de profession <span className="text-destructive">*</span>
+                        </Label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <button
+                            type="button"
+                            onClick={() => setFormData({ ...formData, professionType: "regulated" })}
+                            className={cn(
+                              "flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left",
+                              formData.professionType === "regulated"
+                                ? "border-primary bg-primary/10"
+                                : "border-border hover:border-primary/50"
+                            )}
+                          >
+                            <div className={cn(
+                              "w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0",
+                              formData.professionType === "regulated"
+                                ? "border-primary bg-primary"
+                                : "border-gold"
+                            )}>
+                              {formData.professionType === "regulated" && (
+                                <Check className="w-3 h-3 text-primary-foreground" />
+                              )}
+                            </div>
+                            <div>
+                              <span className="font-medium text-foreground">Profession réglementée</span>
+                              <p className="text-xs text-muted-foreground mt-0.5">
+                                Avocat, médecin, expert-comptable, notaire, etc.
+                              </p>
+                            </div>
+                          </button>
+                          
+                          <button
+                            type="button"
+                            onClick={() => setFormData({ ...formData, professionType: "non-regulated" })}
+                            className={cn(
+                              "flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left",
+                              formData.professionType === "non-regulated"
+                                ? "border-primary bg-primary/10"
+                                : "border-border hover:border-primary/50"
+                            )}
+                          >
+                            <div className={cn(
+                              "w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0",
+                              formData.professionType === "non-regulated"
+                                ? "border-primary bg-primary"
+                                : "border-gold"
+                            )}>
+                              {formData.professionType === "non-regulated" && (
+                                <Check className="w-3 h-3 text-primary-foreground" />
+                              )}
+                            </div>
+                            <div>
+                              <span className="font-medium text-foreground">Profession non réglementée</span>
+                              <p className="text-xs text-muted-foreground mt-0.5">
+                                Consultant, coach, formateur, artisan, etc.
+                              </p>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+
                       {/* Category & Subcategory */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
@@ -728,86 +802,94 @@ const ProRegistration = () => {
                               La vérification de vos documents nous permet d'attribuer le badge "Profil vérifié" 
                               et d'assurer la confiance des utilisateurs.
                             </p>
+                            {formData.professionType === "non-regulated" && (
+                              <p className="text-xs text-primary mt-2 font-medium">
+                                Profession non réglementée : seuls l'extrait d'immatriculation et l'attestation d'assurance sont obligatoires.
+                              </p>
+                            )}
                           </div>
                         </div>
                       </div>
 
                       <div className="space-y-3">
-                        {requiredDocuments.map((doc) => (
-                          <div
-                            key={doc.id}
-                            className={cn(
-                              "p-4 rounded-xl border-2 transition-all",
-                              formData.documents[doc.id]
-                                ? "border-primary/50 bg-primary/5"
-                                : "border-dashed border-border hover:border-primary/30"
-                            )}
-                          >
-                            <div className="flex items-start gap-4">
-                              <div className={cn(
-                                "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
+                        {allDocuments.map((doc) => {
+                          const isRequired = formData.professionType === "regulated" || doc.id === "kbis" || doc.id === "insurance";
+                          
+                          return (
+                            <div
+                              key={doc.id}
+                              className={cn(
+                                "p-4 rounded-xl border-2 transition-all",
                                 formData.documents[doc.id]
-                                  ? "bg-primary text-primary-foreground"
-                                  : "bg-muted text-muted-foreground"
-                              )}>
-                                <doc.icon className="w-5 h-5" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 flex-wrap">
-                                  <h4 className="font-medium text-foreground">{doc.name}</h4>
-                                  {doc.optional ? (
-                                    <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-full">
-                                      Optionnel*
-                                    </span>
+                                  ? "border-primary/50 bg-primary/5"
+                                  : "border-dashed border-border hover:border-primary/30"
+                              )}
+                            >
+                              <div className="flex items-start gap-4">
+                                <div className={cn(
+                                  "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
+                                  formData.documents[doc.id]
+                                    ? "bg-primary text-primary-foreground"
+                                    : "bg-muted text-muted-foreground"
+                                )}>
+                                  <doc.icon className="w-5 h-5" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <h4 className="font-medium text-foreground">{doc.name}</h4>
+                                    {isRequired ? (
+                                      <span className="text-xs px-2 py-0.5 bg-destructive/10 text-destructive rounded-full">
+                                        Requis
+                                      </span>
+                                    ) : (
+                                      <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-full">
+                                        Optionnel
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-sm text-muted-foreground mt-0.5">{doc.description}</p>
+                                  
+                                  {formData.documents[doc.id] ? (
+                                    <div className="flex items-center gap-3 mt-2">
+                                      <div className="flex items-center gap-2 px-3 py-1.5 bg-background rounded-lg border border-border">
+                                        <FileText className="w-4 h-4 text-primary" />
+                                        <span className="text-sm text-foreground truncate max-w-[180px]">
+                                          {formData.documents[doc.id].name}
+                                        </span>
+                                      </div>
+                                      <button
+                                        onClick={() => removeDocument(doc.id)}
+                                        className="p-1.5 text-muted-foreground hover:text-destructive transition-colors"
+                                      >
+                                        <X className="w-4 h-4" />
+                                      </button>
+                                    </div>
                                   ) : (
-                                    <span className="text-xs px-2 py-0.5 bg-destructive/10 text-destructive rounded-full">
-                                      Requis
-                                    </span>
+                                    <label className="inline-flex items-center gap-2 mt-2 px-3 py-1.5 bg-primary/10 text-primary rounded-lg cursor-pointer hover:bg-primary/20 transition-colors">
+                                      <Upload className="w-4 h-4" />
+                                      <span className="text-sm font-medium">Choisir un fichier</span>
+                                      <input
+                                        type="file"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        onChange={(e) => handleDocumentUpload(doc.id, e)}
+                                        className="hidden"
+                                      />
+                                    </label>
                                   )}
                                 </div>
-                                <p className="text-sm text-muted-foreground mt-0.5">{doc.description}</p>
-                                
-                                {formData.documents[doc.id] ? (
-                                  <div className="flex items-center gap-3 mt-2">
-                                    <div className="flex items-center gap-2 px-3 py-1.5 bg-background rounded-lg border border-border">
-                                      <FileText className="w-4 h-4 text-primary" />
-                                      <span className="text-sm text-foreground truncate max-w-[180px]">
-                                        {formData.documents[doc.id].name}
-                                      </span>
-                                    </div>
-                                    <button
-                                      onClick={() => removeDocument(doc.id)}
-                                      className="p-1.5 text-muted-foreground hover:text-destructive transition-colors"
-                                    >
-                                      <X className="w-4 h-4" />
-                                    </button>
+                                {formData.documents[doc.id] && (
+                                  <div className="flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium flex-shrink-0">
+                                    <Clock className="w-3 h-3" />
+                                    En attente
                                   </div>
-                                ) : (
-                                  <label className="inline-flex items-center gap-2 mt-2 px-3 py-1.5 bg-primary/10 text-primary rounded-lg cursor-pointer hover:bg-primary/20 transition-colors">
-                                    <Upload className="w-4 h-4" />
-                                    <span className="text-sm font-medium">Choisir un fichier</span>
-                                    <input
-                                      type="file"
-                                      accept=".pdf,.jpg,.jpeg,.png"
-                                      onChange={(e) => handleDocumentUpload(doc.id, e)}
-                                      className="hidden"
-                                    />
-                                  </label>
                                 )}
                               </div>
-                              {formData.documents[doc.id] && (
-                                <div className="flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium flex-shrink-0">
-                                  <Clock className="w-3 h-3" />
-                                  En attente
-                                </div>
-                              )}
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
 
                       <p className="text-xs text-muted-foreground text-center mt-4">
-                        * Pour les professions non réglementées, ces documents ne sont pas obligatoires<br />
                         Formats acceptés : PDF, JPG, PNG • Max 10 MB par fichier
                       </p>
                     </div>
