@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -10,7 +9,6 @@ import {
   ChevronRight,
   LogOut,
   Bell,
-  Shield,
   FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -53,37 +51,31 @@ interface AdminSidebarProps {
 
 export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
   const location = useLocation();
-  const [notifications] = useState(5);
+  const notifications = 5;
 
   return (
     <motion.aside
       initial={false}
       animate={{ width: collapsed ? 80 : 280 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="fixed left-0 top-0 h-screen bg-primary z-50 flex flex-col shadow-2xl"
+      className="fixed left-0 top-0 h-screen bg-[#0a0a0a] z-50 flex flex-col"
     >
       {/* Header */}
-      <div className="p-4 border-b border-white/10">
-        <div className="flex items-center justify-between">
+      <div className="p-4 border-b border-white/5">
+        <div className="flex items-center gap-3">
+          <img src={logo} alt="WeLinkYou" className={cn("h-10 w-auto", collapsed && "mx-auto")} />
           <AnimatePresence mode="wait">
             {!collapsed && (
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="flex items-center gap-3"
+                exit={{ opacity: 0, x: -10 }}
+                className="text-white/80 text-sm font-medium"
               >
-                <img src={logo} alt="WeLinkYou" className="h-12 w-auto" />
-                <div>
-                  <p className="text-white/60 text-xs">Super Admin</p>
-                </div>
-              </motion.div>
+                Super Admin
+              </motion.span>
             )}
           </AnimatePresence>
-          
-          {collapsed && (
-            <img src={logo} alt="WeLinkYou" className="h-10 w-auto mx-auto" />
-          )}
         </div>
       </div>
 
@@ -92,13 +84,13 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
         variant="ghost"
         size="icon"
         onClick={onToggle}
-        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-gold text-white hover:bg-gold-light shadow-lg"
+        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#ce4af7] text-white hover:bg-[#ce4af7]/80 shadow-lg"
       >
         {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
       </Button>
 
       {/* Navigation */}
-      <nav className="flex-1 py-6 px-3 space-y-2">
+      <nav className="flex-1 py-6 px-3 space-y-1">
         {menuItems.map((item) => {
           const isActive = location.pathname === item.path;
           const Icon = item.icon;
@@ -108,15 +100,23 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               key={item.path}
               to={item.path}
               className={cn(
-                "flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group relative",
+                "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group relative",
                 isActive
-                  ? "bg-white/20 text-white font-bold shadow-lg"
-                  : "text-white hover:bg-white/10 hover:text-white"
+                  ? "bg-[#0d3d3d] text-[#00d4d4]"
+                  : "text-white/70 hover:bg-white/5 hover:text-white"
               )}
             >
+              {/* Active indicator bar */}
+              {isActive && (
+                <motion.div
+                  layoutId="adminActiveIndicator"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-[#ce4af7] rounded-r-full"
+                />
+              )}
+              
               <Icon className={cn(
-                "w-6 h-6 flex-shrink-0 transition-colors",
-                isActive ? "text-gold" : "text-white/90 group-hover:text-gold"
+                "w-5 h-5 flex-shrink-0 transition-colors",
+                isActive ? "text-[#00d4d4]" : "text-white/70 group-hover:text-white"
               )} />
               
               <AnimatePresence mode="wait">
@@ -126,22 +126,14 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     className={cn(
-                      "text-base whitespace-nowrap",
-                      isActive ? "font-bold" : "font-semibold"
+                      "text-sm whitespace-nowrap",
+                      isActive ? "font-medium" : "font-normal"
                     )}
                   >
                     {item.title}
                   </motion.span>
                 )}
               </AnimatePresence>
-
-              {/* Active indicator */}
-              {isActive && (
-                <motion.div
-                  layoutId="adminActiveIndicator"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-10 bg-gold rounded-r-full"
-                />
-              )}
             </NavLink>
           );
         })}
@@ -150,13 +142,13 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
       {/* Notifications */}
       <div className="px-3 py-2">
         <div className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 transition-colors cursor-pointer",
+          "flex items-center gap-3 px-4 py-3 rounded-lg bg-white/5 text-white/70 hover:bg-white/10 transition-colors cursor-pointer",
           collapsed && "justify-center"
         )}>
           <div className="relative">
-            <Bell className="w-5 h-5" />
+            <Bell className="w-5 h-5 text-[#ce4af7]" />
             {notifications > 0 && (
-              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-gold text-white text-xs">
+              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-[#ce4af7] text-white text-xs border-0">
                 {notifications}
               </Badge>
             )}
@@ -168,13 +160,13 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
       </div>
 
       {/* User Profile & Logout */}
-      <div className="p-4 border-t border-white/10">
+      <div className="p-4 border-t border-white/5">
         <div className={cn(
           "flex items-center gap-3",
           collapsed && "justify-center"
         )}>
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold/20 to-gold/10 flex items-center justify-center border border-gold/30">
-            <Shield className="w-5 h-5 text-gold" />
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ce4af7]/30 to-[#ce4af7]/10 flex items-center justify-center border border-[#ce4af7]/30">
+            <span className="text-[#ce4af7] text-sm font-bold">SA</span>
           </div>
           
           <AnimatePresence mode="wait">
@@ -185,23 +177,20 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 exit={{ opacity: 0, x: -10 }}
                 className="flex-1 min-w-0"
               >
-                <p className="text-white text-sm font-medium truncate">Super Admin</p>
+                <p className="text-[#ce4af7] text-sm font-medium truncate">Super Admin</p>
                 <p className="text-white/50 text-xs truncate">Administrateur</p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        <Button
-          variant="ghost"
-          className={cn(
-            "w-full mt-3 text-white/60 hover:text-white hover:bg-white/10",
-            collapsed && "px-2"
-          )}
-        >
+        <div className={cn(
+          "flex items-center gap-2 mt-4 text-white/60 hover:text-white cursor-pointer transition-colors",
+          collapsed && "justify-center"
+        )}>
           <LogOut className="w-4 h-4" />
-          {!collapsed && <span className="ml-2 text-sm">Déconnexion</span>}
-        </Button>
+          {!collapsed && <span className="text-sm">Déconnexion</span>}
+        </div>
       </div>
     </motion.aside>
   );
