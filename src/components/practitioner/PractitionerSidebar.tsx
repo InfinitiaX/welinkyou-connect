@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
@@ -57,7 +57,9 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
       {/* Header */}
       <div className="p-4 border-b border-white/5">
         <div className="flex items-center gap-3">
-          <img src={logo} alt="WeLinkYou" className={cn("h-10 w-auto", collapsed && "mx-auto")} />
+          <Link to="/">
+            <img src={logo} alt="WeLinkYou" className={cn("h-14 w-auto cursor-pointer hover:opacity-80 transition-opacity", collapsed && "mx-auto")} />
+          </Link>
           <AnimatePresence mode="wait">
             {!collapsed && (
               <motion.span
