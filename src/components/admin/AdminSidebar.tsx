@@ -102,8 +102,8 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group relative",
                 isActive
-                  ? "bg-[#0d3d3d] text-[#00d4d4]"
-                  : "text-white/70 hover:bg-white/5 hover:text-white"
+                  ? "bg-[#0d3d3d] text-primary"
+                  : "text-white hover:bg-white/5"
               )}
             >
               {/* Active indicator bar */}
@@ -116,7 +116,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               
               <Icon className={cn(
                 "w-5 h-5 flex-shrink-0 transition-colors",
-                isActive ? "text-[#00d4d4]" : "text-white/70 group-hover:text-white"
+                isActive ? "text-primary" : "text-white"
               )} />
               
               <AnimatePresence mode="wait">
@@ -125,10 +125,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
-                    className={cn(
-                      "text-sm whitespace-nowrap",
-                      isActive ? "font-medium" : "font-normal"
-                    )}
+                    className="text-sm whitespace-nowrap font-bold"
                   >
                     {item.title}
                   </motion.span>
