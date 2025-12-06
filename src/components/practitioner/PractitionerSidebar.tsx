@@ -101,15 +101,15 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
               key={item.path}
               to={item.path}
               className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative",
+                "flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group relative",
                 isActive
-                  ? "bg-white/10 text-gold"
-                  : "text-white/70 hover:bg-white/5 hover:text-white"
+                  ? "bg-white/20 text-white font-bold shadow-lg"
+                  : "text-white hover:bg-white/10 hover:text-white"
               )}
             >
               <Icon className={cn(
-                "w-5 h-5 flex-shrink-0 transition-colors",
-                isActive ? "text-gold" : "group-hover:text-gold"
+                "w-6 h-6 flex-shrink-0 transition-colors",
+                isActive ? "text-gold" : "text-white/90 group-hover:text-gold"
               )} />
               
               <AnimatePresence mode="wait">
@@ -118,7 +118,10 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
-                    className="text-sm font-medium whitespace-nowrap"
+                    className={cn(
+                      "text-base whitespace-nowrap",
+                      isActive ? "font-bold" : "font-semibold"
+                    )}
                   >
                     {item.title}
                   </motion.span>
@@ -128,8 +131,8 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
               {/* Active indicator */}
               {isActive && (
                 <motion.div
-                  layoutId="activeIndicator"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gold rounded-r-full"
+                  layoutId="practitionerActiveIndicator"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-10 bg-gold rounded-r-full"
                 />
               )}
             </NavLink>
