@@ -14,10 +14,19 @@ const navLinks = [
   { href: "/contact", label: "Nous contacter" },
 ];
 
+// Pages avec un fond clair (sans hero sombre) - navbar doit être sombre dès le départ
+const lightBackgroundPages = ["/recherche", "/blog", "/praticien", "/dashboard"];
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+
+  // Détermine si la page actuelle a un fond clair
+  const isLightPage = lightBackgroundPages.some(page => location.pathname.startsWith(page));
+
+  // Si page claire, on force le style "scrolled" même en haut
+  const useDarkNavbar = isScrolled || isLightPage;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,7 +49,7 @@ export const Navbar = () => {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "navbar-solid" : "navbar-transparent",
+          useDarkNavbar ? "navbar-solid" : "navbar-transparent",
         )}
       >
         <div className="container mx-auto px-4 lg:px-8">
@@ -58,7 +67,7 @@ export const Navbar = () => {
                   to={link.href}
                   className={cn(
                     "px-4 py-2 text-sm font-bold rounded-lg transition-all duration-200",
-                    isScrolled
+                    useDarkNavbar
                       ? location.pathname === link.href
                         ? "text-primary bg-primary/10"
                         : "text-foreground/70 hover:text-foreground hover:bg-muted"
@@ -81,7 +90,7 @@ export const Navbar = () => {
                   className={cn(
                     "font-bold transition-all duration-300 bg-transparent border-gold relative overflow-hidden group",
                     "hover:bg-gold hover:text-white hover:border-gold hover:scale-105 hover:shadow-[0_0_20px_hsl(285_91%_63%/0.5)]",
-                    isScrolled ? "text-gold" : "text-white"
+                    useDarkNavbar ? "text-gold" : "text-white"
                   )}
                 >
                   <span className="relative z-10">Espace Professionnel</span>
@@ -104,7 +113,7 @@ export const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={cn(
                 "lg:hidden p-2 rounded-lg transition-colors",
-                isScrolled ? "hover:bg-muted text-foreground" : "hover:bg-white/10 text-white",
+                useDarkNavbar ? "hover:bg-muted text-foreground" : "hover:bg-white/10 text-white",
               )}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
