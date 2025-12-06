@@ -26,6 +26,7 @@ import { AdminLayout } from "./components/admin/AdminLayout";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminPractitioners } from "./pages/admin/AdminPractitioners";
 import { AdminRegistrations } from "./pages/admin/AdminRegistrations";
+import { AdminDocuments } from "./pages/admin/AdminDocuments";
 import { AdminSettings } from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => (
             <Route index element={<AdminDashboard />} />
             <Route path="praticiens" element={<AdminPractitioners />} />
             <Route path="demandes" element={<AdminRegistrations />} />
+            <Route path="documents" element={<AdminDocuments />} />
             <Route path="parametres" element={<AdminSettings />} />
           </Route>
 
