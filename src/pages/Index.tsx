@@ -135,7 +135,7 @@ const Index = () => {
                       duration: 0.8, 
                       ease: [0.25, 0.1, 0.25, 1] 
                     }}
-                    className="inline-block mr-3 text-primary"
+                    className="inline-block mr-3 text-gold"
                   >
                     {word}
                   </motion.span>
@@ -273,7 +273,7 @@ const Index = () => {
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={titleWordVariants}
-                    className="text-gradient-primary inline-block"
+                    className="text-gold inline-block"
                   >
                     sélectionnés
                   </motion.span>
