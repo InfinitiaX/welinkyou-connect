@@ -152,8 +152,8 @@ export const mockRegistrationRequests: RegistrationRequest[] = [
     specialty: 'Agent immobilier',
     description: 'Expert en investissement immobilier au Maroc pour la diaspora française.',
     documents: [
-      { name: 'Carte professionnelle', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' },
-      { name: 'Diplôme', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' }
+      { name: 'Carte professionnelle', url: '/documents/sample-document.pdf', status: 'pending' },
+      { name: 'Diplôme', url: '/documents/sample-document.pdf', status: 'pending' }
     ],
     submittedAt: '2024-11-28',
     status: 'pending',
@@ -167,9 +167,9 @@ export const mockRegistrationRequests: RegistrationRequest[] = [
     specialty: 'Avocat - Droit de la famille',
     description: 'Spécialisée dans les affaires familiales transfrontalières.',
     documents: [
-      { name: 'Attestation du barreau', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' },
-      { name: 'CV', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' },
-      { name: 'Assurance professionnelle', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' }
+      { name: 'Attestation du barreau', url: '/documents/sample-document.pdf', status: 'pending' },
+      { name: 'CV', url: '/documents/sample-document.pdf', status: 'pending' },
+      { name: 'Assurance professionnelle', url: '/documents/sample-document.pdf', status: 'pending' }
     ],
     submittedAt: '2024-11-30',
     status: 'pending',
@@ -183,7 +183,7 @@ export const mockRegistrationRequests: RegistrationRequest[] = [
     specialty: 'Conseiller fiscal',
     description: 'Optimisation fiscale pour entrepreneurs binationaux.',
     documents: [
-      { name: 'Diplôme', url: 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf', status: 'pending' }
+      { name: 'Diplôme', url: '/documents/sample-document.pdf', status: 'pending' }
     ],
     submittedAt: '2024-11-25',
     status: 'pending',
