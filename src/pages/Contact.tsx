@@ -11,19 +11,19 @@ import { useToast } from "@/hooks/use-toast";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
-  }
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+    transition: { staggerChildren: 0.15 },
+  },
 };
 
 const Contact = () => {
@@ -58,9 +58,7 @@ const Contact = () => {
     }, 3000);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -73,7 +71,7 @@ const Contact = () => {
         <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
           <div className="absolute inset-0">
-            <div 
+            <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80')`,
@@ -109,7 +107,7 @@ const Contact = () => {
                 </span>
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight"
               >
@@ -125,10 +123,7 @@ const Contact = () => {
                 </span>
               </motion.h1>
 
-              <motion.p 
-                variants={fadeInUp}
-                className="text-lg md:text-xl text-white/90 leading-relaxed"
-              >
+              <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/90 leading-relaxed">
                 Une question, une suggestion ? Notre équipe est disponible pour vous accompagner.
               </motion.p>
             </motion.div>
@@ -156,17 +151,14 @@ const Contact = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-6">
-                  Restons en contact
-                </h2>
+                <h2 className="text-2xl font-display font-semibold text-foreground mb-6">Restons en contact</h2>
                 <p className="text-muted-foreground mb-8">
-                  N'hésitez pas à nous contacter pour toute question concernant
-                  notre plateforme, nos services ou pour nous faire part de vos
-                  suggestions d'amélioration.
+                  N'hésitez pas à nous contacter pour toute question concernant notre plateforme, nos services ou pour
+                  nous faire part de vos suggestions d'amélioration.
                 </p>
 
                 <div className="space-y-6">
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -187,7 +179,7 @@ const Contact = () => {
                     </div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -198,18 +190,12 @@ const Contact = () => {
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-foreground mb-1">
-                        Téléphone
-                      </h3>
-                      <p className="text-muted-foreground">
-                        🇫🇷 +33 1 23 45 67 89
-                        <br />
-                        🇲🇦 +212 5 22 12 34 56
-                      </p>
+                      <h3 className="font-medium text-foreground mb-1">Téléphone</h3>
+                      <p className="text-muted-foreground">🇫🇷 +33 1 23 45 67 89 🇲🇦 +212 5 22 12 34 56</p>
                     </div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -220,9 +206,7 @@ const Contact = () => {
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-foreground mb-1">
-                        Bureaux
-                      </h3>
+                      <h3 className="font-medium text-foreground mb-1">Bureaux</h3>
                       <p className="text-muted-foreground">
                         Paris, France
                         <br />
@@ -250,12 +234,8 @@ const Contact = () => {
                       <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                         <CheckCircle className="w-10 h-10 text-primary" />
                       </div>
-                      <h3 className="text-xl font-semibold text-foreground mb-2">
-                        Message envoyé !
-                      </h3>
-                      <p className="text-muted-foreground">
-                        Nous vous répondrons dans les plus brefs délais.
-                      </p>
+                      <h3 className="text-xl font-semibold text-foreground mb-2">Message envoyé !</h3>
+                      <p className="text-muted-foreground">Nous vous répondrons dans les plus brefs délais.</p>
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
