@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Eye, EyeOff, ArrowLeft, CheckCircle, Shield, Users } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -66,9 +65,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-
-      <main className="flex-1 pt-16">
+      <main className="flex-1">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-4rem)]">
           {/* Left side - Promotional content */}
           <div className="hidden lg:flex flex-col justify-between px-12 xl:px-20 py-16 relative overflow-hidden">
