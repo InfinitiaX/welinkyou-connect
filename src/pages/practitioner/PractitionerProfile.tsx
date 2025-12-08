@@ -287,28 +287,6 @@ export const PractitionerProfile = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="registration">Numéro d'inscription à l'ordre</Label>
-                  <Input id="registration" defaultValue="75-XXXXX" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Tarifs de consultation</Label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="price-france" className="text-sm text-muted-foreground">
-                        En France (€)
-                      </Label>
-                      <Input id="price-france" type="number" defaultValue="50" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="price-morocco" className="text-sm text-muted-foreground">
-                        Au Maroc (MAD)
-                      </Label>
-                      <Input id="price-morocco" type="number" defaultValue="400" />
-                    </div>
-                  </div>
-                </div>
               </CardContent>
             </Card>
           </motion.div>
