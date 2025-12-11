@@ -135,7 +135,7 @@ const Index = () => {
                       duration: 0.8, 
                       ease: [0.25, 0.1, 0.25, 1] 
                     }}
-                    className="inline-block mr-3 text-gold"
+                    className="inline-block mr-3 text-gradient-vibrant"
                   >
                     {word}
                   </motion.span>
@@ -273,7 +273,7 @@ const Index = () => {
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={titleWordVariants}
-                    className="text-gold inline-block"
+                    className="text-gradient-vibrant inline-block"
                   >
                     sélectionnés
                   </motion.span>
@@ -355,14 +355,14 @@ const Index = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5, duration: 0.5 }}
-                  className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-primary/20 to-gold/20 rounded-2xl -z-10" 
+                  className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-gradient-start/20 to-gradient-end/20 rounded-2xl -z-10" 
                 />
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6, duration: 0.5 }}
-                  className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-gold/20 to-primary/20 rounded-2xl -z-10" 
+                  className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-gradient-end/20 to-gradient-start/20 rounded-2xl -z-10" 
                 />
               </motion.div>
             </div>
@@ -373,27 +373,34 @@ const Index = () => {
       {/* Blog Section */}
       <BlogSection />
 
-      {/* CTA Section */}
-      <section className="py-24 gradient-primary">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
+      {/* CTA Section - Premium Dark with Vibrant Gradient */}
+      <section className="py-24 bg-[#0d0d18] relative overflow-hidden">
+        {/* Background gradient effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gradient-start/10 via-transparent to-gradient-end/10" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-start/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-end/20 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="max-w-2xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-semibold text-primary-foreground mb-6">
+            <span className="text-gradient-vibrant font-semibold text-lg mb-4 block">
               Vous êtes professionnel ?
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
+              Rejoignez WeLinkYou !
             </h2>
-            <p className="text-primary-foreground/80 text-lg mb-8">
-              Rejoignez notre réseau d'experts et connectez-vous avec une clientèle qualifiée de la diaspora
-              France-Maroc.
+            <p className="text-white/70 text-lg mb-10 leading-relaxed">
+              Connectez-vous avec une clientèle qualifiée de la diaspora France-Maroc. Simplifiez votre visibilité et accédez rapidement à des clients prêts à vous faire confiance.
             </p>
             <a
               href="/espace-professionnel"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-background text-primary rounded-xl font-semibold hover:bg-background/90 transition-colors shadow-lg"
+              className="inline-flex items-center gap-2 px-10 py-4 gradient-vibrant-horizontal text-white rounded-full font-semibold hover:brightness-110 hover:scale-[1.02] transition-all shadow-xl shadow-gradient-start/25"
             >
-              Rejoindre WeLinkYou
+              Inscrivez-vous
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

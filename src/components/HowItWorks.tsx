@@ -6,19 +6,19 @@ const steps = [
     icon: Search,
     title: "Trouver un praticien",
     description: "Des professionnels sélectionnés par l'équipe Binatna",
-    gradient: "from-primary to-primary-light",
+    gradient: "from-gradient-start to-gradient-mid",
   },
   {
     icon: Phone,
     title: "Contacter votre praticien",
     description: "Par téléphone, WhatsApp ou email. Sans intermédiaire et sans frais",
-    gradient: "from-primary-light to-accent",
+    gradient: "from-gradient-mid to-gradient-end",
   },
   {
     icon: Star,
     title: "Évaluer et partager votre expérience",
     description: "Faites bénéficier la communauté des MRE de votre expérience et recommandations",
-    gradient: "from-accent to-primary",
+    gradient: "from-gradient-end to-gradient-start",
   },
 ];
 
@@ -53,7 +53,7 @@ export const HowItWorks = () => {
             >
               {/* Connecting line */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-primary/30 to-transparent" />
+                <div className="hidden md:block absolute top-16 left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-gradient-start/30 via-gradient-mid/30 to-transparent" />
               )}
 
               <div className="card-premium p-8 text-center h-full">
@@ -63,7 +63,7 @@ export const HowItWorks = () => {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.15 + 0.2, type: "spring", stiffness: 200 }}
-                  className="w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center mx-auto mb-6"
+                  className="w-8 h-8 rounded-full gradient-vibrant text-white text-sm font-bold flex items-center justify-center mx-auto mb-6"
                 >
                   {index + 1}
                 </motion.div>

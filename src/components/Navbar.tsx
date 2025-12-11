@@ -88,22 +88,21 @@ export const Navbar = () => {
                   variant="outline"
                   size="sm"
                   className={cn(
-                    "font-bold transition-all duration-300 bg-transparent border-gold relative overflow-hidden group",
-                    "hover:bg-gold hover:text-white hover:border-gold hover:scale-105 hover:shadow-[0_0_20px_hsl(285_91%_63%/0.5)]",
-                    useDarkNavbar ? "text-gold" : "text-white"
+                    "font-bold transition-all duration-300 bg-transparent border-gradient-start relative overflow-hidden group",
+                    "hover:bg-gradient-start hover:text-white hover:border-gradient-start hover:scale-105 hover:shadow-[0_0_20px_hsl(280_85%_55%/0.5)]",
+                    useDarkNavbar ? "text-gradient-start" : "text-white"
                   )}
                 >
                   <span className="relative z-10">Espace Professionnel</span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-gold to-gold-light opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="absolute inset-0 gradient-vibrant opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
               </Link>
               <Link to="/recherche">
                 <Button 
                   size="sm" 
-                  className="font-medium gradient-primary border-0 relative overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_hsl(187_100%_33%/0.6)]"
+                  className="font-medium gradient-vibrant-horizontal border-0 relative overflow-hidden group transition-all duration-300 hover:scale-105 hover:brightness-110 rounded-full shadow-lg"
                 >
                   <span className="relative z-10">Trouver un expert</span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
               </Link>
             </div>
@@ -156,12 +155,12 @@ export const Navbar = () => {
                 ))}
                 <div className="mt-6 flex flex-col gap-3">
                   <Link to="/espace-professionnel">
-                    <Button variant="outline" className="w-full font-bold">
+                    <Button variant="outline" className="w-full font-bold border-gradient-start text-gradient-start hover:gradient-vibrant hover:text-white hover:border-transparent">
                       Espace Professionnel
                     </Button>
                   </Link>
                   <Link to="/recherche">
-                    <Button className="w-full btn-ripple gradient-primary border-0">Trouver un expert</Button>
+                    <Button className="w-full btn-ripple gradient-vibrant-horizontal border-0 rounded-full">Trouver un expert</Button>
                   </Link>
                 </div>
               </div>

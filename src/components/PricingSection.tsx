@@ -43,7 +43,7 @@ export const PricingSection = ({ showHeader = true, className }: PricingSectionP
         >
           {showHeader && (
             <motion.div variants={fadeInUp} className="text-center mb-12">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-medium mb-4">
+              <span className="inline-block px-4 py-1.5 rounded-full gradient-vibrant-soft text-white text-sm font-medium mb-4">
                 Tarification
               </span>
               <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
@@ -78,11 +78,11 @@ export const PricingSection = ({ showHeader = true, className }: PricingSectionP
               className={cn(
                 "cursor-pointer transition-all border-2 p-6 min-w-[200px] relative",
                 billingPeriod === "annual"
-                  ? "border-gold shadow-lg ring-2 ring-gold ring-offset-2"
-                  : "border-border hover:border-gold/30"
+                  ? "border-gradient-start shadow-lg ring-2 ring-gradient-start ring-offset-2"
+                  : "border-border hover:border-gradient-start/30"
               )}
             >
-              <Badge className="absolute -top-3 right-4 bg-gold text-white">
+              <Badge className="absolute -top-3 right-4 gradient-vibrant text-white">
                 -63%
               </Badge>
               <p className="text-muted-foreground text-sm mb-2">Annuel</p>
@@ -110,7 +110,7 @@ export const PricingSection = ({ showHeader = true, className }: PricingSectionP
                 </ul>
 
                 <Link to="/inscription-pro" className="block mt-8">
-                  <Button className="w-full bg-gold hover:bg-gold-light text-white gap-2">
+                  <Button className="w-full gradient-vibrant-horizontal hover:brightness-110 hover:scale-[1.01] transition-all text-white gap-2 rounded-full">
                     Choisir cette formule
                     <ArrowRight className="w-4 h-4" />
                   </Button>
