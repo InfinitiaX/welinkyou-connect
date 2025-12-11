@@ -215,12 +215,13 @@
   
   /* Premium card styling */
   .card-premium {
-    @apply bg-card rounded-xl border border-border shadow-md transition-all duration-300;
+    @apply bg-card rounded-xl border-2 border-border shadow-md transition-all duration-300;
   }
   
   .card-premium:hover {
-    @apply shadow-xl border-gradient-start/30 -translate-y-1;
-    box-shadow: 0 20px 25px -5px hsl(280 85% 55% / 0.1), 0 8px 10px -6px hsl(280 85% 55% / 0.1), 0 0 30px -5px hsl(280 85% 55% / 0.15);
+    @apply shadow-xl -translate-y-1;
+    border-color: hsl(280 85% 55% / 0.6);
+    box-shadow: 0 20px 25px -5px hsl(280 85% 55% / 0.15), 0 8px 10px -6px hsl(280 85% 55% / 0.1), 0 0 40px -5px hsl(280 85% 55% / 0.25);
   }
   
   /* Card with vibrant glow hover effect */
