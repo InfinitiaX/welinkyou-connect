@@ -22,14 +22,14 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
       whileHover={{ y: -4 }}
       className="group"
     >
-      <div className="card-premium p-6 h-full flex flex-col min-h-[380px] transition-all duration-300 group-hover:shadow-[0_0_30px_-5px_hsl(280_85%_55%/0.3)] group-hover:border-gradient-start/30">
+      <div className="card-premium p-6 h-full flex flex-col min-h-[380px] transition-all duration-300 group-hover:shadow-[0_0_40px_-5px_hsl(280_85%_55%/0.4)] group-hover:border-gradient-start/60">
         {/* Header with photo and verified badge */}
         <div className="flex items-start gap-4 mb-4">
           <div className="relative flex-shrink-0">
             <img
               src={professional.photo}
               alt={`${professional.firstName} ${professional.lastName}`}
-              className="w-20 h-20 rounded-2xl object-cover ring-2 ring-border group-hover:ring-primary/30 transition-all duration-300"
+              className="w-20 h-20 rounded-2xl object-cover ring-2 ring-border group-hover:ring-gradient-start/50 transition-all duration-300"
             />
             {professional.verified && (
               <motion.div
@@ -99,7 +99,7 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
         {/* Actions */}
         <div className="flex gap-2">
           <Link to={`/professionnel/${professional.id}`} className="flex-1">
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full group-hover:border-gradient-start group-hover:text-gradient-start group-hover:bg-gradient-start/5 transition-all duration-300">
               Voir le profil
             </Button>
           </Link>
