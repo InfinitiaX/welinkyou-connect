@@ -200,7 +200,7 @@ export const AdminPractitioners = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-gold" />
+              <Users className="w-5 h-5 text-gradient-end" />
               Praticiens ({filteredPractitioners.length})
             </CardTitle>
           </CardHeader>
@@ -224,7 +224,7 @@ export const AdminPractitioners = () => {
                   <TableRow key={practitioner.id}>
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-white font-medium text-sm">
+                        <div className="w-10 h-10 rounded-full gradient-vibrant flex items-center justify-center text-white font-medium text-sm">
                           {practitioner.firstName[0]}{practitioner.lastName[0]}
                         </div>
                         <div>
@@ -237,7 +237,7 @@ export const AdminPractitioners = () => {
                     <TableCell className="text-center font-medium">{practitioner.profileViews.toLocaleString()}</TableCell>
                     <TableCell className="text-center font-medium">{practitioner.profileClicks}</TableCell>
                     <TableCell className="text-center">
-                      <div className="flex items-center justify-center gap-1 text-gold">
+                      <div className="flex items-center justify-center gap-1 text-gradient-end">
                         <Star className="w-4 h-4 fill-current" />
                         {practitioner.rating}
                       </div>
@@ -247,7 +247,7 @@ export const AdminPractitioners = () => {
                         variant={practitioner.isCertified ? "default" : "outline"}
                         size="sm"
                         onClick={() => toggleCertification(practitioner.id)}
-                        className={practitioner.isCertified ? "bg-gold hover:bg-gold/90" : ""}
+                        className={practitioner.isCertified ? "gradient-vibrant border-0" : ""}
                       >
                         <Award className="w-4 h-4" />
                       </Button>

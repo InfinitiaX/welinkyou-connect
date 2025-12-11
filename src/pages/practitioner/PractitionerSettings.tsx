@@ -46,7 +46,7 @@ export const PractitionerSettings = () => {
         <Card className="border-0 shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Bell className="w-5 h-5 text-gold" />
+              <Bell className="w-5 h-5 text-gradient-end" />
               Notifications
             </CardTitle>
           </CardHeader>
@@ -103,7 +103,7 @@ export const PractitionerSettings = () => {
         <Card className="border-0 shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Shield className="w-5 h-5 text-gold" />
+              <Shield className="w-5 h-5 text-gradient-end" />
               Sécurité
             </CardTitle>
           </CardHeader>
@@ -151,7 +151,7 @@ export const PractitionerSettings = () => {
         <Card className="border-0 shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Globe className="w-5 h-5 text-gold" />
+              <Globe className="w-5 h-5 text-gradient-end" />
               Préférences
             </CardTitle>
           </CardHeader>
