@@ -88,10 +88,10 @@ export const AdminDashboard = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-gold" />
-                Trafic de la semaine
-              </CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-gradient-end" />
+                  Trafic de la semaine
+                </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -99,8 +99,8 @@ export const AdminDashboard = () => {
                   <AreaChart data={visitData}>
                     <defs>
                       <linearGradient id="colorVisitesAdmin" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(var(--gold))" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="hsl(var(--gold))" stopOpacity={0} />
+                        <stop offset="5%" stopColor="hsl(280, 85%, 55%)" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(25, 95%, 55%)" stopOpacity={0} />
                       </linearGradient>
                       <linearGradient id="colorClicsAdmin" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
@@ -120,7 +120,7 @@ export const AdminDashboard = () => {
                     <Area
                       type="monotone"
                       dataKey="visites"
-                      stroke="hsl(var(--gold))"
+                      stroke="hsl(280, 85%, 55%)"
                       fillOpacity={1}
                       fill="url(#colorVisitesAdmin)"
                       name="Visites"
@@ -149,10 +149,10 @@ export const AdminDashboard = () => {
           <Card className="h-full">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <UserPlus className="w-5 h-5 text-gold" />
+                <UserPlus className="w-5 h-5 text-gradient-end" />
                 Nouvelles demandes
               </CardTitle>
-              <Badge variant="secondary" className="bg-gold/10 text-gold">
+              <Badge variant="secondary" className="gradient-vibrant-soft text-white">
                 {pendingRequests.length}
               </Badge>
             </CardHeader>
@@ -163,7 +163,7 @@ export const AdminDashboard = () => {
                   className="flex items-center justify-between p-3 bg-gray-50 rounded-xl"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-gold/70 flex items-center justify-center text-white font-medium">
+                    <div className="w-10 h-10 rounded-full gradient-vibrant flex items-center justify-center text-white font-medium">
                       {request.firstName[0]}{request.lastName[0]}
                     </div>
                     <div>
@@ -199,10 +199,10 @@ export const AdminDashboard = () => {
       >
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="flex items-center gap-2">
-              <Star className="w-5 h-5 text-gold" />
-              Top praticiens (vues)
-            </CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Star className="w-5 h-5 text-gradient-end" />
+                Top praticiens (vues)
+              </CardTitle>
             <Button variant="outline" onClick={() => navigate('/admin/praticiens')}>
               Voir tous
             </Button>
@@ -215,10 +215,10 @@ export const AdminDashboard = () => {
                   className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center font-bold text-gold">
+                    <div className="w-8 h-8 rounded-full gradient-vibrant-soft flex items-center justify-center font-bold text-white">
                       {index + 1}
                     </div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-white font-medium">
+                    <div className="w-12 h-12 rounded-full gradient-vibrant flex items-center justify-center text-white font-medium">
                       {practitioner.firstName[0]}{practitioner.lastName[0]}
                     </div>
                     <div>
@@ -227,7 +227,7 @@ export const AdminDashboard = () => {
                           {practitioner.firstName} {practitioner.lastName}
                         </p>
                         {practitioner.isCertified && (
-                          <Badge className="bg-gold/10 text-gold text-xs">
+                          <Badge className="gradient-vibrant-soft text-white text-xs">
                             <Award className="w-3 h-3 mr-1" />
                             Certifié
                           </Badge>
@@ -245,7 +245,7 @@ export const AdminDashboard = () => {
                       <p className="text-lg font-bold text-primary">{practitioner.profileClicks}</p>
                       <p className="text-xs text-muted-foreground">clics</p>
                     </div>
-                    <div className="flex items-center gap-1 text-gold">
+                    <div className="flex items-center gap-1 text-gradient-end">
                       <Star className="w-4 h-4 fill-current" />
                       <span className="font-medium">{practitioner.rating}</span>
                     </div>
