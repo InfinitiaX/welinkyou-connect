@@ -42,6 +42,15 @@ export default {
           light: "hsl(var(--gold-light))",
           foreground: "hsl(var(--gold-foreground))",
         },
+        coral: {
+          DEFAULT: "hsl(var(--coral))",
+          light: "hsl(var(--coral-light))",
+        },
+        gradient: {
+          start: "hsl(var(--gradient-start))",
+          mid: "hsl(var(--gradient-mid))",
+          end: "hsl(var(--gradient-end))",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -131,12 +140,12 @@ export default {
         },
         "pulse-border": {
           "0%, 100%": { 
-            borderColor: "hsl(285 91% 63%)",
-            boxShadow: "0 0 0 0 hsl(285 91% 63% / 0)"
+            borderColor: "hsl(280 85% 55%)",
+            boxShadow: "0 0 0 0 hsl(280 85% 55% / 0)"
           },
           "50%": { 
-            borderColor: "hsl(285 91% 73%)",
-            boxShadow: "0 0 20px 2px hsl(285 91% 63% / 0.4)"
+            borderColor: "hsl(25 95% 55%)",
+            boxShadow: "0 0 20px 2px hsl(280 85% 55% / 0.4)"
           },
         },
       },

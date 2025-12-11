@@ -14,10 +14,17 @@
     --primary-dark: 187 100% 28%;
     --primary-foreground: 0 0% 100%;
     
-    /* Accent Pink/Purple */
+    /* Accent Gradient - Purple to Coral/Orange */
     --gold: 285 91% 63%;
     --gold-light: 285 91% 73%;
     --gold-foreground: 0 0% 100%;
+    
+    /* Vibrant Gradient Colors */
+    --gradient-start: 280 85% 55%;
+    --gradient-mid: 340 80% 55%;
+    --gradient-end: 25 95% 55%;
+    --coral: 15 90% 60%;
+    --coral-light: 20 95% 65%;
     
     /* Backgrounds */
     --background: 0 0% 100%;
@@ -87,6 +94,13 @@
     
     --gold: 285 91% 68%;
     --gold-light: 285 91% 78%;
+    
+    /* Vibrant Gradient Colors - Dark Mode */
+    --gradient-start: 280 85% 60%;
+    --gradient-mid: 340 80% 60%;
+    --gradient-end: 25 95% 60%;
+    --coral: 15 90% 65%;
+    --coral-light: 20 95% 70%;
     
     --background: 220 20% 8%;
     --background-soft: 220 20% 10%;
@@ -161,6 +175,19 @@
     background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-light)) 100%);
   }
   
+  /* Premium vibrant gradient - Purple to Coral */
+  .gradient-vibrant {
+    background: linear-gradient(135deg, hsl(var(--gradient-start)) 0%, hsl(var(--gradient-mid)) 50%, hsl(var(--gradient-end)) 100%);
+  }
+  
+  .gradient-vibrant-horizontal {
+    background: linear-gradient(90deg, hsl(var(--gradient-start)) 0%, hsl(var(--gradient-mid)) 50%, hsl(var(--gradient-end)) 100%);
+  }
+  
+  .gradient-vibrant-soft {
+    background: linear-gradient(135deg, hsl(var(--gradient-start) / 0.8) 0%, hsl(var(--gradient-mid) / 0.8) 50%, hsl(var(--gradient-end) / 0.8) 100%);
+  }
+  
   .gradient-subtle {
     background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background-soft)) 100%);
   }
@@ -178,6 +205,12 @@
   .text-gradient-gold {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-light)) 100%);
+  }
+  
+  /* Vibrant text gradient - Purple to Coral */
+  .text-gradient-vibrant {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, hsl(var(--gradient-start)) 0%, hsl(var(--gradient-mid)) 50%, hsl(var(--gradient-end)) 100%);
   }
   
   /* Premium card styling */

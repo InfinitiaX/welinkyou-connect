@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -15,6 +15,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        gradient: "gradient-vibrant-horizontal text-white font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] hover:brightness-110 rounded-full",
+        "gradient-outline": "bg-transparent border-2 border-transparent bg-clip-padding relative before:absolute before:inset-0 before:-z-10 before:m-[-2px] before:rounded-full before:gradient-vibrant-horizontal text-foreground hover:text-white hover:bg-gradient-to-r hover:from-gradient-start hover:via-gradient-mid hover:to-gradient-end",
       },
       size: {
         default: "h-10 px-4 py-2",

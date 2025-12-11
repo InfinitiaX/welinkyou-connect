@@ -30,7 +30,7 @@ export const FeaturedPractitioners = () => {
             Nos experts
           </motion.span>
           <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
-            Praticiens <span className="text-gradient-primary">mis en avant</span>
+            Praticiens <span className="text-gradient-vibrant">mis en avant</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Découvrez nos professionnels de confiance, vérifiés et reconnus pour leur expertise
@@ -67,7 +67,7 @@ export const FeaturedPractitioners = () => {
           <Link to="/recherche">
             <Button
               size="lg"
-              className="gradient-primary border-0 btn-ripple text-base font-semibold gap-2 px-8 py-6 rounded-xl"
+              className="gradient-vibrant-horizontal border-0 btn-ripple text-base font-semibold gap-2 px-8 py-6 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg"
             >
               Voir plus d'experts
               <ArrowRight className="w-5 h-5" />
