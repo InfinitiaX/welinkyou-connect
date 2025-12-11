@@ -85,7 +85,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
         variant="ghost"
         size="icon"
         onClick={onToggle}
-        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#ce4af7] text-white hover:bg-[#ce4af7]/80 shadow-lg"
+        className="absolute -right-3 top-20 w-6 h-6 rounded-full gradient-vibrant text-white hover:brightness-110 shadow-lg"
       >
         {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
       </Button>
@@ -111,7 +111,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               {isActive && (
                 <motion.div
                   layoutId="adminActiveIndicator"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-[#ce4af7] rounded-r-full"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 gradient-vibrant rounded-r-full"
                 />
               )}
               
@@ -144,9 +144,9 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
           collapsed && "justify-center"
         )}>
           <div className="relative">
-            <Bell className="w-5 h-5 text-[#ce4af7]" />
+            <Bell className="w-5 h-5 text-gradient-end" />
             {notifications > 0 && (
-              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-[#ce4af7] text-white text-xs border-0">
+              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center gradient-vibrant text-white text-xs border-0">
                 {notifications}
               </Badge>
             )}
@@ -163,8 +163,8 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
           "flex items-center gap-3",
           collapsed && "justify-center"
         )}>
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ce4af7]/30 to-[#ce4af7]/10 flex items-center justify-center border border-[#ce4af7]/30">
-            <span className="text-[#ce4af7] text-sm font-bold">SA</span>
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gradient-start/30 to-gradient-end/10 flex items-center justify-center border border-gradient-start/30">
+            <span className="text-gradient-end text-sm font-bold">SA</span>
           </div>
           
           <AnimatePresence mode="wait">
@@ -175,7 +175,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 exit={{ opacity: 0, x: -10 }}
                 className="flex-1 min-w-0"
               >
-                <p className="text-[#ce4af7] text-sm font-medium truncate">Super Admin</p>
+                <p className="text-gradient-end text-sm font-medium truncate">Super Admin</p>
                 <p className="text-white/50 text-xs truncate">Administrateur</p>
               </motion.div>
             )}

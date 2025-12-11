@@ -113,7 +113,7 @@ export const PractitionerProfile = () => {
             <Eye className="w-4 h-4" />
             Prévisualiser
           </Button>
-          <Button className="gap-2 bg-gold hover:bg-gold-light text-white">
+          <Button className="gap-2 gradient-vibrant-horizontal border-0 hover:brightness-110">
             <Save className="w-4 h-4" />
             Enregistrer
           </Button>
@@ -126,11 +126,11 @@ export const PractitionerProfile = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <Card className="border-0 shadow-sm bg-gradient-to-r from-gold/10 to-gold/5 border-l-4 border-l-gold">
+        <Card className="border-0 shadow-sm bg-gradient-to-r from-gradient-start/10 to-gradient-end/5 border-l-4 border-l-gradient-start">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-gold" />
+                <CheckCircle className="w-5 h-5 text-gradient-end" />
                 <div>
                   <p className="font-medium text-foreground">Profil complété à 85%</p>
                   <p className="text-sm text-muted-foreground">
@@ -138,7 +138,7 @@ export const PractitionerProfile = () => {
                   </p>
                 </div>
               </div>
-              <Badge className="bg-gold text-white">85%</Badge>
+              <Badge className="gradient-vibrant text-white">85%</Badge>
             </div>
           </CardContent>
         </Card>
@@ -182,7 +182,7 @@ export const PractitionerProfile = () => {
                 {/* Avatar Section */}
                 <div className="flex items-center gap-6">
                   <div className="relative">
-                    <Avatar className="w-24 h-24 border-4 border-gold/20">
+                    <Avatar className="w-24 h-24 border-4 border-gradient-start/20">
                       <AvatarImage src="" />
                       <AvatarFallback className="bg-primary/10 text-primary text-2xl">
                         DM
@@ -190,7 +190,7 @@ export const PractitionerProfile = () => {
                     </Avatar>
                     <Button
                       size="icon"
-                      className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-gold hover:bg-gold-light text-white"
+                      className="absolute bottom-0 right-0 w-8 h-8 rounded-full gradient-vibrant text-white hover:brightness-110"
                     >
                       <Camera className="w-4 h-4" />
                     </Button>
@@ -301,10 +301,10 @@ export const PractitionerProfile = () => {
           >
             <Card className="border-0 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Languages className="w-5 h-5 text-gold" />
-                  Langues parlées
-                </CardTitle>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Languages className="w-5 h-5 text-gradient-end" />
+                Langues parlées
+              </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap gap-2">
@@ -343,10 +343,10 @@ export const PractitionerProfile = () => {
 
             <Card className="border-0 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-gold" />
-                  Zones géographiques
-                </CardTitle>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-gradient-end" />
+                Zones géographiques
+              </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap gap-2">
@@ -354,12 +354,12 @@ export const PractitionerProfile = () => {
                     <Badge
                       key={region}
                       variant="secondary"
-                      className="bg-gold/10 text-gold gap-1 pr-1"
+                      className="bg-gradient-end/10 text-gradient-end gap-1 pr-1"
                     >
                       {region}
                       <button
                         onClick={() => removeRegion(region)}
-                        className="ml-1 hover:bg-gold/20 rounded-full p-0.5"
+                        className="ml-1 hover:bg-gradient-end/20 rounded-full p-0.5"
                       >
                         <X className="w-3 h-3" />
                       </button>
@@ -405,7 +405,7 @@ export const PractitionerProfile = () => {
                 {experiences.map((exp) => (
                   <div
                     key={exp.id}
-                    className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gold/30 transition-colors"
+                    className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gradient-start/30 transition-colors"
                   >
                     <div className="flex items-start justify-between">
                       <div>
@@ -441,7 +441,7 @@ export const PractitionerProfile = () => {
             <Card className="border-0 shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <File className="w-5 h-5 text-gold" />
+                  <File className="w-5 h-5 text-gradient-end" />
                   Documents soumis lors de l'inscription
                 </CardTitle>
               </CardHeader>
@@ -449,12 +449,12 @@ export const PractitionerProfile = () => {
                 {mockDocuments.map((doc) => (
                   <div
                     key={doc.id}
-                    className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gold/30 transition-colors"
+                    className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gradient-start/30 transition-colors"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                          <FileText className="w-5 h-5 text-primary" />
+                        <div className="w-10 h-10 rounded-lg bg-gradient-start/10 flex items-center justify-center">
+                          <FileText className="w-5 h-5 text-gradient-end" />
                         </div>
                         <div>
                           <h4 className="font-medium text-foreground">{doc.name}</h4>

@@ -49,7 +49,7 @@ export const AdminSettings = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Bell className="w-5 h-5 text-gold" />
+                <Bell className="w-5 h-5 text-gradient-end" />
                 Notifications
               </CardTitle>
               <CardDescription>
@@ -106,7 +106,7 @@ export const AdminSettings = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Globe className="w-5 h-5 text-gold" />
+                <Globe className="w-5 h-5 text-gradient-end" />
                 Paramètres de la plateforme
               </CardTitle>
               <CardDescription>
@@ -144,7 +144,7 @@ export const AdminSettings = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-gold" />
+                <Shield className="w-5 h-5 text-gradient-end" />
                 Sécurité & Modération
               </CardTitle>
               <CardDescription>
@@ -186,7 +186,7 @@ export const AdminSettings = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.4 }}
         >
-          <Button size="lg" onClick={handleSave} className="w-full md:w-auto">
+          <Button size="lg" onClick={handleSave} className="w-full md:w-auto gradient-vibrant-horizontal border-0 hover:brightness-110">
             <Save className="w-4 h-4 mr-2" />
             Enregistrer les modifications
           </Button>

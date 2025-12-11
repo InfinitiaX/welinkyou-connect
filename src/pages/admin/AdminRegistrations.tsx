@@ -147,14 +147,14 @@ export const AdminRegistrations = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <Card className="border-l-4 border-l-gold">
+          <Card className="border-l-4 border-l-gradient-start">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-bold text-primary">{pendingRequests.length}</p>
+                  <p className="text-2xl font-bold text-gradient-vibrant">{pendingRequests.length}</p>
                   <p className="text-sm text-muted-foreground">En attente</p>
                 </div>
-                <Clock className="w-8 h-8 text-gold" />
+                <Clock className="w-8 h-8 text-gradient-end" />
               </div>
             </CardContent>
           </Card>
@@ -210,7 +210,7 @@ export const AdminRegistrations = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <UserPlus className="w-5 h-5 text-gold" />
+              <UserPlus className="w-5 h-5 text-gradient-end" />
               Demandes en attente ({pendingRequests.length})
             </CardTitle>
           </CardHeader>
@@ -228,7 +228,7 @@ export const AdminRegistrations = () => {
                     className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold to-gold/70 flex items-center justify-center text-white font-bold text-lg">
+                      <div className="w-14 h-14 rounded-full gradient-vibrant flex items-center justify-center text-white font-bold text-lg">
                         {request.firstName[0]}{request.lastName[0]}
                       </div>
                       <div>
@@ -335,7 +335,7 @@ export const AdminRegistrations = () => {
           {selectedRequest && (
             <div className="space-y-6 py-4">
               <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-white font-bold text-xl">
+                <div className="w-16 h-16 rounded-full gradient-vibrant flex items-center justify-center text-white font-bold text-xl">
                   {selectedRequest.firstName[0]}{selectedRequest.lastName[0]}
                 </div>
                 <div>
@@ -380,8 +380,8 @@ export const AdminRegistrations = () => {
                       className="flex items-center justify-between p-4 bg-white border rounded-xl shadow-sm"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
-                          <FileText className="w-5 h-5 text-gold" />
+                        <div className="w-10 h-10 rounded-lg bg-gradient-start/10 flex items-center justify-center">
+                          <FileText className="w-5 h-5 text-gradient-end" />
                         </div>
                         <div>
                           <p className="font-medium text-primary">{doc.name}</p>

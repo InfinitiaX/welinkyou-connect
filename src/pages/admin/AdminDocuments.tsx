@@ -274,7 +274,7 @@ export const AdminDocuments = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-gold" />
+              <FileText className="w-5 h-5 text-gradient-end" />
               Liste des documents ({filteredDocuments.length})
             </CardTitle>
           </CardHeader>
@@ -292,8 +292,8 @@ export const AdminDocuments = () => {
                     className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center">
-                        <FileText className="w-6 h-6 text-gold" />
+                      <div className="w-12 h-12 rounded-lg bg-gradient-start/10 flex items-center justify-center">
+                        <FileText className="w-6 h-6 text-gradient-end" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-primary">{doc.name}</h3>
@@ -364,7 +364,7 @@ export const AdminDocuments = () => {
         <DialogContent className="max-w-5xl h-[85vh]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-gold" />
+              <FileText className="w-5 h-5 text-gradient-end" />
               {selectedDocument?.name}
             </DialogTitle>
             <DialogDescription>
