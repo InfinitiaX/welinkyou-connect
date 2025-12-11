@@ -22,7 +22,7 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
       whileHover={{ y: -4 }}
       className="group"
     >
-      <div className="card-premium p-6 h-full flex flex-col min-h-[380px]">
+      <div className="card-premium p-6 h-full flex flex-col min-h-[380px] transition-all duration-300 group-hover:shadow-[0_0_30px_-5px_hsl(280_85%_55%/0.3)] group-hover:border-gradient-start/30">
         {/* Header with photo and verified badge */}
         <div className="flex items-start gap-4 mb-4">
           <div className="relative flex-shrink-0">
@@ -108,9 +108,9 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button size="icon" className="gradient-primary border-0 btn-ripple">
-              <MessageCircle className="w-4 h-4" />
-            </Button>
+          <Button size="icon" className="gradient-vibrant-horizontal border-0 btn-ripple hover:brightness-110">
+            <MessageCircle className="w-4 h-4" />
+          </Button>
           </a>
         </div>
       </div>

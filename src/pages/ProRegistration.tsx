@@ -258,7 +258,7 @@ const ProRegistration = () => {
                   </Button>
                 </Link>
                 <Link to="/recherche">
-                  <Button className="h-12 px-6 rounded-xl gradient-primary border-0">
+                  <Button className="h-12 px-6 rounded-full gradient-vibrant-horizontal border-0 hover:brightness-110 transition-all">
                     Découvrir les professionnels
                   </Button>
                 </Link>
@@ -281,7 +281,7 @@ const ProRegistration = () => {
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-12"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full gradient-vibrant-soft text-white text-sm font-medium mb-4">
                 <Star className="w-4 h-4" />
                 Rejoignez notre réseau de professionnels vérifiés
               </div>
@@ -301,7 +301,7 @@ const ProRegistration = () => {
                 {/* Progress Line */}
                 <div className="absolute top-6 left-0 right-0 h-0.5 bg-border hidden md:block" />
                 <div
-                  className="absolute top-6 left-0 h-0.5 bg-primary transition-all duration-500 hidden md:block"
+                  className="absolute top-6 left-0 h-0.5 bg-gradient-to-r from-gradient-start via-gradient-mid to-gradient-end transition-all duration-500 hidden md:block"
                   style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
                 />
 
@@ -317,17 +317,17 @@ const ProRegistration = () => {
                         currentStep >= step.id ? "text-primary" : "text-muted-foreground"
                       )}
                     >
-                      <div
-                        className={cn(
-                          "relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer",
-                          currentStep > step.id
-                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
-                            : currentStep === step.id
-                            ? "bg-primary/10 border-2 border-primary"
-                            : "bg-card border-2 border-border"
-                        )}
-                        onClick={() => currentStep > step.id && setCurrentStep(step.id)}
-                      >
+                        <div
+                          className={cn(
+                            "relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer",
+                            currentStep > step.id
+                              ? "gradient-vibrant text-white shadow-lg shadow-gradient-start/30"
+                              : currentStep === step.id
+                              ? "bg-gradient-start/10 border-2 border-gradient-start"
+                              : "bg-card border-2 border-border"
+                          )}
+                          onClick={() => currentStep > step.id && setCurrentStep(step.id)}
+                        >
                         {currentStep > step.id ? (
                           <Check className="w-5 h-5" />
                         ) : (
@@ -353,9 +353,9 @@ const ProRegistration = () => {
                 className="bg-card rounded-2xl border border-border shadow-xl overflow-hidden"
               >
                 {/* Step Header */}
-                <div className="px-8 py-6 border-b border-border bg-gradient-to-r from-primary/5 to-transparent">
+                <div className="px-8 py-6 border-b border-border bg-gradient-to-r from-gradient-start/5 via-gradient-mid/5 to-transparent">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center text-primary-foreground">
+                    <div className="w-12 h-12 rounded-xl gradient-vibrant flex items-center justify-center text-white">
                       {steps[currentStep - 1] && (() => { const StepIcon = steps[currentStep - 1].icon; return <StepIcon className="w-6 h-6" />; })()}
                     </div>
                     <div>

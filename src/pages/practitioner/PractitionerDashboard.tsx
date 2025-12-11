@@ -97,7 +97,7 @@ export const PractitionerDashboard = () => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className="border-gold text-gold bg-gold/5">
+          <Badge variant="outline" className="border-gradient-start text-gradient-start bg-gradient-start/5">
             <Award className="w-3 h-3 mr-1" />
             Premium
           </Badge>
@@ -168,8 +168,8 @@ export const PractitionerDashboard = () => {
                   <AreaChart data={viewsData}>
                     <defs>
                       <linearGradient id="colorVues" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(var(--gold))" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="hsl(var(--gold))" stopOpacity={0} />
+                        <stop offset="5%" stopColor="hsl(280, 85%, 55%)" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(25, 95%, 55%)" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -195,7 +195,7 @@ export const PractitionerDashboard = () => {
                     <Area
                       type="monotone"
                       dataKey="vues"
-                      stroke="hsl(var(--gold))"
+                      stroke="hsl(280, 85%, 55%)"
                       strokeWidth={2}
                       fillOpacity={1}
                       fill="url(#colorVues)"
@@ -217,7 +217,7 @@ export const PractitionerDashboard = () => {
             <CardHeader className="pb-2">
               <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
                 Notifications
-                <Badge className="bg-gold text-white text-xs">3 nouvelles</Badge>
+                <Badge className="gradient-vibrant text-white text-xs">3 nouvelles</Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -225,7 +225,7 @@ export const PractitionerDashboard = () => {
                 <div
                   key={notif.id}
                   className={`p-3 rounded-xl transition-colors ${
-                    notif.read ? "bg-gray-50" : "bg-gold/5 border border-gold/20"
+                    notif.read ? "bg-gray-50" : "bg-gradient-start/5 border border-gradient-start/20"
                   }`}
                 >
                   <p className="text-sm text-foreground">{notif.message}</p>
@@ -247,7 +247,7 @@ export const PractitionerDashboard = () => {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-gold" />
+                <MessageSquare className="w-5 h-5 text-gradient-end" />
                 Dernières évaluations
               </CardTitle>
               <Badge variant="outline" className="text-muted-foreground">
@@ -302,7 +302,7 @@ export const PractitionerDashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <Card className="border-0 shadow-sm bg-gradient-to-br from-primary to-primary/90 text-white">
+        <Card className="border-0 shadow-sm gradient-vibrant text-white">
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row md:items-center gap-6">
               <div className="flex-1">
