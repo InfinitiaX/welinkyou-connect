@@ -70,9 +70,9 @@ const Login = () => {
           {/* Left side - Promotional content */}
           <div className="hidden lg:flex flex-col justify-between px-12 xl:px-20 py-16 relative overflow-hidden">
             {/* Background gradient with secondary color */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-gold/80" />
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gold/30 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary-dark/50 rounded-full blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0d0d18] via-[#0d0d18]/95 to-gradient-start/30" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-start/30 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-end/30 rounded-full blur-3xl" />
 
             <div className="relative z-10 max-w-lg">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
@@ -101,7 +101,7 @@ const Login = () => {
                 <Link to="/inscription-pro">
                   <Button
                     size="lg"
-                    className="bg-white text-primary hover:bg-white/90 gap-2 rounded-xl font-semibold shadow-lg"
+                    className="gradient-vibrant-horizontal text-white hover:brightness-110 gap-2 rounded-full font-semibold shadow-lg"
                   >
                     Rejoindre WeLinkYou
                     <ArrowRight className="w-4 h-4" />
@@ -132,7 +132,7 @@ const Login = () => {
                     className="absolute w-full"
                   >
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                      <p className="text-xs text-gold-light mb-1 font-medium">{news[currentNewsIndex].date}</p>
+                      <p className="text-xs text-gradient-end mb-1 font-medium">{news[currentNewsIndex].date}</p>
                       <h4 className="font-semibold text-white mb-1">{news[currentNewsIndex].title}</h4>
                       <p className="text-sm text-white/80">{news[currentNewsIndex].description}</p>
                     </div>
@@ -210,7 +210,7 @@ const Login = () => {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-primary border-0 rounded-xl text-white"
+                    className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-vibrant-horizontal border-0 rounded-full text-white"
                   >
                     Continuer
                   </Button>
@@ -235,7 +235,7 @@ const Login = () => {
                 <Link to="/inscription-pro">
                   <Button
                     variant="outline"
-                    className="w-full h-14 text-base font-semibold border-2 border-gold text-gold hover:bg-gold hover:text-white rounded-xl transition-all duration-300"
+                    className="w-full h-14 text-base font-semibold border-2 border-gradient-start text-gradient-start hover:gradient-vibrant hover:text-white hover:border-transparent rounded-full transition-all duration-300"
                   >
                     Créer un compte professionnel
                   </Button>

@@ -39,20 +39,21 @@ const About = () => {
                 backgroundImage: `url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80')`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-accent/70" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0d0d18]/95 via-[#0d0d18]/90 to-[#0d0d18]/85" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gradient-start/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-gradient-end/15 via-transparent to-transparent" />
           </div>
 
           {/* Floating elements */}
           <motion.div
             animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gold/20 blur-xl"
+            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gradient-start/20 blur-xl"
           />
           <motion.div
             animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-accent/20 blur-xl"
+            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-gradient-end/20 blur-xl"
           />
 
           <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-28 pb-20">
@@ -75,12 +76,12 @@ const About = () => {
               >
                 Connecter les professionnels,{" "}
                 <span className="relative">
-                  <span className="relative z-10 text-gold">simplifier la confiance</span>
+                  <span className="relative z-10 text-gradient-vibrant">simplifier la confiance</span>
                   <motion.span
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ delay: 0.8, duration: 0.6 }}
-                    className="absolute bottom-2 left-0 h-3 bg-gold/30 -z-0"
+                    className="absolute bottom-2 left-0 h-3 bg-gradient-start/30 -z-0"
                   />
                 </span>
               </motion.h1>
@@ -110,7 +111,7 @@ const About = () => {
                     transition={{ delay: 1 + index * 0.1 }}
                     className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20"
                   >
-                    <value.icon className="w-4 h-4 text-gold" />
+                    <value.icon className="w-4 h-4 text-gradient-end" />
                     <span className="text-white/90 text-sm font-medium">{value.text}</span>
                   </motion.div>
                 ))}
@@ -146,7 +147,7 @@ const About = () => {
                 </div>
 
                 <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-8 leading-tight">
-                  Un accès simplifié aux <span className="text-gradient-primary">professionnels de confiance</span>
+                  Un accès simplifié aux <span className="text-gradient-vibrant">professionnels de confiance</span>
                 </h2>
 
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
@@ -242,7 +243,7 @@ const About = () => {
                 </div>
 
                 <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-6">
-                  Une solution digitale <span className="text-gradient-gold">simple et fiable</span>
+                  Une solution digitale <span className="text-gradient-vibrant">simple et fiable</span>
                 </h2>
 
                 <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -258,21 +259,21 @@ const About = () => {
                     title: "Centraliser",
                     description:
                       "Nous rassemblons et centralisons des compétences déjà nombreuses mais souvent dispersées, pour les rendre accessibles à tous.",
-                    gradient: "from-primary to-primary-light",
+                    gradient: "from-gradient-start to-gradient-mid",
                   },
                   {
                     icon: Heart,
                     title: "Structurer",
                     description:
                       "Un cadre structuré, transparent et fondé sur la confiance pour faciliter les mises en relation de qualité.",
-                    gradient: "from-gold to-gold-light",
+                    gradient: "from-gradient-mid to-gradient-end",
                   },
                   {
                     icon: Sparkles,
                     title: "Rayonner",
                     description:
                       "Les utilisateurs gagnent en clarté et sérénité, tandis que les professionnels renforcent leur visibilité et leur rayonnement.",
-                    gradient: "from-primary-light to-accent",
+                    gradient: "from-gradient-end to-gradient-start",
                   },
                 ].map((item, index) => (
                   <motion.div
@@ -346,7 +347,7 @@ const About = () => {
                 </div>
 
                 <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-8 leading-tight">
-                  Une rencontre, <span className="text-gradient-primary">une vision commune</span>
+                  Une rencontre, <span className="text-gradient-vibrant">une vision commune</span>
                 </h2>
 
                 <div className="space-y-6 text-muted-foreground leading-relaxed">

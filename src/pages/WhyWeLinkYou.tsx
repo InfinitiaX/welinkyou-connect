@@ -37,21 +37,21 @@ const features = [
     title: "Profil vérifié",
     description: "Chaque professionnel référencé sur WeLinkYou a fait l'objet d'une vérification administrative rigoureuse (identité, diplômes, statut d'activité…).",
     detail: "Cette vérification garantit la transparence et renforce la confiance entre utilisateurs et professionnels.",
-    gradient: "from-primary to-primary-light",
+    gradient: "from-gradient-start to-gradient-mid",
   },
   {
     icon: Heart,
     title: "Proximité & compréhension",
     description: "Nos professionnels comprennent vos besoins et les particularités de votre contexte (culture, langue, pratiques professionnelles).",
     detail: "Une relation basée sur la confiance et la compréhension mutuelle.",
-    gradient: "from-accent to-gold",
+    gradient: "from-gradient-mid to-gradient-end",
   },
   {
     icon: Sparkles,
     title: "Une plateforme simple et utile",
     description: "Pas besoin de créer un compte pour consulter — WeLinkYou vous permet d'accéder librement à un annuaire de professionnels fiables, mis à jour régulièrement.",
     detail: "Pas de frais d'intermédiations.",
-    gradient: "from-gold to-primary-light",
+    gradient: "from-gradient-end to-gradient-start",
   },
 ];
 
@@ -78,20 +78,21 @@ const WhyWeLinkYou = () => {
                 backgroundImage: `url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80')`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-accent/70" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0d0d18]/95 via-[#0d0d18]/90 to-[#0d0d18]/85" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gradient-start/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-gradient-end/15 via-transparent to-transparent" />
           </div>
 
           {/* Floating elements */}
           <motion.div
             animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gold/20 blur-xl"
+            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gradient-start/20 blur-xl"
           />
           <motion.div
             animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-accent/20 blur-xl"
+            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-gradient-end/20 blur-xl"
           />
 
           <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-24">
@@ -114,12 +115,12 @@ const WhyWeLinkYou = () => {
               >
                 Pourquoi{" "}
                 <span className="relative">
-                  <span className="relative z-10 text-gold">WeLinkYou</span>
+                  <span className="relative z-10 text-gradient-vibrant">WeLinkYou</span>
                   <motion.span
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ delay: 0.8, duration: 0.6 }}
-                    className="absolute bottom-2 left-0 h-3 bg-gold/30 -z-0"
+                    className="absolute bottom-2 left-0 h-3 bg-gradient-start/30 -z-0"
                   />
                 </span>
                 {" "}?
@@ -148,7 +149,7 @@ const WhyWeLinkYou = () => {
                     transition={{ delay: 1 + index * 0.1 }}
                     className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20"
                   >
-                    <value.icon className="w-4 h-4 text-gold" />
+                    <value.icon className="w-4 h-4 text-gradient-end" />
                     <span className="text-white/90 text-sm font-medium">{value.text}</span>
                   </motion.div>
                 ))}
@@ -281,11 +282,11 @@ const WhyWeLinkYou = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8 }}
                 >
-                  <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+                  <span className="inline-block px-4 py-1.5 rounded-full gradient-vibrant-soft text-white text-sm font-medium mb-6">
                     Notre approche
                   </span>
                   <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6">
-                    Une vérification <span className="text-gradient-primary">rigoureuse</span>
+                    Une vérification <span className="text-gradient-vibrant">rigoureuse</span>
                   </h2>
                   <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                     Nous nous assurons que chaque professionnel répond à des critères stricts 
@@ -307,8 +308,8 @@ const WhyWeLinkYou = () => {
                         transition={{ delay: index * 0.1 }}
                         className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50"
                       >
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <CheckCircle className="w-5 h-5 text-primary" />
+                        <div className="w-8 h-8 rounded-full gradient-vibrant flex items-center justify-center flex-shrink-0">
+                          <CheckCircle className="w-5 h-5 text-white" />
                         </div>
                         <span className="text-foreground font-medium">{item}</span>
                       </motion.div>
@@ -343,7 +344,7 @@ const WhyWeLinkYou = () => {
                 <Link to="/recherche">
                   <Button
                     size="lg"
-                    className="btn-ripple gradient-primary border-0 gap-2 text-base px-8"
+                    className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-8 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg"
                   >
                     Parcourir l'annuaire
                     <ArrowRight className="w-5 h-5" />
