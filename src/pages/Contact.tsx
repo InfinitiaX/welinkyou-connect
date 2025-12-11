@@ -77,20 +77,21 @@ const Contact = () => {
                 backgroundImage: `url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80')`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-accent/70" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0d0d18]/95 via-[#0d0d18]/90 to-[#0d0d18]/85" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gradient-start/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-gradient-end/15 via-transparent to-transparent" />
           </div>
 
           {/* Floating elements */}
           <motion.div
             animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gold/20 blur-xl"
+            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gradient-start/20 blur-xl"
           />
           <motion.div
             animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-accent/20 blur-xl"
+            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-gradient-end/20 blur-xl"
           />
 
           <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-28 pb-16">
@@ -113,12 +114,12 @@ const Contact = () => {
               >
                 Nous sommes là pour{" "}
                 <span className="relative">
-                  <span className="relative z-10 text-gold">vous aider</span>
+                  <span className="relative z-10 text-gradient-vibrant">vous aider</span>
                   <motion.span
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ delay: 0.8, duration: 0.6 }}
-                    className="absolute bottom-2 left-0 h-3 bg-gold/30 -z-0"
+                    className="absolute bottom-2 left-0 h-3 bg-gradient-start/30 -z-0"
                   />
                 </span>
               </motion.h1>
@@ -165,7 +166,7 @@ const Contact = () => {
                     transition={{ delay: 0.1 }}
                     className="flex items-start gap-4 p-4 rounded-2xl bg-card border border-border/50"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl gradient-vibrant flex items-center justify-center flex-shrink-0">
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -186,7 +187,7 @@ const Contact = () => {
                     transition={{ delay: 0.2 }}
                     className="flex items-start gap-4 p-4 rounded-2xl bg-card border border-border/50"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold to-gold-light flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gradient-mid to-gradient-end flex items-center justify-center flex-shrink-0">
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -202,7 +203,7 @@ const Contact = () => {
                     transition={{ delay: 0.3 }}
                     className="flex items-start gap-4 p-4 rounded-2xl bg-card border border-border/50"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gradient-end to-gradient-start flex items-center justify-center flex-shrink-0">
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -289,7 +290,7 @@ const Contact = () => {
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full btn-ripple gradient-primary border-0 gap-2"
+                        className="w-full btn-ripple gradient-vibrant-horizontal border-0 gap-2 rounded-full"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (

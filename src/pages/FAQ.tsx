@@ -112,20 +112,21 @@ const FAQ = () => {
                 backgroundImage: `url('https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=1920&q=80')`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-accent/70" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0d0d18]/95 via-[#0d0d18]/90 to-[#0d0d18]/85" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gradient-start/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-gradient-end/15 via-transparent to-transparent" />
           </div>
 
           {/* Floating elements */}
           <motion.div
             animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gold/20 blur-xl"
+            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gradient-start/20 blur-xl"
           />
           <motion.div
             animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-accent/20 blur-xl"
+            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-gradient-end/20 blur-xl"
           />
 
           <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-28 pb-16">
@@ -148,12 +149,12 @@ const FAQ = () => {
               >
                 Questions{" "}
                 <span className="relative">
-                  <span className="relative z-10 text-gold">fréquentes</span>
+                  <span className="relative z-10 text-gradient-vibrant">fréquentes</span>
                   <motion.span
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ delay: 0.8, duration: 0.6 }}
-                    className="absolute bottom-2 left-0 h-3 bg-gold/30 -z-0"
+                    className="absolute bottom-2 left-0 h-3 bg-gradient-start/30 -z-0"
                   />
                 </span>
               </motion.h1>
@@ -290,7 +291,7 @@ const FAQ = () => {
               </p>
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full gradient-vibrant-horizontal text-white font-medium hover:brightness-110 transition-all shadow-lg"
               >
                 Nous contacter
               </a>

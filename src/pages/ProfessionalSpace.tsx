@@ -49,28 +49,28 @@ const benefits = [
     title: "Gagnez en visibilité auprès d'une audience ciblée",
     description: "Votre profil est mis en avant auprès d'une audience ciblée, engagée et en recherche active de votre type d'expertise.",
     highlight: "Résultat : plus de demandes pertinentes, plus de clients qualifiés.",
-    gradient: "from-primary to-primary-light",
+    gradient: "from-gradient-start to-gradient-mid",
   },
   {
     icon: BadgeCheck,
     title: "Valorisez votre profil avec le badge \"Profil vérifié\"",
     description: "Un signe distinctif qui valorise votre engagement et votre professionnalisme.",
     highlight: "Il rassure immédiatement les utilisateurs et augmente votre taux de contact.",
-    gradient: "from-gold to-gold-light",
+    gradient: "from-gradient-mid to-gradient-end",
   },
   {
     icon: Users,
     title: "Intégrez un réseau de confiance",
     description: "Une communauté de professionnels authentifiés, reconnue pour sa transparence et son sérieux.",
     highlight: "Un environnement sécurisant qui renforce votre image et attire des clients confiants.",
-    gradient: "from-accent to-primary",
+    gradient: "from-gradient-end to-gradient-start",
   },
   {
     icon: MessageCircle,
     title: "Recevez des contacts directs, sans intermédiaire",
     description: "Zéro commission. Zéro plateforme entre vous et vos clients.",
     highlight: "100% de votre activité, 100% de vos revenus.",
-    gradient: "from-primary-light to-accent",
+    gradient: "from-gradient-start to-gradient-end",
   },
 ];
 
@@ -120,20 +120,21 @@ const ProfessionalSpace = () => {
                 backgroundImage: `url('https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1920&q=80')`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-accent/70" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0d0d18]/95 via-[#0d0d18]/90 to-[#0d0d18]/85" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gradient-start/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-gradient-end/15 via-transparent to-transparent" />
           </div>
 
           {/* Floating elements */}
           <motion.div
             animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gold/20 blur-xl"
+            className="absolute top-1/4 left-[10%] w-20 h-20 rounded-full bg-gradient-start/20 blur-xl"
           />
           <motion.div
             animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-accent/20 blur-xl"
+            className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-gradient-end/20 blur-xl"
           />
 
           <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-24">
@@ -156,12 +157,12 @@ const ProfessionalSpace = () => {
               >
                 Vous êtes{" "}
                 <span className="relative">
-                  <span className="relative z-10 text-gold">professionnel</span>
+                  <span className="relative z-10 text-gradient-vibrant">professionnel</span>
                   <motion.span
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ delay: 0.8, duration: 0.6 }}
-                    className="absolute bottom-2 left-0 h-3 bg-gold/30 -z-0"
+                    className="absolute bottom-2 left-0 h-3 bg-gradient-start/30 -z-0"
                   />
                 </span>
                 {" "}?
@@ -180,7 +181,7 @@ const ProfessionalSpace = () => {
                 <Link to="/inscription-pro">
                   <Button
                     size="lg"
-                    className="bg-gold hover:bg-gold-light text-primary-foreground gap-2 text-base px-8 shadow-lg"
+                    className="gradient-vibrant-horizontal text-white gap-2 text-base px-8 shadow-lg rounded-full hover:brightness-110 hover:scale-[1.02] transition-all"
                   >
                     Rejoindre WeLinkYou
                     <ArrowRight className="w-5 h-5" />
@@ -260,7 +261,7 @@ const ProfessionalSpace = () => {
                       </span>
                       <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
                         Pourquoi rejoindre{" "}
-                        <span className="text-gradient-primary">WeLinkYou</span> ?
+                        <span className="text-gradient-vibrant">WeLinkYou</span> ?
                       </h2>
                     </motion.div>
 
@@ -315,7 +316,7 @@ const ProfessionalSpace = () => {
                     className="max-w-4xl mx-auto"
                   >
                     <motion.div variants={fadeInUp} className="text-center mb-16">
-                      <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-medium mb-4">
+                      <span className="inline-block px-4 py-1.5 rounded-full gradient-vibrant-soft text-white text-sm font-medium mb-4">
                         Simple et rapide
                       </span>
                       <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
@@ -325,7 +326,7 @@ const ProfessionalSpace = () => {
 
                     <div className="relative">
                       {/* Connection line */}
-                      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-gold to-accent hidden md:block" />
+                      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gradient-start via-gradient-mid to-gradient-end hidden md:block" />
 
                       <div className="space-y-8">
                         {steps.map((step, index) => (
@@ -339,7 +340,7 @@ const ProfessionalSpace = () => {
                                 <p className="text-foreground font-medium">{step.text}</p>
                               </div>
                             </div>
-                            <div className="relative z-10 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg flex-shrink-0">
+                            <div className="relative z-10 w-14 h-14 rounded-full gradient-vibrant flex items-center justify-center shadow-lg flex-shrink-0">
                               <step.icon className="w-6 h-6 text-white" />
                             </div>
                             <div className="flex-1 hidden md:block" />
@@ -372,7 +373,7 @@ const ProfessionalSpace = () => {
                     <Link to="/inscription-pro">
                       <Button
                         size="lg"
-                        className="btn-ripple gradient-primary border-0 gap-2 text-base px-8"
+                        className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-8 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg"
                       >
                         Créer mon profil professionnel
                         <ArrowRight className="w-5 h-5" />
