@@ -15,7 +15,13 @@ import {
   File,
   Download,
   ExternalLink,
+  Shield,
+  Star,
+  Mail,
+  Phone,
+  Globe,
 } from "lucide-react";
+import { categories, countries, cities } from "@/data/categories";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -44,7 +50,20 @@ const specialties = [
   "Architecte",
 ];
 
-const languages = ["Français", "Arabe", "Anglais", "Espagnol", "Berbère"];
+const availableLanguages = [
+  { id: "fr", name: "Français", flag: "🇫🇷" },
+  { id: "ar", name: "Arabe", flag: "🇲🇦" },
+  { id: "en", name: "Anglais", flag: "🇬🇧" },
+  { id: "es", name: "Espagnol", flag: "🇪🇸" },
+  { id: "ber", name: "Berbère", flag: "🪔" },
+];
+
+const experienceOptions = [
+  { value: "1-3", label: "1-3 ans" },
+  { value: "4-7", label: "4-7 ans" },
+  { value: "8-12", label: "8-12 ans" },
+  { value: "12+", label: "Plus de 12 ans" },
+];
 
 const regions = [
   "Paris",
@@ -67,32 +86,69 @@ const mockDocuments = [
 ];
 
 export const PractitionerProfile = () => {
-  const [selectedLanguages, setSelectedLanguages] = useState<string[]>(["Français", "Arabe"]);
-  const [selectedRegions, setSelectedRegions] = useState<string[]>(["Paris", "Casablanca"]);
   const [experiences, setExperiences] = useState([
     { id: 1, title: "Médecin généraliste", company: "Cabinet Martin", period: "2018 - Présent" },
     { id: 2, title: "Interne", company: "Hôpital Saint-Louis", period: "2015 - 2018" },
   ]);
 
-  const addLanguage = (lang: string) => {
-    if (!selectedLanguages.includes(lang)) {
-      setSelectedLanguages([...selectedLanguages, lang]);
+  const [formData, setFormData] = useState({
+    // Personal
+    firstName: "Jean",
+    lastName: "Martin",
+    email: "dr.martin@example.com",
+    phone: "+33 6 12 34 56 78",
+    whatsapp: "",
+    country: "",
+    city: "",
+    // Professional
+    professionType: "",
+    category: "",
+    subcategory: "",
+    specialties: [] as string[],
+    experienceRange: "",
+    languages: [] as string[],
+    description: "Médecin généraliste avec plus de 10 ans d'expérience, spécialisé dans l'accompagnement des patients franco-marocains...",
+    professionalLink: "",
+    photoPreview: "",
+    documents: {} as Record<string, { name: string; status: string; date?: string }>,
+  });
+
+  const [newSpecialty, setNewSpecialty] = useState("");
+
+  const addSpecialty = () => {
+    if (newSpecialty.trim() && !formData.specialties.includes(newSpecialty.trim())) {
+      setFormData({ ...formData, specialties: [...formData.specialties, newSpecialty.trim()] });
+      setNewSpecialty("");
     }
   };
 
-  const removeLanguage = (lang: string) => {
-    setSelectedLanguages(selectedLanguages.filter((l) => l !== lang));
+  const removeSpecialty = (s: string) => {
+    setFormData({ ...formData, specialties: formData.specialties.filter((sp) => sp !== s) });
+  };
+
+  const addLanguage = (langId: string) => {
+    if (!formData.languages.includes(langId)) {
+      setFormData({ ...formData, languages: [...formData.languages, langId] });
+    }
+  };
+
+  const removeLanguage = (langId: string) => {
+    setFormData({ ...formData, languages: formData.languages.filter((l) => l !== langId) });
   };
 
   const addRegion = (region: string) => {
-    if (!selectedRegions.includes(region)) {
-      setSelectedRegions([...selectedRegions, region]);
-    }
+    if (!formData.city) setFormData({ ...formData });
   };
 
   const removeRegion = (region: string) => {
-    setSelectedRegions(selectedRegions.filter((r) => r !== region));
+    // placeholder — regions are managed via selects
   };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const availableCities = formData.country && Array.isArray(cities[formData.country]) ? cities[formData.country] : [];
 
   return (
     <div className="space-y-8">
@@ -207,33 +263,58 @@ export const PractitionerProfile = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">Prénom</Label>
-                    <Input id="firstName" defaultValue="Jean" />
+                    <Input id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Nom</Label>
-                    <Input id="lastName" defaultValue="Martin" />
+                    <Input id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email professionnel</Label>
-                    <Input id="email" type="email" defaultValue="dr.martin@example.com" />
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Téléphone</Label>
-                    <Input id="phone" defaultValue="+33 6 12 34 56 78" />
+                    <Input id="phone" name="phone" value={formData.phone} onChange={handleInputChange} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="whatsapp">WhatsApp</Label>
+                    <Input id="whatsapp" name="whatsapp" value={formData.whatsapp} onChange={handleInputChange} placeholder="+212 6 12 34 56 78" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="country">Pays</Label>
+                    <select id="country" name="country" value={formData.country} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground">
+                      <option value="">Sélectionnez un pays</option>
+                      {countries.map((c) => (
+                        <option key={c.id} value={c.id}>{c.flag} {c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="city">Ville</Label>
+                    <select id="city" name="city" value={formData.city} onChange={handleInputChange} disabled={!formData.country} className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground disabled:opacity-50">
+                      <option value="">Sélectionnez une ville</option>
+                      {availableCities.map((c:any) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="professionalLink">Lien professionnel</Label>
+                    <Input id="professionalLink" name="professionalLink" value={formData.professionalLink} onChange={handleInputChange} placeholder="https://..." />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="bio">Biographie</Label>
-                  <Textarea
-                    id="bio"
-                    rows={4}
-                    defaultValue="Médecin généraliste avec plus de 10 ans d'expérience, spécialisé dans l'accompagnement des patients franco-marocains..."
-                    className="resize-none"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Cette description apparaîtra sur votre profil public
-                  </p>
+                  <Label htmlFor="description">Biographie</Label>
+                  <Textarea id="description" name="description" rows={4} value={formData.description} onChange={handleInputChange} className="resize-none" />
+                  <p className="text-xs text-muted-foreground">Cette description apparaîtra sur votre profil public</p>
                 </div>
 
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
@@ -262,29 +343,56 @@ export const PractitionerProfile = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label>Spécialité principale</Label>
-                  <Select defaultValue="Médecine générale">
-                    <SelectTrigger>
-                      <SelectValue placeholder="Sélectionnez votre spécialité" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {specialties.map((specialty) => (
-                        <SelectItem key={specialty} value={specialty}>
-                          {specialty}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="category">Domaine d'expertise</Label>
+                  <select id="category" name="category" value={formData.category} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground">
+                    <option value="">Sélectionnez un domaine</option>
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="diplomas">Diplômes et certifications</Label>
-                  <Textarea
-                    id="diplomas"
-                    rows={3}
-                    defaultValue="Doctorat en médecine - Université Paris Descartes (2015)&#10;DU Médecine tropicale - Université de Bordeaux (2017)"
-                    className="resize-none"
-                  />
+                  <Label htmlFor="subcategory">Spécialité principale</Label>
+                  <select id="subcategory" name="subcategory" value={formData.subcategory} onChange={handleInputChange} disabled={!formData.category} className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground disabled:opacity-50">
+                    <option value="">Sélectionnez une spécialité</option>
+                    {categories.find((c) => c.id === formData.category)?.subcategories?.map((s:any) => (
+                      <option key={s.id} value={s.id}>{s.name}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="flex items-center gap-2">
+                    <Star className="w-4 h-4 text-primary" />
+                    Spécialités additionnelles
+                  </Label>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {formData.specialties.map((specialty) => (
+                      <Badge key={specialty} variant="outline" className="px-3 py-1.5 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20 cursor-pointer" onClick={() => removeSpecialty(specialty)}>
+                        {specialty}
+                        <X className="w-3 h-3 ml-2" />
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <Input value={newSpecialty} onChange={(e) => setNewSpecialty(e.target.value)} placeholder="Ex: Droit des sociétés" className="h-12 rounded-xl" onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addSpecialty())} />
+                    <Button type="button" variant="outline" onClick={addSpecialty} className="h-12 px-4 rounded-xl"><Plus className="w-4 h-4" /></Button>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="flex items-center gap-2">
+                    <Shield className="w-4 h-4 text-primary" />
+                    Années d'expérience
+                  </Label>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {experienceOptions.map((option) => (
+                      <button key={option.value} type="button" onClick={() => setFormData({ ...formData, experienceRange: option.value })} className={formData.experienceRange === option.value ? 'p-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-medium' : 'p-4 rounded-xl border-2 border-border hover:border-primary/50'}>
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
               </CardContent>
@@ -308,32 +416,28 @@ export const PractitionerProfile = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap gap-2">
-                  {selectedLanguages.map((lang) => (
-                    <Badge
-                      key={lang}
-                      variant="secondary"
-                      className="bg-primary/10 text-primary gap-1 pr-1"
-                    >
-                      {lang}
-                      <button
-                        onClick={() => removeLanguage(lang)}
-                        className="ml-1 hover:bg-primary/20 rounded-full p-0.5"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </Badge>
-                  ))}
+                  {formData.languages.map((langId) => {
+                    const lang = availableLanguages.find((l) => l.id === langId);
+                    return (
+                      <Badge key={langId} variant="secondary" className="bg-primary/10 text-primary gap-1 pr-1">
+                        {lang?.flag} {lang?.name}
+                        <button onClick={() => removeLanguage(langId)} className="ml-1 hover:bg-primary/20 rounded-full p-0.5">
+                          <X className="w-3 h-3" />
+                        </button>
+                      </Badge>
+                    );
+                  })}
                 </div>
-                <Select onValueChange={addLanguage}>
+                <Select onValueChange={(val) => addLanguage(val)}>
                   <SelectTrigger className="w-full md:w-64">
                     <SelectValue placeholder="Ajouter une langue" />
                   </SelectTrigger>
                   <SelectContent>
-                    {languages
-                      .filter((l) => !selectedLanguages.includes(l))
+                    {availableLanguages
+                      .filter((l) => !formData.languages.includes(l.id))
                       .map((lang) => (
-                        <SelectItem key={lang} value={lang}>
-                          {lang}
+                        <SelectItem key={lang.id} value={lang.id}>
+                          {lang.flag} {lang.name}
                         </SelectItem>
                       ))}
                   </SelectContent>
@@ -350,36 +454,21 @@ export const PractitionerProfile = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap gap-2">
-                  {selectedRegions.map((region) => (
-                    <Badge
-                      key={region}
-                      variant="secondary"
-                      className="bg-gradient-end/10 text-gradient-end gap-1 pr-1"
-                    >
-                      {region}
-                      <button
-                        onClick={() => removeRegion(region)}
-                        className="ml-1 hover:bg-gradient-end/20 rounded-full p-0.5"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
+                  {formData.country ? (
+                    <Badge variant="secondary" className="bg-gradient-end/10 text-gradient-end gap-1 pr-1">
+                      {countries.find(c => c.id === formData.country)?.flag} {countries.find(c => c.id === formData.country)?.name}
                     </Badge>
-                  ))}
+                  ) : (
+                    <p className="text-sm text-muted-foreground">Aucun pays sélectionné</p>
+                  )}
+                  {formData.city ? (
+                    <Badge variant="secondary" className="bg-gradient-end/10 text-gradient-end gap-1 pr-1">
+                      {cities[formData.country]?.find((c:any) => c.id === formData.city)?.name}
+                    </Badge>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">Aucune ville sélectionnée</p>
+                  )}
                 </div>
-                <Select onValueChange={addRegion}>
-                  <SelectTrigger className="w-full md:w-64">
-                    <SelectValue placeholder="Ajouter une zone" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {regions
-                      .filter((r) => !selectedRegions.includes(r))
-                      .map((region) => (
-                        <SelectItem key={region} value={region}>
-                          {region}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
               </CardContent>
             </Card>
           </motion.div>
@@ -446,6 +535,29 @@ export const PractitionerProfile = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
+                {Object.entries(formData.documents).length > 0 && Object.entries(formData.documents).map(([key, d]) => (
+                  <div key={key} className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gradient-start/30 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-start/10 flex items-center justify-center">
+                          <FileText className="w-5 h-5 text-gradient-end" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-foreground">{d.name}</h4>
+                          <p className="text-xs text-muted-foreground">Soumis</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Badge variant="secondary" className={d.status === "validated" ? "bg-green-100 text-green-700" : d.status === "pending" ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}>
+                          {d.status === "validated" ? "Validé" : d.status === "pending" ? "En attente" : "Rejeté"}
+                        </Badge>
+                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary"><Download className="w-4 h-4" /></Button>
+                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary"><ExternalLink className="w-4 h-4" /></Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
                 {mockDocuments.map((doc) => (
                   <div
                     key={doc.id}

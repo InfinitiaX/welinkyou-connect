@@ -97,10 +97,7 @@ export const PractitionerDashboard = () => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className="border-gradient-start text-gradient-start bg-gradient-start/5">
-            <Award className="w-3 h-3 mr-1" />
-            Premium
-          </Badge>
+          
           <Badge variant="outline" className="border-green-500 text-green-600 bg-green-50">
             Profil vérifié
           </Badge>

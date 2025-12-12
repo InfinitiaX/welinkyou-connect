@@ -203,7 +203,7 @@ export const AdminDashboard = () => {
                 <Star className="w-5 h-5 text-gradient-end" />
                 Top praticiens (vues)
               </CardTitle>
-            <Button variant="outline" onClick={() => navigate('/admin/praticiens')}>
+            <Button variant="outline" onClick={() => navigate('/dashboard/superadmin/praticiens')}>
               Voir tous
             </Button>
           </CardHeader>

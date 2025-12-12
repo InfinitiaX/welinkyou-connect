@@ -57,7 +57,7 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
       <div className="p-4 border-b border-white/5">
         <div className="flex flex-col items-center gap-2">
           <Link to="/">
-            <img src={logo} alt="WeLinkYou" className="h-20 w-auto cursor-pointer hover:opacity-80 transition-opacity" />
+            <img src={logo} alt="WeLinkYou" className="h-10 w-5px cursor-pointer hover:opacity-80 transition-opacity" />
           </Link>
           <AnimatePresence mode="wait">
             {!collapsed && (

@@ -16,7 +16,7 @@ const footerLinks = {
   contact: [
     { label: "FAQ", href: "/faq" },
     { label: "Nous contacter", href: "/contact" },
-    { label: "Presse", href: "/presse" },
+    { label: "BLog", href: "/blog" },
   ],
 };
 

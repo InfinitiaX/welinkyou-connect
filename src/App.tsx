@@ -17,6 +17,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
 import NotFound from "./pages/NotFound";
+import { MentionsLegales } from "./pages/MentionsLegales";
+import { CGU } from "./pages/CGU";
+import { PolitiqueConfidentialite } from "./pages/PolitiqueConfidentialite";
 import { PractitionerLayout } from "./components/practitioner/PractitionerLayout";
 import { PractitionerDashboard } from "./pages/practitioner/PractitionerDashboard";
 import { PractitionerProfile } from "./pages/practitioner/PractitionerProfile";
@@ -51,6 +54,9 @@ const App = () => (
           <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogDetail />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/cgu" element={<CGU />} />
+          <Route path="/confidentialite" element={<PolitiqueConfidentialite />} />
 
           {/* Practitioner Dashboard Routes */}
           <Route path="/praticien" element={<PractitionerLayout />}>
