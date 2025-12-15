@@ -376,7 +376,7 @@ const ProRegistration = () => {
                       {/* Photo Upload - Centered */}
                       <div className="flex flex-col items-center mb-8">
                         <div className="relative group">
-                          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary/20 to-gold/20 p-1">
+                          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary/20 to-emerald/20 p-1">
                             <div className="w-full h-full rounded-full bg-card overflow-hidden">
                               {formData.photoPreview ? (
                                 <img
@@ -562,7 +562,7 @@ const ProRegistration = () => {
                               "w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0",
                               formData.professionType === "regulated"
                                 ? "border-primary bg-primary"
-                                : "border-gold"
+                                : "border-emerald"
                             )}>
                               {formData.professionType === "regulated" && (
                                 <Check className="w-3 h-3 text-primary-foreground" />
@@ -590,7 +590,7 @@ const ProRegistration = () => {
                               "w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0",
                               formData.professionType === "non-regulated"
                                 ? "border-primary bg-primary"
-                                : "border-gold"
+                                : "border-emerald"
                             )}>
                               {formData.professionType === "non-regulated" && (
                                 <Check className="w-3 h-3 text-primary-foreground" />
@@ -933,7 +933,7 @@ const ProRegistration = () => {
                               : "border-border hover:border-primary/50"
                           )}
                         >
-                          <span className="absolute -top-0.5 -right-0.5 px-4 py-1.5 gradient-gold text-gold-foreground text-xs font-bold rounded-bl-xl rounded-tr-xl">
+                          <span className="absolute -top-0.5 -right-0.5 px-4 py-1.5 gradient-vibrant text-white text-xs font-bold rounded-bl-xl rounded-tr-xl">
                             ÉCONOMISEZ 63%
                           </span>
                           <p className="text-muted-foreground mb-2 font-medium">Annuel</p>
@@ -1040,7 +1040,7 @@ const ProRegistration = () => {
                               </div>
 
                               <div className="flex items-center gap-1.5">
-                                <Star className="w-5 h-5 fill-gold text-gold" />
+                                <Star className="w-5 h-5 fill-emerald text-emerald" />
                                 <span className="font-semibold text-foreground text-lg">4.9</span>
                                 <span className="text-muted-foreground">(0 avis)</span>
                               </div>

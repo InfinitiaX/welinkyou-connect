@@ -175,7 +175,7 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-gold/5 border border-primary/10"
+                  className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-emerald/5 border border-primary/10"
                 >
                   <p className="text-foreground font-medium italic">
                     "Notre vision est de simplifier l'accès à ces professionnels de confiance et de les rendre plus
@@ -199,7 +199,7 @@ const About = () => {
                     className="rounded-3xl shadow-2xl w-full object-cover aspect-[4/5]"
                   />
                   <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl -z-10" />
-                  <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-gold/30 to-gold/10 rounded-full -z-10" />
+                  <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-emerald/30 to-emerald/10 rounded-full -z-10" />
 
                   {/* Floating card */}
                   <motion.div
@@ -237,8 +237,8 @@ const About = () => {
                 viewport={{ once: true }}
                 className="text-center mb-16"
               >
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 text-gold-foreground text-sm font-medium mb-6 border border-gold/20">
-                  <Target className="w-4 h-4 text-gold" />
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald/10 text-emerald-foreground text-sm font-medium mb-6 border border-emerald/20">
+                  <Target className="w-4 h-4 text-emerald" />
                   <span className="text-foreground">Notre mission</span>
                 </div>
 
@@ -331,7 +331,7 @@ const About = () => {
                     className="rounded-2xl shadow-lg w-full object-cover aspect-[4/5] mt-12"
                   />
                 </div>
-                <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-gold/20 to-gold/5 rounded-3xl -z-10" />
+                <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-emerald/20 to-emerald/5 rounded-3xl -z-10" />
                 <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-primary/30 to-primary/10 rounded-full -z-10" />
               </motion.div>
 
@@ -366,7 +366,7 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-gold/5 border border-primary/10"
+                  className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-emerald/5 border border-primary/10"
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center flex-shrink-0">

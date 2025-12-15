@@ -505,15 +505,15 @@ const ProfessionalSpace = () => {
 
                       <ul className="space-y-4 mb-10">
                         <li className="flex items-start gap-3">
-                          <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
+                          <ArrowRight className="w-5 h-5 text-emerald mt-0.5 flex-shrink-0" />
                           <span className="text-white/95">Visibilité auprès d'une clientèle ciblée</span>
                         </li>
                         <li className="flex items-start gap-3">
-                          <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
+                          <ArrowRight className="w-5 h-5 text-emerald mt-0.5 flex-shrink-0" />
                           <span className="text-white/95">Badge "Profil vérifié" pour rassurer vos clients</span>
                         </li>
                         <li className="flex items-start gap-3">
-                          <ArrowRight className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
+                          <ArrowRight className="w-5 h-5 text-emerald mt-0.5 flex-shrink-0" />
                           <span className="text-white/95">Contact direct sans commission</span>
                         </li>
                       </ul>
@@ -521,7 +521,7 @@ const ProfessionalSpace = () => {
                       <Link to="/inscription-pro">
                         <Button
                           size="lg"
-                          className="bg-gold hover:bg-gold-light text-white font-semibold h-12 px-8"
+                          className="bg-emerald hover:bg-emerald-light text-white font-semibold h-12 px-8"
                         >
                           Rejoindre WeLinkYou
                         </Button>
@@ -540,7 +540,7 @@ const ProfessionalSpace = () => {
                         {news.map((item, index) => (
                           <div
                             key={index}
-                            className="border-l-2 border-gold pl-4"
+                            className="border-l-2 border-emerald pl-4"
                           >
                             <span className="text-xs text-white/60">
                               {item.date}

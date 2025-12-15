@@ -37,14 +37,14 @@ export default {
           dark: "hsl(var(--primary-dark))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        gold: {
-          DEFAULT: "hsl(var(--gold))",
-          light: "hsl(var(--gold-light))",
-          foreground: "hsl(var(--gold-foreground))",
+        emerald: {
+          DEFAULT: "hsl(var(--emerald))",
+          light: "hsl(var(--emerald-light))",
+          foreground: "hsl(var(--emerald-foreground))",
         },
-        coral: {
-          DEFAULT: "hsl(var(--coral))",
-          light: "hsl(var(--coral-light))",
+        teal: {
+          DEFAULT: "hsl(var(--teal))",
+          light: "hsl(var(--teal-light))",
         },
         gradient: {
           start: "hsl(var(--gradient-start))",
@@ -140,12 +140,12 @@ export default {
         },
         "pulse-border": {
           "0%, 100%": { 
-            borderColor: "hsl(280 85% 55%)",
-            boxShadow: "0 0 0 0 hsl(280 85% 55% / 0)"
+            borderColor: "hsl(160 84% 39%)",
+            boxShadow: "0 0 0 0 hsl(160 84% 39% / 0)"
           },
           "50%": { 
-            borderColor: "hsl(25 95% 55%)",
-            boxShadow: "0 0 20px 2px hsl(280 85% 55% / 0.4)"
+            borderColor: "hsl(174 72% 46%)",
+            boxShadow: "0 0 20px 2px hsl(160 84% 39% / 0.4)"
           },
         },
       },

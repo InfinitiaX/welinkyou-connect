@@ -277,7 +277,7 @@ export const PractitionerDashboard = () => {
                         key={i}
                         className={`w-4 h-4 ${
                           i < review.rating
-                            ? "fill-gold text-gold"
+                            ? "fill-emerald text-emerald"
                             : "fill-gray-200 text-gray-200"
                         }`}
                       />
@@ -304,8 +304,8 @@ export const PractitionerDashboard = () => {
             <div className="flex flex-col md:flex-row md:items-center gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center">
-                    <Award className="w-6 h-6 text-gold" />
+                  <div className="w-12 h-12 rounded-xl bg-emerald/20 flex items-center justify-center">
+                    <Award className="w-6 h-6 text-emerald" />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold">Grade Or</h3>
@@ -318,7 +318,7 @@ export const PractitionerDashboard = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Progression vers Platine</span>
-                    <span className="text-gold">75%</span>
+                    <span className="text-emerald">75%</span>
                   </div>
                   <Progress value={75} className="h-2 bg-white/20" />
                 </div>
@@ -333,7 +333,7 @@ export const PractitionerDashboard = () => {
                   <span className="text-white/80">Plus de 40 avis</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-gold" />
+                  <div className="w-2 h-2 rounded-full bg-emerald" />
                   <span className="text-white/80">Note moyenne &gt; 4.5</span>
                 </div>
                 <div className="flex items-center gap-2">
