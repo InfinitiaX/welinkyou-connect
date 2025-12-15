@@ -15,7 +15,16 @@ const navLinks = [
 ];
 
 // Pages avec un fond clair (sans hero sombre) - navbar doit être sombre dès le départ
-const lightBackgroundPages = ["/recherche", "/blog", "/praticien", "/dashboard", "/connexion", "/mot-de-passe-oublie", "/inscription-pro", "/professionnel"];
+const lightBackgroundPages = [
+  "/recherche",
+  "/blog",
+  "/praticien",
+  "/dashboard",
+  "/connexion",
+  "/mot-de-passe-oublie",
+  "/inscription-pro",
+  "/professionnel",
+];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,7 +32,7 @@ export const Navbar = () => {
   const location = useLocation();
 
   // Détermine si la page actuelle a un fond clair
-  const isLightPage = lightBackgroundPages.some(page => location.pathname.startsWith(page));
+  const isLightPage = lightBackgroundPages.some((page) => location.pathname.startsWith(page));
 
   // Si page claire, on force le style "scrolled" même en haut
   const useDarkNavbar = isScrolled || isLightPage;
@@ -56,7 +65,7 @@ export const Navbar = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center group">
-              <motion.img src={logo} alt="WeLinkYou" whileHover={{ scale: 1.02 }} className="h-14 w-auto" />
+              <motion.img src={logo} alt="WeLinkYou" whileHover={{ scale: 1.02 }} className="h-16 w-auto" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -90,7 +99,7 @@ export const Navbar = () => {
                   className={cn(
                     "font-bold transition-all duration-300 bg-transparent border-gradient-start relative overflow-hidden group",
                     "hover:bg-gradient-start hover:text-white hover:border-gradient-start hover:scale-105 hover:shadow-[0_0_20px_hsl(280_85%_55%/0.5)]",
-                    useDarkNavbar ? "text-gradient-start" : "text-white"
+                    useDarkNavbar ? "text-gradient-start" : "text-white",
                   )}
                 >
                   <span className="relative z-10">Espace Professionnel</span>
@@ -98,8 +107,8 @@ export const Navbar = () => {
                 </Button>
               </Link>
               <Link to="/recherche">
-                <Button 
-                  size="sm" 
+                <Button
+                  size="sm"
                   className="font-medium gradient-vibrant-horizontal border-0 relative overflow-hidden group transition-all duration-300 hover:scale-105 hover:brightness-110 rounded-full shadow-lg"
                 >
                   <span className="relative z-10">Trouver un expert</span>
@@ -155,12 +164,17 @@ export const Navbar = () => {
                 ))}
                 <div className="mt-6 flex flex-col gap-3">
                   <Link to="/espace-professionnel">
-                    <Button variant="outline" className="w-full font-bold border-gradient-start text-gradient-start hover:gradient-vibrant hover:text-white hover:border-transparent">
+                    <Button
+                      variant="outline"
+                      className="w-full font-bold border-gradient-start text-gradient-start hover:gradient-vibrant hover:text-white hover:border-transparent"
+                    >
                       Espace Professionnel
                     </Button>
                   </Link>
                   <Link to="/recherche">
-                    <Button className="w-full btn-ripple gradient-vibrant-horizontal border-0 rounded-full">Trouver un expert</Button>
+                    <Button className="w-full btn-ripple gradient-vibrant-horizontal border-0 rounded-full">
+                      Trouver un expert
+                    </Button>
                   </Link>
                 </div>
               </div>
