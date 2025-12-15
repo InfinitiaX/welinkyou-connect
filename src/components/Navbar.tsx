@@ -65,7 +65,7 @@ export const Navbar = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center group">
-              <motion.img src={logo} alt="WeLinkYou" whileHover={{ scale: 1.02 }} className="h-18 w-auto" />
+              <motion.img src={logo} alt="WeLinkYou" whileHover={{ scale: 1.02 }} className="h-18 w-16" />
             </Link>
 
             {/* Desktop Navigation */}
