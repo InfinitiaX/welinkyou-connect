@@ -470,7 +470,7 @@ export const AdminRegistrations = () => {
         <DialogContent className="max-w-5xl h-[85vh]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-gold" />
+              <FileText className="w-5 h-5 text-emerald" />
               {selectedDocument?.name}
             </DialogTitle>
             <DialogDescription>

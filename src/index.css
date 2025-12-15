@@ -14,17 +14,17 @@
     --primary-dark: 187 100% 28%;
     --primary-foreground: 0 0% 100%;
     
-    /* Accent Gradient - Purple to Coral/Orange */
-    --gold: 285 91% 63%;
-    --gold-light: 285 91% 73%;
-    --gold-foreground: 0 0% 100%;
+    /* Accent - Emerald Green (matching logo) */
+    --emerald: 160 84% 39%;
+    --emerald-light: 158 64% 52%;
+    --emerald-foreground: 0 0% 100%;
     
-    /* Vibrant Gradient Colors */
-    --gradient-start: 280 85% 55%;
-    --gradient-mid: 340 80% 55%;
-    --gradient-end: 25 95% 55%;
-    --coral: 15 90% 60%;
-    --coral-light: 20 95% 65%;
+    /* Vibrant Gradient Colors - Green Theme */
+    --gradient-start: 160 84% 39%;
+    --gradient-mid: 168 76% 42%;
+    --gradient-end: 174 72% 46%;
+    --teal: 174 72% 46%;
+    --teal-light: 172 66% 54%;
     
     /* Backgrounds */
     --background: 0 0% 100%;
@@ -92,15 +92,15 @@
     --primary-dark: 187 100% 33%;
     --primary-foreground: 0 0% 100%;
     
-    --gold: 285 91% 68%;
-    --gold-light: 285 91% 78%;
+    --emerald: 160 84% 45%;
+    --emerald-light: 158 64% 58%;
     
-    /* Vibrant Gradient Colors - Dark Mode */
-    --gradient-start: 280 85% 60%;
-    --gradient-mid: 340 80% 60%;
-    --gradient-end: 25 95% 60%;
-    --coral: 15 90% 65%;
-    --coral-light: 20 95% 70%;
+    /* Vibrant Gradient Colors - Dark Mode - Green Theme */
+    --gradient-start: 160 84% 45%;
+    --gradient-mid: 168 76% 48%;
+    --gradient-end: 174 72% 52%;
+    --teal: 174 72% 52%;
+    --teal-light: 172 66% 60%;
     
     --background: 220 20% 8%;
     --background-soft: 220 20% 10%;
@@ -171,8 +171,8 @@
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-light)) 100%);
   }
   
-  .gradient-gold {
-    background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-light)) 100%);
+  .gradient-emerald {
+    background: linear-gradient(135deg, hsl(var(--emerald)) 0%, hsl(var(--emerald-light)) 100%);
   }
   
   /* Premium vibrant gradient - Purple to Coral */
@@ -202,9 +202,9 @@
     background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-light)) 100%);
   }
   
-  .text-gradient-gold {
+  .text-gradient-emerald {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-light)) 100%);
+    background-image: linear-gradient(135deg, hsl(var(--emerald)) 0%, hsl(var(--emerald-light)) 100%);
   }
   
   /* Vibrant text gradient - Purple to Coral */
@@ -220,8 +220,8 @@
   
   .card-premium:hover {
     @apply shadow-xl -translate-y-1;
-    border-color: hsl(280 85% 55% / 0.6);
-    box-shadow: 0 20px 25px -5px hsl(280 85% 55% / 0.15), 0 8px 10px -6px hsl(280 85% 55% / 0.1), 0 0 40px -5px hsl(280 85% 55% / 0.25);
+    border-color: hsl(160 84% 39% / 0.6);
+    box-shadow: 0 20px 25px -5px hsl(160 84% 39% / 0.15), 0 8px 10px -6px hsl(160 84% 39% / 0.1), 0 0 40px -5px hsl(160 84% 39% / 0.25);
   }
   
   /* Card with vibrant glow hover effect */
@@ -233,9 +233,9 @@
     @apply -translate-y-2;
     border-color: hsl(var(--gradient-start) / 0.4);
     box-shadow: 
-      0 20px 25px -5px hsl(280 85% 55% / 0.15),
-      0 8px 10px -6px hsl(280 85% 55% / 0.1),
-      0 0 40px -5px hsl(280 85% 55% / 0.2),
+      0 20px 25px -5px hsl(160 84% 39% / 0.15),
+      0 8px 10px -6px hsl(160 84% 39% / 0.1),
+      0 0 40px -5px hsl(160 84% 39% / 0.2),
       inset 0 1px 0 hsl(var(--gradient-start) / 0.1);
   }
   
@@ -249,7 +249,7 @@
   .badge-verified::before {
     content: '';
     @apply absolute inset-0 rounded-full opacity-0 transition-opacity duration-300;
-    background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-light)) 100%);
+    background: linear-gradient(135deg, hsl(var(--emerald)) 0%, hsl(var(--emerald-light)) 100%);
   }
   
   .badge-verified:hover::before {
@@ -302,7 +302,7 @@
   .btn-glow-click::before {
     content: '';
     @apply absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 pointer-events-none;
-    box-shadow: 0 0 20px 5px hsl(280 85% 55% / 0.4), 0 0 40px 10px hsl(25 95% 55% / 0.2);
+    box-shadow: 0 0 20px 5px hsl(160 84% 39% / 0.4), 0 0 40px 10px hsl(174 72% 46% / 0.2);
   }
   
   .btn-glow-click:active::before {

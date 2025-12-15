@@ -46,8 +46,8 @@ const ForgotPassword = () => {
           {/* Left side - Promotional content */}
           <div className="hidden lg:flex flex-col justify-between px-12 xl:px-20 py-16 relative overflow-hidden">
             {/* Background gradient with secondary color */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-gold/80" />
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gold/30 rounded-full blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-emerald/80" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald/30 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary-dark/50 rounded-full blur-3xl" />
 
             <div className="relative z-10 max-w-lg">
@@ -168,7 +168,7 @@ const ForgotPassword = () => {
                 <Link to="/inscription-pro">
                   <Button
                     variant="outline"
-                    className="w-full h-14 text-base font-semibold border-2 border-gold text-gold hover:bg-gold hover:text-white rounded-xl transition-all duration-300"
+                    className="w-full h-14 text-base font-semibold border-2 border-emerald text-emerald hover:bg-emerald hover:text-white rounded-xl transition-all duration-300"
                   >
                     Créer un compte professionnel
                   </Button>

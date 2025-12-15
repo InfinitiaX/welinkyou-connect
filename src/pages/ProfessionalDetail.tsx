@@ -128,7 +128,7 @@ const ProfessionalDetail = () => {
 
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1.5">
-                        <Star className="w-5 h-5 fill-gold text-gold" />
+                        <Star className="w-5 h-5 fill-emerald text-emerald" />
                         <span className="font-semibold text-foreground text-lg">
                           {professional.rating}
                         </span>
