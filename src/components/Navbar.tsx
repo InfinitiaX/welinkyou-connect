@@ -66,7 +66,7 @@ export const Navbar = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center group">
               rem
-              <motion.img src={logo} alt="WeLinkYou" whileHover={{ scale: 1.02 }} className="h-auto w-7rem" />
+              <motion.img src={logo} alt="WeLinkYou" whileHover={{ scale: 1.02 }} className="h-16 w-auto" />
             </Link>
 
             {/* Desktop Navigation */}
