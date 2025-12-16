@@ -130,10 +130,9 @@ const WhyWeLinkYou = () => {
                 variants={fadeInUp}
                 className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto"
               >
-                WeLinkYou vise à être la plateforme de confiance entre la France et le Maroc, 
-                en combinant <strong>rigueur</strong>, <strong>transparence</strong> et{" "}
-                <strong>sensibilité culturelle</strong>. Chaque professionnel est vérifié, 
-                engagé par charte, et évalué dans la durée.
+                WeLinkYou centralise et connecte des professionnels de confiance à des besoins 
+                nécessitant des compétences spécialisées, locales ou transfrontalières, dans un 
+                cadre structuré et transparent.
               </motion.p>
 
               {/* Values badges */}
