@@ -380,7 +380,7 @@ const Index = () => {
             viewport={{ once: true }}
             className="max-w-2xl mx-auto"
           >
-            <span className="text-gradient-vibrant font-semibold text-lg mb-4 block">Vous êtes professionnel ?</span>
+            <span className="text-gradient-vibrant font-semibold text-lg mb-4 block">Vous êtes un professionnel ?</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
               Rejoignez WeLinkYou !
             </h2>
