@@ -30,7 +30,7 @@ const About = () => {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-[75vh] flex items-center overflow-hidden">
           {/* Background with gradient overlay */}
           <div className="absolute inset-0">
             <div
@@ -56,7 +56,7 @@ const About = () => {
             className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-gradient-end/20 blur-xl"
           />
 
-          <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-28 pb-20">
+          <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-32 pb-32">
             <motion.div
               initial="hidden"
               animate="visible"
@@ -88,16 +88,14 @@ const About = () => {
 
               <motion.p
                 variants={fadeInUp}
-                className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto"
+                className="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto mb-10"
               >
                 WeLinkYou est la plateforme simple et intuitive qui réunit des professionnels de confiance et des
-                utilisateurs en quête d’expertise transfrontalière liée au Maroc WeLinkYou est la plateforme simple et
-                intuitive qui réunit des professionnels de confiance et des utilisateurs en quête d’expertise
-                transfrontalière liée au <strong>Maroc</strong>.
+                utilisateurs en quête d'expertise transfrontalière liée au <strong className="text-white">Maroc</strong>.
               </motion.p>
 
               {/* Values badges */}
-              <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-3 mt-10">
+              <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-3">
                 {[
                   { icon: Globe, text: "Double expertise" },
                   { icon: Heart, text: "Confiance" },
