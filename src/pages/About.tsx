@@ -375,7 +375,7 @@ const About = () => {
                       <p className="text-foreground font-semibold mb-2">Notre ambition</p>
                       <p className="text-muted-foreground">
                         Structurer et simplifier la connexion entre des besoins croissants et des compétences
-                        professionnelles spécialisées .
+                        professionnelles spécialisées.
                       </p>
                     </div>
                   </div>
