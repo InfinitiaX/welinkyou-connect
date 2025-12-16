@@ -349,12 +349,14 @@ const About = () => {
 
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
                   <p>
-                    WeLinkYou est née d'une rencontre entre deux personnes partageant une double culture européenne et
-                    marocaine, aux parcours complémentaires (droit et ingénierie).
+                    WeLinkYou est née de la rencontre, lors d’un Executive MBA, entre Hind et Yassine, qui partagent une
+                    double culture européenne et marocaine et des parcours complémentaires, l’un en droit, l’autre en
+                    ingénierie.
                   </p>
                   <p>
-                    Animés par la même conviction, nous avons voulu créer un pont entre des besoins croissants de mise
-                    en relation et les nombreuses compétences déjà présentes en France, au Maroc et ailleurs.
+                    Animés par la même conviction, nous avons voulu créer un pont entre des besoins existants et
+                    croissants de mise en relation avec des professionnels spécialisés et les nombreuses compétences
+                    déjà présentes au Maroc, en France et ailleurs
                   </p>
                 </div>
 
