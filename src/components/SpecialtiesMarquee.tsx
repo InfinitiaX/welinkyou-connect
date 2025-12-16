@@ -1,13 +1,11 @@
 import { motion } from "framer-motion";
-import { Scale, Coins, Home, Rocket, BookOpen, Heart } from "lucide-react";
+import { Scale, Coins, Home, Rocket } from "lucide-react";
 
 const specialties = [
-  { name: "Droit et administratif", icon: Scale },
-  { name: "Finance et fiscalité", icon: Coins },
-  { name: "Immobilier", icon: Home },
-  { name: "Entrepreneuriat", icon: Rocket },
-  { name: "Éducation", icon: BookOpen },
-  { name: "Santé et bien-être", icon: Heart },
+  { name: "Droit et Administration", icon: Scale },
+  { name: "Finance, fiscalité et gestion", icon: Coins },
+  { name: "Immobilier et installation", icon: Home },
+  { name: "Création et gestion d'entreprise", icon: Rocket },
 ];
 
 // Duplicate for seamless loop
