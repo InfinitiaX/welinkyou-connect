@@ -69,8 +69,9 @@ const imageVariants: Variants = {
 };
 
 // Apple-style split text animation
-const heroTitleWords = ["Trouvez", "les"];
-const heroAccentWords = ["meilleurs", "experts"];
+const heroTitleLine1 = ["Vous", "cherchez", "un"];
+const heroAccentWords = ["avocat,", "un", "notaire", "ou", "un", "expert"];
+const heroTitleLine2 = "en lien avec le Maroc ?";
 
 const stats = [
   { icon: Users, value: "500+", label: "Professionnels vérifiés" },
@@ -107,9 +108,9 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center mb-10">
             {/* Apple-style Split Text Animation for Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-2 leading-tight">
-              {/* First line: "Trouvez les" */}
+              {/* First line: "Vous cherchez un" */}
               <span className="block overflow-hidden">
-                {heroTitleWords.map((word, i) => (
+                {heroTitleLine1.map((word, i) => (
                   <motion.span
                     key={i}
                     initial={{ y: 100, opacity: 0 }}
@@ -124,14 +125,14 @@ const Index = () => {
                     {word}
                   </motion.span>
                 ))}
-                {/* Accent words: "meilleurs experts" */}
+                {/* Accent words: "avocat, un notaire ou un expert" */}
                 {heroAccentWords.map((word, i) => (
                   <motion.span
                     key={`accent-${i}`}
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ 
-                      delay: 0.26 + i * 0.08, 
+                      delay: 0.34 + i * 0.08, 
                       duration: 0.8, 
                       ease: [0.25, 0.1, 0.25, 1] 
                     }}
@@ -142,14 +143,14 @@ const Index = () => {
                 ))}
               </span>
               
-              {/* Second line: "de la diaspora France-Maroc" */}
+              {/* Second line: "en lien avec le Maroc ?" */}
               <motion.span 
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.45, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ delay: 0.85, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
                 className="block mt-1"
               >
-                de la diaspora France-Maroc
+                {heroTitleLine2}
               </motion.span>
             </h1>
 
@@ -157,10 +158,10 @@ const Index = () => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
+              transition={{ delay: 1.1, duration: 0.6 }}
               className="text-lg md:text-xl text-white/85 max-w-3xl mx-auto mt-6 mb-10"
             >
-              Trouvez en quelques clics des professionnels de confiance qui comprennent vos besoins, vos projets et les spécificités professionnelles, culturelles et/ou linguistiques du Maroc
+              Marocains du monde, expatriés, porteurs de projets ou investisseurs transfrontaliers : WeLinkYou vous connecte à des professionnels de confiance, basés au Maroc ou dans votre pays de résidence.
             </motion.p>
           </div>
 
