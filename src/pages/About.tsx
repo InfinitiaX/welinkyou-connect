@@ -374,8 +374,8 @@ const About = () => {
                     <div>
                       <p className="text-foreground font-semibold mb-2">Notre ambition</p>
                       <p className="text-muted-foreground">
-                        Simplifier les connexions de confiance et mettre en lumière les talents à double compétence,
-                        qu'elle soit professionnelle, linguistique ou culturelle.
+                        Structurer et simplifier la connexion entre des besoins croissants et des compétences
+                        professionnelles spécialisées .
                       </p>
                     </div>
                   </div>
