@@ -385,8 +385,8 @@ const Index = () => {
               Rejoignez WeLinkYou !
             </h2>
             <p className="text-white/70 text-lg mb-10 leading-relaxed">
-              Connectez-vous avec une clientèle qualifiée de la diaspora France-Maroc. Simplifiez votre visibilité et
-              accédez rapidement à des clients prêts à vous faire confiance.
+              Rejoignez notre réseau d’experts et connectez-vous à une clientèle qui recherche précisément votre
+              expertise !
             </p>
             <a
               href="/espace-professionnel"
