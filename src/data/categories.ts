@@ -46,7 +46,6 @@ export const categories: Category[] = [
       { id: "agent-immobilier", name: "Agents immobiliers" },
       { id: "chasseur", name: "Chasseurs immobiliers" },
       { id: "architecte", name: "Architectes" },
-      { id: "decorateur", name: "Décorateurs d'intérieur" },
     ],
   },
   {
@@ -54,10 +53,8 @@ export const categories: Category[] = [
     name: "Création et gestion d'entreprise",
     icon: "🚀",
     subcategories: [
-      { id: "consultant-business", name: "Consultants business" },
-      { id: "coach-entrepreneur", name: "Coachs entrepreneurs" },
-      { id: "expert-export", name: "Experts import/export" },
-      { id: "marketing", name: "Experts marketing" },
+      { id: "expert-comptable", name: "Expert-comptable" },
+      { id: "consultant-creation", name: "Consultants en création d'entreprises/juriste-avocats d'affaires" },
     ],
   },
 ];
@@ -77,6 +74,7 @@ export const cities: Record<string, { id: string; name: string }[]> = {
     { id: "bordeaux", name: "Bordeaux" },
     { id: "nice", name: "Nice" },
     { id: "lille", name: "Lille" },
+    { id: "montpellier", name: "Montpellier" },
   ],
   maroc: [
     { id: "all", name: "Peu importe" },
@@ -86,5 +84,6 @@ export const cities: Record<string, { id: string; name: string }[]> = {
     { id: "tanger", name: "Tanger" },
     { id: "fes", name: "Fès" },
     { id: "agadir", name: "Agadir" },
+    { id: "oujda", name: "Oujda" },
   ],
 };
