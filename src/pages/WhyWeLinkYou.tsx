@@ -3,54 +3,49 @@ import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import {
-  Shield,
-  Users,
-  Sparkles,
-  CheckCircle,
-  ArrowRight,
-  BadgeCheck,
-  Heart,
-  Globe,
-} from "lucide-react";
+import { Shield, Users, Sparkles, CheckCircle, ArrowRight, BadgeCheck, Heart, Globe } from "lucide-react";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
-  }
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+    transition: { staggerChildren: 0.15 },
+  },
 };
 
 const features = [
   {
     icon: BadgeCheck,
     title: "Profil vérifié",
-    description: "Chaque professionnel référencé sur WeLinkYou a fait l'objet d'une vérification administrative rigoureuse (identité, diplômes, statut d'activité…).",
-    detail: "Cette vérification garantit la transparence et renforce la confiance entre utilisateurs et professionnels.",
+    description:
+      "Chaque professionnel référencé sur WeLinkYou fait l’objet d’un processus de vérification fondé sur des critères objectifs (identité, informations professionnelles déclarées…).",
+    detail:
+      "Cette vérification contribue à instaurer un cadre de transparence et de confiance entre utilisateurs et professionnels.",
     gradient: "from-gradient-start to-gradient-mid",
   },
   {
     icon: Heart,
     title: "Proximité & compréhension",
-    description: "Nos professionnels comprennent vos besoins et les particularités de votre contexte (culture, langue, pratiques professionnelles).",
-    detail: "Une relation basée sur la confiance et la compréhension mutuelle.",
+    description:
+      "Nos professionnels comprennent vos besoins et les particularités de votre contexte, qu’il soit local ou transfrontalier.",
+    detail: "Une approche fondée sur la clarté et la pertinence.",
     gradient: "from-gradient-mid to-gradient-end",
   },
   {
     icon: Sparkles,
     title: "Une plateforme simple et utile",
-    description: "Pas besoin de créer un compte pour consulter — WeLinkYou vous permet d'accéder librement à un annuaire de professionnels fiables, mis à jour régulièrement.",
-    detail: "Pas de frais d'intermédiations.",
+    description:
+      "Accédez librement à des profils de professionnels, mis à jour régulièrement et sans création de compte. Vous consultez, vous choisissez, vous contactez, tout simplement.",
+    detail: "Aucun frais d’intermédiation.",
     gradient: "from-gradient-end to-gradient-start",
   },
 ];
@@ -72,7 +67,7 @@ const WhyWeLinkYou = () => {
         <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
           <div className="absolute inset-0">
-            <div 
+            <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80')`,
@@ -109,7 +104,7 @@ const WhyWeLinkYou = () => {
                 </span>
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight"
               >
@@ -122,24 +117,20 @@ const WhyWeLinkYou = () => {
                     transition={{ delay: 0.8, duration: 0.6 }}
                     className="absolute bottom-2 left-0 h-3 bg-gradient-start/30 -z-0"
                   />
-                </span>
-                {" "}?
+                </span>{" "}
+                ?
               </motion.h1>
 
-              <motion.p 
+              <motion.p
                 variants={fadeInUp}
                 className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto"
               >
-                WeLinkYou centralise et connecte des professionnels de confiance à des besoins 
-                nécessitant des compétences spécialisées, locales ou transfrontalières, dans un 
-                cadre structuré et transparent.
+                WeLinkYou centralise et connecte des professionnels de confiance à des besoins nécessitant des
+                compétences spécialisées, locales ou transfrontalières, dans un cadre structuré et transparent.
               </motion.p>
 
               {/* Values badges */}
-              <motion.div 
-                variants={fadeInUp}
-                className="flex flex-wrap justify-center gap-3 mt-10 mb-16"
-              >
+              <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-3 mt-10 mb-16">
                 {values.map((value, index) => (
                   <motion.div
                     key={value.text}
@@ -181,9 +172,7 @@ const WhyWeLinkYou = () => {
                 <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
                   Nos engagements
                 </span>
-                <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
-                  Ce qui nous différencie
-                </h2>
+                <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">Ce qui nous différencie</h2>
               </motion.div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -207,19 +196,13 @@ const WhyWeLinkYou = () => {
                       {/* Number indicator */}
                       <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center">
                         <span className="text-lg font-bold text-muted-foreground/50">
-                          {String(index + 1).padStart(2, '0')}
+                          {String(index + 1).padStart(2, "0")}
                         </span>
                       </div>
 
-                      <h3 className="text-xl font-display font-semibold text-foreground mb-4">
-                        {feature.title}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed mb-4">
-                        {feature.description}
-                      </p>
-                      <p className="text-sm text-primary font-medium">
-                        {feature.detail}
-                      </p>
+                      <h3 className="text-xl font-display font-semibold text-foreground mb-4">{feature.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed mb-4">{feature.description}</p>
+                      <p className="text-sm text-primary font-medium">{feature.detail}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -288,8 +271,8 @@ const WhyWeLinkYou = () => {
                     Une vérification <span className="text-gradient-vibrant">rigoureuse</span>
                   </h2>
                   <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                    Nous nous assurons que chaque professionnel répond à des critères stricts 
-                    de qualité et de fiabilité. Notre processus de vérification couvre :
+                    Nous nous assurons que chaque professionnel répond à des critères stricts de qualité et de
+                    fiabilité. Notre processus de vérification couvre :
                   </p>
 
                   <div className="space-y-4">
@@ -336,8 +319,7 @@ const WhyWeLinkYou = () => {
                 Prêt à trouver votre professionnel de confiance ?
               </h2>
               <p className="text-lg text-muted-foreground mb-10">
-                Accédez librement à notre annuaire et trouvez l'expert qui comprend 
-                vos besoins et votre contexte.
+                Accédez librement à notre annuaire et trouvez l'expert qui comprend vos besoins et votre contexte.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/recherche">
@@ -350,11 +332,7 @@ const WhyWeLinkYou = () => {
                   </Button>
                 </Link>
                 <Link to="/a-propos">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="gap-2 text-base px-8"
-                  >
+                  <Button size="lg" variant="outline" className="gap-2 text-base px-8">
                     En savoir plus
                   </Button>
                 </Link>
