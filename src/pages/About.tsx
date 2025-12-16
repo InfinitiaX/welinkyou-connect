@@ -91,7 +91,8 @@ const About = () => {
                 className="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto mb-10"
               >
                 WeLinkYou est la plateforme simple et intuitive qui réunit des professionnels de confiance et des
-                utilisateurs en quête d'expertise transfrontalière liée au <strong className="text-white">Maroc</strong>.
+                utilisateurs en quête d'expertise transfrontalière liée au <strong className="text-white">Maroc</strong>
+                .
               </motion.p>
 
               {/* Values badges */}
@@ -150,20 +151,19 @@ const About = () => {
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
                   <p>
                     Chez WeLinkYou, nous croyons qu'il ne devrait jamais être difficile de trouver un professionnel de
-                    confiance — qu'il s'agisse d'un avocat, médecin, coach, expert ou tout autre spécialiste — qui,
-                    au-delà de ses compétences métier, maîtrise également les spécificités liées au Maroc, qu'elles
-                    soient professionnelles, linguistiques ou culturelles.
+                    confiance, qu'il s'agisse d'un avocat, notaire, expert-comptable ou tout autre professionnel de
+                    confianc qui, au-delà de ses compétences métier, maîtrise également les spécificités juridiques,
+                    administratives ou contextuelles liées au Maroc.
                   </p>
                   <p>
-                    De nombreux professionnels, au Maroc, en France ou ailleurs, possèdent cette double compréhension
+                    De nombreux professionnels, au Maroc, en France ou ailleurs, possèdent cette double compétence
                     précieuse, mais restent disséminés et peu visibles, alors même que les besoins sont nombreux et
                     croissants.
                   </p>
                   <p>
                     Nous imaginons un monde où l'accès à ces professionnels de confiance devient simple, fluide et
                     centralisé, où chacun peut trouver, en un seul endroit, des experts capables de comprendre vos
-                    projets, vos besoins et vos réalités, tout en maîtrisant les spécificités locales, linguistiques
-                    et/ou culturelles.
+                    projets, vos besoins et vos réalités.
                   </p>
                 </div>
 
@@ -175,9 +175,9 @@ const About = () => {
                   className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-emerald/5 border border-primary/10"
                 >
                   <p className="text-foreground font-medium italic">
-                    "Notre vision est de simplifier l'accès à ces professionnels de confiance et de les rendre plus
-                    visibles pour ceux qui les recherchent, afin de bâtir une relation fondée sur la confiance et la
-                    proximité."
+                    "Notre vision est de devenir la plateforme de référence qui connecte des utilisateurs à des
+                    professionnels de confiance, spécialisés dans des enjeux locaux ou transfrontaliers liés à un pays
+                    donné. "
                   </p>
                 </motion.div>
               </motion.div>
