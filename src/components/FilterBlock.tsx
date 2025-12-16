@@ -70,7 +70,7 @@ export const FilterBlock = () => {
             >
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-primary" />
-                <span className={cn("text-sm font-medium", selectedCountry ? "text-black" : "text-gray-500")}>
+                <span className={cn("text-sm font-medium whitespace-nowrap", selectedCountry ? "text-black" : "text-gray-500")}>
                   {selectedCountry
                     ? countries.find((c) => c.id === selectedCountry)?.name
                     : "Pays du professionnel"}
