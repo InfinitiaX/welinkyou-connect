@@ -8,19 +8,19 @@ import teamMember2 from "@/assets/team-member-2.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
-  }
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+    transition: { staggerChildren: 0.15 },
+  },
 };
 
 const About = () => {
@@ -33,7 +33,7 @@ const About = () => {
         <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
           <div className="absolute inset-0">
-            <div 
+            <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80')`,
@@ -70,7 +70,7 @@ const About = () => {
                 </span>
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight"
               >
@@ -86,19 +86,18 @@ const About = () => {
                 </span>
               </motion.h1>
 
-              <motion.p 
+              <motion.p
                 variants={fadeInUp}
                 className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto"
               >
-                WeLinkYou est la plateforme qui réunit professionnels de confiance et utilisateurs 
-                en quête d'expertise biculturelle <strong>France-Maroc</strong>.
+                WeLinkYou est la plateforme simple et intuitive qui réunit des professionnels de confiance et des
+                utilisateurs en quête d’expertise transfrontalière liée au Maroc WeLinkYou est la plateforme simple et
+                intuitive qui réunit des professionnels de confiance et des utilisateurs en quête d’expertise
+                transfrontalière liée au <strong>Maroc</strong>.
               </motion.p>
 
               {/* Values badges */}
-              <motion.div 
-                variants={fadeInUp}
-                className="flex flex-wrap justify-center gap-3 mt-10"
-              >
+              <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-3 mt-10">
                 {[
                   { icon: Globe, text: "Double expertise" },
                   { icon: Heart, text: "Confiance" },
