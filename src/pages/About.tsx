@@ -211,7 +211,7 @@ const About = () => {
                         <Globe className="w-6 h-6 text-primary-foreground" />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-foreground">France × Maroc</p>
+                        <p className="text-sm font-semibold text-foreground">Monde × Maroc</p>
                         <p className="text-xs text-muted-foreground">Double expertise</p>
                       </div>
                     </div>
