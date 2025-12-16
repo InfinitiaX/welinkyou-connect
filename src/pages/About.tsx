@@ -353,10 +353,10 @@ const About = () => {
                     double culture européenne et marocaine et des parcours complémentaires, l’un en droit, l’autre en
                     ingénierie.
                   </p>
-                  <p>
-                    Animés par la même conviction, nous avons voulu créer un pont entre des besoins existants et
+                  <p className="italic">
+                    « Animés par la même conviction, nous avons voulu créer un pont entre des besoins existants et
                     croissants de mise en relation avec des professionnels spécialisés et les nombreuses compétences
-                    déjà présentes au Maroc, en France et ailleurs
+                    déjà présentes au Maroc, en France et ailleurs »
                   </p>
                 </div>
 
