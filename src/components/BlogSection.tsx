@@ -19,12 +19,8 @@ export const BlogSection = () => {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12"
         >
           <div>
-            <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-3">
-              Blog & Actualités
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Conseils, guides et témoignages pour la diaspora
-            </p>
+            <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-3">Blog & Actualités</h2>
+            <p className="text-muted-foreground text-lg">Conseils, guides et témoignages</p>
           </div>
           <Link
             to="/blog"
