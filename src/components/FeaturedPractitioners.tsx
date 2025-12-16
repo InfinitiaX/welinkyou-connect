@@ -30,7 +30,7 @@ export const FeaturedPractitioners = () => {
             Nos experts
           </motion.span>
           <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
-            Praticiens <span className="text-gradient-vibrant">mis en avant</span>
+            Professionnels <span className="text-gradient-vibrant">mis en avant</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Découvrez nos professionnels de confiance, vérifiés et reconnus pour leur expertise
