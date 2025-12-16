@@ -203,7 +203,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+            className="flex flex-wrap justify-center gap-8 md:gap-16 max-w-4xl mx-auto"
           >
             {stats.map((stat, index) => (
               <motion.div
