@@ -20,6 +20,7 @@ export const categories: Category[] = [
       { id: "avocat-familial", name: "Avocats droit familial" },
       { id: "avocat-fiscal", name: "Avocats fiscal & successions" },
       { id: "avocat-penal", name: "Avocats pénal" },
+      { id: "avocat-immobilier", name: "Avocats droit immobilier" },
       { id: "notaire", name: "Notaires" },
       { id: "traducteur", name: "Traducteurs assermentés" },
       { id: "juriste", name: "Juristes / Médiateurs" },
@@ -50,36 +51,13 @@ export const categories: Category[] = [
   },
   {
     id: "entrepreneuriat",
-    name: "Entrepreneuriat et business",
+    name: "Création et gestion d'entreprise",
     icon: "🚀",
     subcategories: [
       { id: "consultant-business", name: "Consultants business" },
       { id: "coach-entrepreneur", name: "Coachs entrepreneurs" },
       { id: "expert-export", name: "Experts import/export" },
       { id: "marketing", name: "Experts marketing" },
-    ],
-  },
-  {
-    id: "education",
-    name: "Éducation et accompagnement",
-    icon: "📚",
-    subcategories: [
-      { id: "coach-vie", name: "Coachs de vie" },
-      { id: "orientation", name: "Conseillers orientation" },
-      { id: "tuteur", name: "Tuteurs / Professeurs" },
-      { id: "formation", name: "Formateurs professionnels" },
-    ],
-  },
-  {
-    id: "sante",
-    name: "Santé et bien-être",
-    icon: "🏥",
-    subcategories: [
-      { id: "medecin", name: "Médecins généralistes" },
-      { id: "specialiste", name: "Médecins spécialistes" },
-      { id: "psychologue", name: "Psychologues" },
-      { id: "nutritionniste", name: "Nutritionnistes" },
-      { id: "coach-sport", name: "Coachs sportifs" },
     ],
   },
 ];
