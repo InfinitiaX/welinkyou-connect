@@ -7,7 +7,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
 import { FeaturedPractitioners } from "@/components/FeaturedPractitioners";
 import SpecialtiesMarquee from "@/components/SpecialtiesMarquee";
-import { Shield, Users, Globe, Star, Check } from "lucide-react";
+import { Shield, Briefcase, BadgePercent, Check } from "lucide-react";
 import trustHandshake from "@/assets/trust-handshake.jpg";
 
 // Easing constant
@@ -74,10 +74,9 @@ const heroAccentWords = ["avocat,", "un", "notaire", "ou", "un", "expert"];
 const heroTitleLine2 = "en lien avec le Maroc ?";
 
 const stats = [
-  { icon: Users, value: "500+", label: "Professionnels vérifiés" },
-  { icon: Shield, value: "100%", label: "Profils authentifiés" },
-  { icon: Globe, value: "2", label: "Pays couverts" },
-  { icon: Star, value: "4.8", label: "Note moyenne" },
+  { icon: Shield, value: "100%", label: "Profils vérifiés" },
+  { icon: Briefcase, value: "18", label: "Spécialités couvertes" },
+  { icon: BadgePercent, value: "0%", label: "Commission" },
 ];
 
 const Index = () => {
