@@ -4,20 +4,20 @@ import { Search, Phone, Star } from "lucide-react";
 const steps = [
   {
     icon: Search,
-    title: "Trouver un praticien",
-    description: "Des professionnels sélectionnés par l'équipe Binatna",
+    title: "Trouver un professionnel",
+    description: "En utilisant nos filtres simples et intuitifs ",
     gradient: "from-gradient-start to-gradient-mid",
   },
   {
     icon: Phone,
-    title: "Contacter votre praticien",
+    title: "Contacter votre professionnel",
     description: "Par téléphone, WhatsApp ou email. Sans intermédiaire et sans frais",
     gradient: "from-gradient-mid to-gradient-end",
   },
   {
     icon: Star,
     title: "Évaluer et partager votre expérience",
-    description: "Faites bénéficier la communauté des MRE de votre expérience et recommandations",
+    description: "Faites bénéficier la communauté de votre expérience et recommandations",
     gradient: "from-gradient-end to-gradient-start",
   },
 ];
@@ -33,9 +33,7 @@ export const HowItWorks = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
-            Comment ça marche ?
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">Comment ça marche ?</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Trois étapes simples pour trouver votre expert de confiance
           </p>
@@ -77,12 +75,8 @@ export const HowItWorks = () => {
                 </motion.div>
 
                 {/* Content */}
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {step.description}
-                </p>
+                <h3 className="text-xl font-semibold text-foreground mb-3">{step.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
               </div>
             </motion.div>
           ))}
