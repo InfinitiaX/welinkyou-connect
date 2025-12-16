@@ -73,7 +73,7 @@ export const FilterBlock = () => {
                 <span className={cn("text-sm font-medium", selectedCountry ? "text-black" : "text-gray-500")}>
                   {selectedCountry
                     ? countries.find((c) => c.id === selectedCountry)?.name
-                    : "Pays"}
+                    : "Pays du professionnel"}
                 </span>
               </div>
               <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform duration-300", openDropdown === "country" && "rotate-180")} />

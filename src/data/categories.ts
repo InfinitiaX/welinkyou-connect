@@ -13,7 +13,7 @@ export interface Category {
 export const categories: Category[] = [
   {
     id: "droit",
-    name: "Droit et administratif",
+    name: "Droit et Administration",
     icon: "⚖️",
     subcategories: [
       { id: "avocat-affaires", name: "Avocats d'affaires" },
