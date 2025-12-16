@@ -27,7 +27,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="inline-block mb-4">
+            <Link to="/" className="inline-block mb-2">
               <img src={logo} alt="WeLinkYou" className="h-28 w-auto" />
             </Link>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
