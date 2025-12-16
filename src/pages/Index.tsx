@@ -16,11 +16,11 @@ const easeOut: Easing = [0.4, 0, 0.2, 1];
 // Animation variants
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 60 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: easeOut }
-  }
+    transition: { duration: 0.8, ease: easeOut },
+  },
 };
 
 const titleWordVariants: Variants = {
@@ -28,8 +28,8 @@ const titleWordVariants: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: easeOut }
-  })
+    transition: { delay: i * 0.1, duration: 0.5, ease: easeOut },
+  }),
 };
 
 const bulletVariants: Variants = {
@@ -38,34 +38,34 @@ const bulletVariants: Variants = {
     opacity: 1,
     scale: 1,
     x: 0,
-    transition: { 
-      delay: 0.4 + i * 0.15, 
-      duration: 0.5, 
-      ease: easeOut 
-    }
-  })
+    transition: {
+      delay: 0.4 + i * 0.15,
+      duration: 0.5,
+      ease: easeOut,
+    },
+  }),
 };
 
 const checkIconVariants: Variants = {
   hidden: { scale: 0 },
   visible: (i: number) => ({
     scale: 1,
-    transition: { 
+    transition: {
       delay: 0.5 + i * 0.15,
       type: "spring" as const,
       stiffness: 400,
-      damping: 10
-    }
-  })
+      damping: 10,
+    },
+  }),
 };
 
 const imageVariants: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
-    transition: { duration: 0.8, ease: easeOut }
-  }
+    transition: { duration: 0.8, ease: easeOut },
+  },
 };
 
 // Apple-style split text animation
@@ -87,13 +87,7 @@ const Index = () => {
       {/* Hero Section - More Immersive */}
       <section className="relative min-h-[65vh] flex flex-col items-center justify-center pt-24 pb-16 overflow-x-clip">
         {/* Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
+        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
           <source
             src="https://videos.pexels.com/video-files/7646285/7646285-uhd_2560_1440_25fps.mp4"
             type="video/mp4"
@@ -114,10 +108,10 @@ const Index = () => {
                     key={i}
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ 
-                      delay: 0.1 + i * 0.08, 
-                      duration: 0.8, 
-                      ease: [0.25, 0.1, 0.25, 1] 
+                    transition={{
+                      delay: 0.1 + i * 0.08,
+                      duration: 0.8,
+                      ease: [0.25, 0.1, 0.25, 1],
                     }}
                     className="inline-block mr-3"
                   >
@@ -130,10 +124,10 @@ const Index = () => {
                     key={`accent-${i}`}
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ 
-                      delay: 0.34 + i * 0.08, 
-                      duration: 0.8, 
-                      ease: [0.25, 0.1, 0.25, 1] 
+                    transition={{
+                      delay: 0.34 + i * 0.08,
+                      duration: 0.8,
+                      ease: [0.25, 0.1, 0.25, 1],
                     }}
                     className="inline-block mr-3 text-gradient-vibrant"
                   >
@@ -141,9 +135,9 @@ const Index = () => {
                   </motion.span>
                 ))}
               </span>
-              
+
               {/* Second line: "en lien avec le Maroc ?" */}
-              <motion.span 
+              <motion.span
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.85, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
@@ -160,7 +154,8 @@ const Index = () => {
               transition={{ delay: 1.1, duration: 0.6 }}
               className="text-lg md:text-xl text-white/85 max-w-3xl mx-auto mt-6 mb-10"
             >
-              Marocains du monde, expatriés, porteurs de projets ou investisseurs transfrontaliers : WeLinkYou vous connecte à des professionnels de confiance, basés au Maroc ou dans votre pays de résidence.
+              Marocains du monde, expatriés, porteurs de projets ou investisseurs transfrontaliers : WeLinkYou vous
+              connecte à des professionnels de confiance, basés au Maroc ou dans votre pays de résidence.
             </motion.p>
           </div>
 
@@ -229,7 +224,7 @@ const Index = () => {
       <HowItWorks />
 
       {/* Trust Section */}
-      <motion.section 
+      <motion.section
         className="py-24 bg-background overflow-hidden"
         initial="hidden"
         whileInView="visible"
@@ -241,19 +236,19 @@ const Index = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Text Content */}
               <div>
-                <motion.span 
+                <motion.span
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                   className="text-primary font-medium text-sm uppercase tracking-wider mb-4 block"
                 >
-                  We Link You
+                  WeLinkYou
                 </motion.span>
-                
+
                 {/* Split text title */}
                 <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-6">
-                  {["Des", "professionnels", "rigoureusement"].map((word, i) => (
+                  {["Des", "professionnels", "soigneusement"].map((word, i) => (
                     <motion.span
                       key={i}
                       custom={i}
@@ -278,25 +273,25 @@ const Index = () => {
                     sélectionnés
                   </motion.span>
                 </h2>
-                
-                <motion.p 
+
+                <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                   className="text-muted-foreground text-lg mb-8 leading-relaxed"
                 >
-                  Chaque professionnel sur WeLinkYou passe par un processus de vérification strict. Diplômes,
-                  expérience, références... Nous nous assurons que vous êtes entre de bonnes mains.
+                  Chaque professionnel sur WeLinkYou passe par un processus de vérification sérieux afin de vous aider à
+                  choisir votre professionnel en toute confiance
                 </motion.p>
-                
+
                 {/* Bullet points with staggered animation */}
                 <ul className="space-y-4">
                   {[
-                    "Vérification des diplômes et certifications",
-                    "Contrôle de l'inscription aux ordres professionnels",
-                    "Validation des années d'expérience",
-                    "Suivi des avis et de la satisfaction client",
+                    "Vérification des diplômes et certifications déclarés",
+                    "Contrôle des informations d’inscription professionnelle (le cas échéant)",
+                    "Confirmation d’éléments liés à l’activité professionnelle",
+                    "Adhésion à la charte WeLinkYou",
                   ].map((item, index) => (
                     <motion.li
                       key={index}
@@ -307,7 +302,7 @@ const Index = () => {
                       variants={bulletVariants}
                       className="flex items-center gap-3"
                     >
-                      <motion.div 
+                      <motion.div
                         custom={index}
                         initial="hidden"
                         whileInView="visible"
@@ -344,25 +339,23 @@ const Index = () => {
                       style={{ transformOrigin: "center center" }}
                     />
                     {/* Subtle overlay on hover */}
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    />
+                    <motion.div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </motion.div>
                 </div>
                 {/* Decorative elements */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5, duration: 0.5 }}
-                  className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-gradient-start/20 to-gradient-end/20 rounded-2xl -z-10" 
+                  className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-gradient-start/20 to-gradient-end/20 rounded-2xl -z-10"
                 />
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6, duration: 0.5 }}
-                  className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-gradient-end/20 to-gradient-start/20 rounded-2xl -z-10" 
+                  className="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-gradient-end/20 to-gradient-start/20 rounded-2xl -z-10"
                 />
               </motion.div>
             </div>
@@ -379,7 +372,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-gradient-start/10 via-transparent to-gradient-end/10" />
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-start/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-end/20 rounded-full blur-3xl" />
-        
+
         <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -387,14 +380,13 @@ const Index = () => {
             viewport={{ once: true }}
             className="max-w-2xl mx-auto"
           >
-            <span className="text-gradient-vibrant font-semibold text-lg mb-4 block">
-              Vous êtes professionnel ?
-            </span>
+            <span className="text-gradient-vibrant font-semibold text-lg mb-4 block">Vous êtes professionnel ?</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
               Rejoignez WeLinkYou !
             </h2>
             <p className="text-white/70 text-lg mb-10 leading-relaxed">
-              Connectez-vous avec une clientèle qualifiée de la diaspora France-Maroc. Simplifiez votre visibilité et accédez rapidement à des clients prêts à vous faire confiance.
+              Connectez-vous avec une clientèle qualifiée de la diaspora France-Maroc. Simplifiez votre visibilité et
+              accédez rapidement à des clients prêts à vous faire confiance.
             </p>
             <a
               href="/espace-professionnel"
