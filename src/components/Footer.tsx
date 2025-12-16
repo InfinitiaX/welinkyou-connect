@@ -31,10 +31,10 @@ export const Footer = () => {
               <img src={logo} alt="WeLinkYou" className="h-28 w-auto" />
             </Link>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
-              La plateforme de confiance qui connecte la diaspora France-Maroc avec des professionnels vérifiés.
+              La plateforme unique qui connecte des utilisateurs avec des professionnels experts d’un pays donné.
             </p>
             <div className="flex items-center gap-3">
-              <span className="text-2xl">🇫🇷</span>
+              <span className="text-2xl">ww</span>
               <span className="text-background/50">×</span>
               <span className="text-2xl">🇲🇦</span>
             </div>
