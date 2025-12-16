@@ -19,12 +19,12 @@
     --emerald-light: 158 64% 52%;
     --emerald-foreground: 0 0% 100%;
     
-    /* Vibrant Gradient Colors - Green Theme */
-    --gradient-start: 160 84% 39%;
-    --gradient-mid: 168 76% 42%;
-    --gradient-end: 174 72% 46%;
-    --teal: 174 72% 46%;
-    --teal-light: 172 66% 54%;
+    /* Vibrant Gradient Colors - Teal Theme */
+    --gradient-start: 183 82% 23%;
+    --gradient-mid: 181 43% 53%;
+    --gradient-end: 174 84% 42%;
+    --teal: 174 84% 42%;
+    --teal-light: 176 70% 50%;
     
     /* Backgrounds */
     --background: 0 0% 100%;
@@ -95,12 +95,12 @@
     --emerald: 160 84% 45%;
     --emerald-light: 158 64% 58%;
     
-    /* Vibrant Gradient Colors - Dark Mode - Green Theme */
-    --gradient-start: 160 84% 45%;
-    --gradient-mid: 168 76% 48%;
-    --gradient-end: 174 72% 52%;
-    --teal: 174 72% 52%;
-    --teal-light: 172 66% 60%;
+    /* Vibrant Gradient Colors - Dark Mode - Teal Theme */
+    --gradient-start: 183 82% 28%;
+    --gradient-mid: 181 43% 58%;
+    --gradient-end: 174 84% 48%;
+    --teal: 174 84% 48%;
+    --teal-light: 176 70% 56%;
     
     --background: 220 20% 8%;
     --background-soft: 220 20% 10%;
