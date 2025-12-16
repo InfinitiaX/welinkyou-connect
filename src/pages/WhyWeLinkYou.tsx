@@ -57,9 +57,9 @@ const features = [
 
 const values = [
   { icon: Shield, text: "Rigueur et transparence" },
-  { icon: Globe, text: "Sensibilité culturelle" },
+  { icon: Sparkles, text: "Expertises ciblées" },
   { icon: Users, text: "Professionnels engagés par charte" },
-  { icon: CheckCircle, text: "Évaluation dans la durée" },
+  { icon: BadgeCheck, text: "Processus de vérification structuré" },
 ];
 
 const WhyWeLinkYou = () => {
