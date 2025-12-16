@@ -30,7 +30,7 @@ export const Footer = () => {
             <Link to="/" className="inline-block">
               <img src={logo} alt="WeLinkYou" className="h-28 w-auto" />
             </Link>
-            <p className="text-background/70 text-sm leading-relaxed mb-6">
+            <p className="text-background/70 text-sm leading-relaxed mb-6 -mt-4">
               La plateforme unique qui connecte des utilisateurs avec des professionnels experts d’un pays donné.
             </p>
             <div className="flex items-center gap-3">
