@@ -30,7 +30,9 @@ const faqs = [
       {
         question: "Comment fonctionne WeLinkYou ?",
         answer:
-          "WeLinkYou est une plateforme qui facilite la mise en relation entre particuliers, entreprises ou membres de la diaspora et des professionnels de confiance (avocats, médecins, coachs, experts, etc.). Vous pouvez rechercher un professionnel par domaine ou localisation et le contacter directement, sans création de compte ni intermédiaire.",
+          "WeLinkYou est une plateforme de mise en relation qui facilite l’accès à des professionnels de confiance tels que des avocats, notaires et autre expert, disposant de compétences spécialisées adaptées à des besoins locaux du pays concerné ou transfrontaliers.
+Vous pouvez consulter librement les profils, rechercher un professionnel par domaine d’expertise ou zone d’intervention, et le contacter directement, sans création de compte ni intermédiaire.
+",
       },
       {
         question: "Qu'a WeLinkYou de plus qu'un annuaire classique ?",
