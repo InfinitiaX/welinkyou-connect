@@ -46,10 +46,10 @@ const staggerContainer = {
 const benefits = [
   {
     icon: Megaphone,
-    title: "Gagnez en visibilité auprès d'une audience ciblée",
+    title: "Accédez à une audience en recherche active de votre expertise",
     description:
-      "Votre profil est mis en avant auprès d'une audience ciblée, engagée et en recherche active de votre type d'expertise.",
-    highlight: "Résultat : plus de demandes pertinentes, plus de clients qualifiés.",
+      "Votre profil est présenté à une audience ciblée, engagée et en recherche active de votre type d'expertise.",
+    highlight: "Résultat : plus de sollicitations pertinentes, directement liées à votre expertise.",
     gradient: "from-gradient-start to-gradient-mid",
   },
   {
