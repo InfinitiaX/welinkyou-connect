@@ -69,7 +69,7 @@ const benefits = [
   {
     icon: MessageCircle,
     title: "Recevez des contacts directs, sans intermédiaire",
-    description: "Zéro commission. Zéro plateforme entre vous et vos clients.",
+    description: "Aucune commission prélevée sur les mises en relation. Les échanges se font librement entre vous et vos clients.",
     highlight: "100% de votre activité, 100% de vos revenus.",
     gradient: "from-gradient-start to-gradient-end",
   },
