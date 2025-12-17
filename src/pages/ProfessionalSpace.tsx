@@ -17,6 +17,7 @@ import {
   Send,
   UserCheck,
   Megaphone,
+  ClipboardList,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -76,6 +77,7 @@ const benefits = [
 ];
 
 const steps = [
+  { icon: ClipboardList, text: "Vous complétez un court formulaire en ligne" },
   { icon: Send, text: "Vous envoyez vos documents" },
   { icon: FileCheck, text: "Nous vérifions" },
   { icon: UserCheck, text: "Votre profil est publié et mis en avant" },
