@@ -8,19 +8,19 @@ import { cn } from "@/lib/utils";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
-  }
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+    transition: { staggerChildren: 0.15 },
+  },
 };
 
 const faqs = [
@@ -30,7 +30,7 @@ const faqs = [
       {
         question: "Comment fonctionne WeLinkYou ?",
         answer:
-          "WeLinkYou est une plateforme de mise en relation qui facilite l'accès à des professionnels de confiance tels que des avocats, notaires et autre expert, disposant de compétences spécialisées adaptées à des besoins locaux du pays concerné ou transfrontaliers. Vous pouvez consulter librement les profils, rechercher un professionnel par domaine d'expertise ou zone d'intervention, et le contacter directement, sans création de compte ni intermédiaire.",
+          "WeLinkYou est une plateforme qui facilite la mise en relation entre particuliers, entreprises ou membres de la diaspora et des professionnels de confiance (avocats, médecins, coachs, experts, etc.). Vous pouvez rechercher un professionnel par domaine ou localisation et le contacter directement, sans création de compte ni intermédiaire.",
       },
       {
         question: "Qu'a WeLinkYou de plus qu'un annuaire classique ?",
@@ -53,7 +53,7 @@ const faqs = [
           "Chaque fiche professionnelle contient les informations de contact direct (téléphone, e-mail, site web, réseaux…). WeLinkYou ne gère pas les prises de rendez-vous ni les échanges : vous contactez le professionnel directement.",
       },
       {
-        question: "Que signifie le badge \"Profil vérifié\" ?",
+        question: 'Que signifie le badge "Profil vérifié" ?',
         answer:
           "Le badge \"Profil vérifié\" atteste que WeLinkYou a contrôlé les informations administratives du professionnel (identité, statut d'activité, diplômes ou équivalents). Ce n'est pas une évaluation de la qualité du service rendu, mais une garantie de fiabilité et de transparence.",
       },
@@ -81,9 +81,7 @@ const FAQ = () => {
   const [openItems, setOpenItems] = useState<string[]>([]);
 
   const toggleItem = (id: string) => {
-    setOpenItems((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
+    setOpenItems((prev) => (prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]));
   };
 
   const filteredFaqs = faqs
@@ -92,7 +90,7 @@ const FAQ = () => {
       questions: category.questions.filter(
         (q) =>
           q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          q.answer.toLowerCase().includes(searchQuery.toLowerCase())
+          q.answer.toLowerCase().includes(searchQuery.toLowerCase()),
       ),
     }))
     .filter((category) => category.questions.length > 0);
@@ -106,7 +104,7 @@ const FAQ = () => {
         <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
           <div className="absolute inset-0">
-            <div 
+            <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url('https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=1920&q=80')`,
@@ -143,7 +141,7 @@ const FAQ = () => {
                 </span>
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight"
               >
@@ -159,10 +157,7 @@ const FAQ = () => {
                 </span>
               </motion.h1>
 
-              <motion.p 
-                variants={fadeInUp}
-                className="text-lg md:text-xl text-white/90 leading-relaxed mb-8"
-              >
+              <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/90 leading-relaxed mb-8">
                 Trouvez rapidement les réponses à vos questions
               </motion.p>
 
@@ -227,13 +222,11 @@ const FAQ = () => {
                               onClick={() => toggleItem(itemId)}
                               className="w-full flex items-center justify-between p-5 text-left hover:bg-muted/30 transition-colors"
                             >
-                              <span className="font-medium text-foreground pr-4">
-                                {item.question}
-                              </span>
+                              <span className="font-medium text-foreground pr-4">{item.question}</span>
                               <ChevronDown
                                 className={cn(
                                   "w-5 h-5 text-muted-foreground transition-transform flex-shrink-0",
-                                  isOpen && "rotate-180"
+                                  isOpen && "rotate-180",
                                 )}
                               />
                             </button>
@@ -246,9 +239,7 @@ const FAQ = () => {
                                   transition={{ duration: 0.2 }}
                                 >
                                   <div className="px-5 pb-5">
-                                    <p className="text-muted-foreground leading-relaxed">
-                                      {item.answer}
-                                    </p>
+                                    <p className="text-muted-foreground leading-relaxed">{item.answer}</p>
                                   </div>
                                 </motion.div>
                               )}
@@ -260,14 +251,8 @@ const FAQ = () => {
                   </motion.div>
                 ))
               ) : (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-center py-12"
-                >
-                  <p className="text-muted-foreground">
-                    Aucun résultat trouvé pour "{searchQuery}"
-                  </p>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
+                  <p className="text-muted-foreground">Aucun résultat trouvé pour "{searchQuery}"</p>
                 </motion.div>
               )}
             </div>
