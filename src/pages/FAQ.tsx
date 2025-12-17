@@ -35,7 +35,7 @@ const faqs = [
       {
         question: "Qu'a WeLinkYou de plus qu'un annuaire classique ?",
         answer:
-          "Contrairement à un simple annuaire, WeLinkYou valorise la fiabilité, la vérification et la compréhension interculturelle. Nos professionnels sont vérifiés et choisis pour leur double compétence : maîtrise de leur métier et connaissance des spécificités marocaines (culturelles, linguistiques et réglementaires). Notre approche repose sur la confiance, pas sur la quantité.",
+          "WeLinkYou propose un accès structuré à des professionnels référencés selon leurs compétences déclarées, avec des filtres par expertise et localisation, et un processus de vérification documentaire (« Profil vérifié »).<br><br>Notre approche privilégie la pertinence des mises en relation plutôt que la quantité de profils.",
       },
       {
         question: "Faut-il créer un compte pour utiliser la plateforme ?",
