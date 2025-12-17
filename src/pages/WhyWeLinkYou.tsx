@@ -276,7 +276,7 @@ const WhyWeLinkYou = () => {
 
                   <div className="space-y-4">
                     {[
-                      "Vérification de l'identité",
+                      "Vérification d'identité",
                       "Vérification des diplômes et certifications déclarés",
                       "Contrôle d’éléments relatifs au statut d’activité",
                       "Engagement à respecter la charte WeLinkYou",
