@@ -63,7 +63,7 @@ const benefits = [
     icon: Users,
     title: "Intégrez un réseau de confiance",
     description: "Une communauté de professionnels authentifiés, reconnue pour sa transparence et son sérieux.",
-    highlight: "Un environnement sécurisant qui renforce votre image et attire des clients confiants.",
+    highlight: "Un environnement sécurisant qui met en valeur votre expertise et attire des clients confiants.",
     gradient: "from-gradient-end to-gradient-start",
   },
   {
