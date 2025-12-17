@@ -33,6 +33,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -54,7 +55,7 @@ const Contact = () => {
     // Reset form after 3 seconds
     setTimeout(() => {
       setIsSuccess(false);
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
     }, 3000);
   };
 
@@ -180,6 +181,7 @@ const Contact = () => {
                     </div>
                   </motion.div>
 
+                  {/* Commented out for now
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -211,6 +213,7 @@ const Contact = () => {
                       <p className="text-muted-foreground">Paris, France / Casablanca, Maroc</p>
                     </div>
                   </motion.div>
+                  */}
                 </div>
               </motion.div>
 
@@ -260,6 +263,18 @@ const Contact = () => {
                             required
                           />
                         </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">Téléphone (optionnel)</Label>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="+33 6 00 00 00 00"
+                        />
                       </div>
 
                       <div className="space-y-2">
