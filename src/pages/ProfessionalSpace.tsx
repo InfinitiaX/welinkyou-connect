@@ -364,7 +364,7 @@ const ProfessionalSpace = () => {
                       Envie d'attirer plus de clients ciblés ?
                     </h2>
                     <p className="text-lg text-muted-foreground mb-10">
-                      Rejoignez WeLinkYou dès maintenant et développez votre activité auprès d'une clientèle qualifiée.
+                      Rejoignez WeLinkYou dès maintenant et connectez-vous à des clients en recherche active de votre expertise.
                     </p>
                     <Link to="/inscription-pro">
                       <Button
