@@ -28,32 +28,33 @@ import { PricingSection } from "@/components/PricingSection";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
-  }
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+    transition: { staggerChildren: 0.15 },
+  },
 };
 
 const benefits = [
   {
     icon: Megaphone,
     title: "Gagnez en visibilité auprès d'une audience ciblée",
-    description: "Votre profil est mis en avant auprès d'une audience ciblée, engagée et en recherche active de votre type d'expertise.",
+    description:
+      "Votre profil est mis en avant auprès d'une audience ciblée, engagée et en recherche active de votre type d'expertise.",
     highlight: "Résultat : plus de demandes pertinentes, plus de clients qualifiés.",
     gradient: "from-gradient-start to-gradient-mid",
   },
   {
     icon: BadgeCheck,
-    title: "Valorisez votre profil avec le badge \"Profil vérifié\"",
+    title: 'Valorisez votre profil avec le badge "Profil vérifié"',
     description: "Un signe distinctif qui valorise votre engagement et votre professionnalisme.",
     highlight: "Il rassure immédiatement les utilisateurs et augmente votre taux de contact.",
     gradient: "from-gradient-mid to-gradient-end",
@@ -114,7 +115,7 @@ const ProfessionalSpace = () => {
         <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
           <div className="absolute inset-0">
-            <div 
+            <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url('https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1920&q=80')`,
@@ -151,11 +152,11 @@ const ProfessionalSpace = () => {
                 </span>
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight"
               >
-                Vous êtes{" "}
+                Vous êtes un{" "}
                 <span className="relative">
                   <span className="relative z-10 text-gradient-vibrant">professionnel</span>
                   <motion.span
@@ -164,17 +165,16 @@ const ProfessionalSpace = () => {
                     transition={{ delay: 0.8, duration: 0.6 }}
                     className="absolute bottom-2 left-0 h-3 bg-gradient-start/30 -z-0"
                   />
-                </span>
-                {" "}?
+                </span>{" "}
+                ?
               </motion.h1>
 
-              <motion.p 
+              <motion.p
                 variants={fadeInUp}
                 className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto mb-10"
               >
-                Rejoignez WeLinkYou et faites décoller votre activité auprès d'une clientèle 
-                vraiment intéressée par votre <strong>expertise</strong> et votre{" "}
-                <strong>compréhension du contexte marocain</strong>.
+                Rejoignez WeLinkYou et soyez contactés directement par des clients en recherche.{" "}
+                <strong>active de votre expertise spécifique</strong>.
               </motion.p>
 
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -221,7 +221,7 @@ const ProfessionalSpace = () => {
                   "px-6 py-4 text-sm font-medium border-b-2 transition-colors",
                   activeTab === "discover"
                     ? "border-primary text-primary"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground",
                 )}
               >
                 Pourquoi rejoindre WeLinkYou ?
@@ -260,8 +260,7 @@ const ProfessionalSpace = () => {
                         Vos avantages
                       </span>
                       <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
-                        Pourquoi rejoindre{" "}
-                        <span className="text-gradient-vibrant">WeLinkYou</span> ?
+                        Pourquoi rejoindre <span className="text-gradient-vibrant">WeLinkYou</span> ?
                       </h2>
                     </motion.div>
 
@@ -286,12 +285,8 @@ const ProfessionalSpace = () => {
                                 <h3 className="text-xl font-display font-semibold text-foreground mb-3">
                                   {benefit.title}
                                 </h3>
-                                <p className="text-muted-foreground leading-relaxed mb-3">
-                                  {benefit.description}
-                                </p>
-                                <p className="text-sm text-primary font-medium">
-                                  {benefit.highlight}
-                                </p>
+                                <p className="text-muted-foreground leading-relaxed mb-3">{benefit.description}</p>
+                                <p className="text-sm text-primary font-medium">{benefit.highlight}</p>
                               </div>
                             </div>
                           </div>
@@ -333,9 +328,9 @@ const ProfessionalSpace = () => {
                           <motion.div
                             key={step.text}
                             variants={fadeInUp}
-                            className={`flex items-center gap-6 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+                            className={`flex items-center gap-6 ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
                           >
-                            <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                            <div className={`flex-1 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
                               <div className="bg-card border border-border/50 rounded-2xl p-6 shadow-soft inline-block">
                                 <p className="text-foreground font-medium">{step.text}</p>
                               </div>
@@ -367,8 +362,7 @@ const ProfessionalSpace = () => {
                       Envie d'attirer plus de clients ciblés ?
                     </h2>
                     <p className="text-lg text-muted-foreground mb-10">
-                      Rejoignez WeLinkYou dès maintenant et développez votre activité 
-                      auprès d'une clientèle qualifiée.
+                      Rejoignez WeLinkYou dès maintenant et développez votre activité auprès d'une clientèle qualifiée.
                     </p>
                     <Link to="/inscription-pro">
                       <Button
@@ -396,9 +390,7 @@ const ProfessionalSpace = () => {
                 {/* Left side - Login form */}
                 <div className="flex flex-col justify-center px-6 py-12 lg:px-16 xl:px-24 bg-background">
                   <div className="max-w-md w-full mx-auto lg:mx-0">
-                    <h2 className="text-3xl font-display font-bold text-foreground mb-2">
-                      Identifiez-vous
-                    </h2>
+                    <h2 className="text-3xl font-display font-bold text-foreground mb-2">Identifiez-vous</h2>
                     <p className="text-muted-foreground mb-8">
                       Ou{" "}
                       <Link to="/inscription-pro" className="text-primary hover:underline font-medium">
@@ -439,11 +431,7 @@ const ProfessionalSpace = () => {
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                           >
-                            {showPassword ? (
-                              <EyeOff className="w-5 h-5" />
-                            ) : (
-                              <Eye className="w-5 h-5" />
-                            )}
+                            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                           </button>
                         </div>
                       </div>
@@ -456,10 +444,7 @@ const ProfessionalSpace = () => {
                         Continuer
                       </Button>
 
-                      <a
-                        href="#"
-                        className="block text-center text-sm text-primary hover:underline font-medium"
-                      >
+                      <a href="#" className="block text-center text-sm text-primary hover:underline font-medium">
                         Un problème pour vous connecter ?
                       </a>
                     </form>
@@ -474,8 +459,8 @@ const ProfessionalSpace = () => {
                     </div>
 
                     <Link to="/inscription-pro">
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         className="w-full h-14 text-base font-semibold border-2 hover:bg-primary/5"
                       >
                         Créer un compte professionnel
@@ -489,7 +474,7 @@ const ProfessionalSpace = () => {
                   {/* Background decoration */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark" />
                   <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-primary-dark/50 to-transparent" />
-                  
+
                   <div className="relative z-10 max-w-lg">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
@@ -538,19 +523,10 @@ const ProfessionalSpace = () => {
                       <h4 className="text-lg font-semibold mb-4">Actualités WeLinkYou Pro</h4>
                       <div className="space-y-4">
                         {news.map((item, index) => (
-                          <div
-                            key={index}
-                            className="border-l-2 border-emerald pl-4"
-                          >
-                            <span className="text-xs text-white/60">
-                              {item.date}
-                            </span>
-                            <h5 className="font-medium text-white mb-0.5">
-                              {item.title}
-                            </h5>
-                            <p className="text-sm text-white/70">
-                              {item.description}
-                            </p>
+                          <div key={index} className="border-l-2 border-emerald pl-4">
+                            <span className="text-xs text-white/60">{item.date}</span>
+                            <h5 className="font-medium text-white mb-0.5">{item.title}</h5>
+                            <p className="text-sm text-white/70">{item.description}</p>
                           </div>
                         ))}
                       </div>
