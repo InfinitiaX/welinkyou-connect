@@ -247,7 +247,6 @@ const WhyWeLinkYou = () => {
                       </div>
                       <div>
                         <div className="font-semibold text-foreground">100% Vérifié</div>
-                        <div className="text-sm text-muted-foreground">Profils authentiques</div>
                       </div>
                     </div>
                   </motion.div>
@@ -278,9 +277,9 @@ const WhyWeLinkYou = () => {
                   <div className="space-y-4">
                     {[
                       "Vérification de l'identité",
-                      "Validation des diplômes et certifications",
-                      "Contrôle du statut d'activité",
-                      "Engagement par charte qualité",
+                      "Vérification des diplômes et certifications déclarés",
+                      "Contrôle d’éléments relatifs au statut d’activité",
+                      "Engagement à respecter la charte WeLinkYou",
                     ].map((item, index) => (
                       <motion.div
                         key={item}
