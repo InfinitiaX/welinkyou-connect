@@ -30,12 +30,12 @@ const faqs = [
       {
         question: "Comment fonctionne WeLinkYou ?",
         answer:
-          "WeLinkYou est une plateforme de mise en relation qui facilite l'accès à des professionnels de confiance tels que des avocats, notaires et autres experts, disposant de compétences spécialisées adaptées à des besoins locaux du pays concerné ou transfrontaliers.<br><br>Vous pouvez consulter librement les profils, rechercher un professionnel par domaine d'expertise ou zone d'intervention, et le contacter directement, sans création de compte ni intermédiaire.",
+          "WeLinkYou est une plateforme qui facilite la mise en relation entre particuliers, entreprises ou membres de la diaspora et des professionnels de confiance (avocats, médecins, coachs, experts, etc.). Vous pouvez rechercher un professionnel par domaine ou localisation et le contacter directement, sans création de compte ni intermédiaire.",
       },
       {
         question: "Qu'a WeLinkYou de plus qu'un annuaire classique ?",
         answer:
-          "WeLinkYou propose un accès structuré à des professionnels référencés selon leurs compétences déclarées, avec des filtres par expertise et localisation, et un processus de vérification documentaire (« Profil vérifié »).<br><br>Notre approche privilégie la pertinence des mises en relation plutôt que la quantité de profils.",
+          "Contrairement à un simple annuaire, WeLinkYou valorise la fiabilité, la vérification et la compréhension interculturelle. Nos professionnels sont vérifiés et choisis pour leur double compétence : maîtrise de leur métier et connaissance des spécificités marocaines (culturelles, linguistiques et réglementaires). Notre approche repose sur la confiance, pas sur la quantité.",
       },
       {
         question: "Faut-il créer un compte pour utiliser la plateforme ?",
@@ -50,7 +50,7 @@ const faqs = [
       {
         question: "Comment puis-je contacter un professionnel ?",
         answer:
-          "Chaque fiche professionnelle contient les informations de contact direct (téléphone, e-mail, site web, réseaux…). WeLinkYou ne gère pas les prises de rendez-vous ni les échanges : vous contactez le professionnel directement.",
+          "Chaque fiche professionnelle contient les informations de contact direct (téléphone, e-mail, site web, réseaux…). Vous pouvez contacter le professionnel de votre choix librement et directement, sans intermédiaire : WeLinkYou n’intervient pas dans la prise de contact ni dans les échanges.",
       },
       {
         question: 'Que signifie le badge "Profil vérifié" ?',
@@ -239,10 +239,7 @@ const FAQ = () => {
                                   transition={{ duration: 0.2 }}
                                 >
                                   <div className="px-5 pb-5">
-                                    <p 
-                                      className="text-muted-foreground leading-relaxed"
-                                      dangerouslySetInnerHTML={{ __html: item.answer }}
-                                    />
+                                    <p className="text-muted-foreground leading-relaxed">{item.answer}</p>
                                   </div>
                                 </motion.div>
                               )}
