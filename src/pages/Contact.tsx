@@ -172,10 +172,10 @@ const Contact = () => {
                     <div>
                       <h3 className="font-medium text-foreground mb-1">Email</h3>
                       <a
-                        href="mailto:contact@welinkyou.com"
+                        href="mailto:contact@welinkyou.co"
                         className="text-muted-foreground hover:text-primary transition-colors"
                       >
-                        contact@welinkyou.com
+                        contact@welinkyou.co
                       </a>
                     </div>
                   </motion.div>
