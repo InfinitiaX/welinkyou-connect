@@ -138,7 +138,7 @@ const ProfessionalSpace = () => {
             className="absolute bottom-1/3 right-[15%] w-32 h-32 rounded-full bg-gradient-end/20 blur-xl"
           />
 
-          <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-24">
+          <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-16">
             <motion.div
               initial="hidden"
               animate="visible"
