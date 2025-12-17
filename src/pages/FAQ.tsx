@@ -30,12 +30,12 @@ const faqs = [
       {
         question: "Comment fonctionne WeLinkYou ?",
         answer:
-          "WeLinkYou est une plateforme qui facilite la mise en relation entre particuliers, entreprises ou membres de la diaspora et des professionnels de confiance (avocats, médecins, coachs, experts, etc.). Vous pouvez rechercher un professionnel par domaine ou localisation et le contacter directement, sans création de compte ni intermédiaire.",
+          "WeLinkYou est une plateforme de mise en relation qui facilite l'accès à des professionnels de confiance tels que des avocats, notaires et autre expert, disposant de compétences spécialisées adaptées à des besoins locaux du pays concerné ou transfrontaliers.<br><br>Vous pouvez consulter librement les profils, rechercher un professionnel par domaine d'expertise ou zone d'intervention, et le contacter directement, sans création de compte ni intermédiaire.",
       },
       {
         question: "Qu'a WeLinkYou de plus qu'un annuaire classique ?",
         answer:
-          "Contrairement à un simple annuaire, WeLinkYou valorise la fiabilité, la vérification et la compréhension interculturelle. Nos professionnels sont vérifiés et choisis pour leur double compétence : maîtrise de leur métier et connaissance des spécificités marocaines (culturelles, linguistiques et réglementaires). Notre approche repose sur la confiance, pas sur la quantité.",
+          "WeLinkYou propose un accès structuré à des professionnels référencés selon leurs compétences déclarées, avec des filtres par expertise et localisation, et un processus de vérification documentaire (« Profil vérifié »).<br><br>Notre approche privilégie la pertinence des mises en relation plutôt que la quantité de profils.",
       },
       {
         question: "Faut-il créer un compte pour utiliser la plateforme ?",
@@ -55,7 +55,7 @@ const faqs = [
       {
         question: "Que signifie le badge \"Profil vérifié\" ?",
         answer:
-          "Le badge \"Profil vérifié\" atteste que WeLinkYou a contrôlé les informations administratives du professionnel (identité, statut d'activité, diplômes ou équivalents). Ce n'est pas une évaluation de la qualité du service rendu, mais une garantie de fiabilité et de transparence.",
+          "Le badge « Profil vérifié » indique que le professionnel a suivi un processus de vérification administrative documentaire (identité, statut d'activité, diplômes ou équivalents déclarés), reposant sur les informations transmises, et a adhéré à la charte WeLinkYou.<br><br>Ce dispositif contribue à instaurer un cadre de transparence, sans constituer une garantie ni une évaluation de la qualité des prestations.",
       },
     ],
   },
@@ -70,8 +70,7 @@ const faqs = [
       {
         question: "Est-ce que WeLinkYou prend une commission ?",
         answer:
-          "WeLinkYou fonctionne sans commission sur les échanges, contacts ou prestations réalisés entre utilisateurs et professionnels.
-Notre modèle repose sur un abonnement professionnel transparent, qui permet aux professionnels d’intégrer le réseau WeLinkYou, d’accéder à des mises en relation ciblées et de bénéficier du processus de vérification.",
+          "WeLinkYou fonctionne sans commission sur les échanges, contacts ou prestations réalisés entre utilisateurs et professionnels.<br><br>Notre modèle repose sur un abonnement professionnel transparent, qui permet aux professionnels d'intégrer le réseau WeLinkYou, d'accéder à des mises en relation ciblées et de bénéficier du processus de vérification.",
       },
     ],
   },
@@ -247,9 +246,10 @@ const FAQ = () => {
                                   transition={{ duration: 0.2 }}
                                 >
                                   <div className="px-5 pb-5">
-                                    <p className="text-muted-foreground leading-relaxed">
-                                      {item.answer}
-                                    </p>
+                                    <p 
+                                      className="text-muted-foreground leading-relaxed"
+                                      dangerouslySetInnerHTML={{ __html: item.answer }}
+                                    />
                                   </div>
                                 </motion.div>
                               )}
