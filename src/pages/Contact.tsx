@@ -266,7 +266,7 @@ const Contact = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="phone">Téléphone (optionnel)</Label>
+                        <Label htmlFor="phone">Téléphone</Label>
                         <Input
                           id="phone"
                           name="phone"
