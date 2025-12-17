@@ -318,7 +318,7 @@ const WhyWeLinkYou = () => {
                 Prêt à trouver votre professionnel de confiance ?
               </h2>
               <p className="text-lg text-muted-foreground mb-10">
-                Accédez librement à notre annuaire et trouvez l'expert qui comprend vos besoins et votre contexte.
+                Accédez librement à notre sélection d’experts et trouvez celui qui comprend au mieux à vos besoins. .
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/recherche">
@@ -326,7 +326,7 @@ const WhyWeLinkYou = () => {
                     size="lg"
                     className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-8 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg"
                   >
-                    Parcourir l'annuaire
+                    Trouver un professionnel
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </Link>
