@@ -851,8 +851,9 @@ const ProRegistration = () => {
                                   <div className="flex flex-wrap items-center gap-2 mt-2">
                                     {doc.hasDownload && (
                                       <a
-                                        href="/documents/charte-welinkyou.pdf"
-                                        download
+                                        href="/charte-welinkyou"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-start/10 text-gradient-start rounded-lg hover:bg-gradient-start/20 transition-colors"
                                       >
                                         <Download className="w-4 h-4" />
