@@ -350,30 +350,25 @@ const ProfessionalSpace = () => {
               </section>
 
               {/* CTA Section */}
-              <section className="py-24 bg-background relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
-
-                <div className="container mx-auto px-4 lg:px-8 relative z-10">
+              <section className="py-16 bg-gray-50">
+                <div className="container mx-auto px-4 lg:px-8">
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-3xl mx-auto text-center"
+                    className="max-w-2xl mx-auto text-center"
                   >
-                    <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6">
+                    <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
                       Envie d'attirer plus de clients ciblés ?
                     </h2>
-                    <p className="text-lg text-muted-foreground mb-10">
+                    <p className="text-muted-foreground mb-6">
                       Rejoignez WeLinkYou dès maintenant et connectez-vous à des clients en recherche active de votre expertise.
                     </p>
-                    <Link to="/inscription-pro">
-                      <Button
-                        size="lg"
-                        className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-8 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg"
-                      >
-                        Créer mon profil professionnel
-                        <ArrowRight className="w-5 h-5" />
-                      </Button>
+                    <Link
+                      to="/inscription-pro"
+                      className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full gradient-vibrant-horizontal text-white font-medium hover:brightness-110 transition-all shadow-lg"
+                    >
+                      Créer mon profil professionnel
                     </Link>
                   </motion.div>
                 </div>
