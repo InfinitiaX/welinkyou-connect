@@ -70,7 +70,7 @@ const faqs = [
       {
         question: "Est-ce que WeLinkYou prend une commission ?",
         answer:
-          "Non. WeLinkYou ne prend aucune commission sur les échanges, contacts ou prestations réalisés entre les utilisateurs et les professionnels. Notre modèle repose sur un abonnement professionnel transparent destiné à soutenir la visibilité et la vérification des profils.",
+          "WeLinkYou fonctionne sans commission sur les échanges, contacts ou prestations réalisés entre utilisateurs et professionnels. Notre modèle repose sur un abonnement professionnel transparent, qui permet aux professionnels d'intégrer le réseau WeLinkYou, d'accéder à des mises en relation ciblées et de bénéficier du processus de vérification.",
       },
     ],
   },
