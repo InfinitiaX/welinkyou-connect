@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Eye, Target, Users, Sparkles, Globe, Heart, Lightbulb } from "lucide-react";
+import { Eye, Target, Users, ArrowRight, Sparkles, Globe, Heart, Lightbulb } from "lucide-react";
 import visionImage from "@/assets/vision-collaboration.jpg";
 import teamMember1 from "@/assets/team-member-1.jpg";
 import teamMember2 from "@/assets/team-member-2.jpg";
@@ -386,26 +386,43 @@ const About = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section className="py-24 bg-gradient-to-br from-primary via-primary-dark to-primary relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptMCAxOGMtMy4zMTQgMC02LTIuNjg2LTYtNnMyLjY4Ni02IDYtNiA2IDIuNjg2IDYgNi0yLjY4NiA2LTYgNnoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-30" />
+
+          <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="max-w-2xl mx-auto text-center"
+              transition={{ duration: 0.7 }}
+              className="max-w-3xl mx-auto text-center"
             >
-              <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-display font-semibold text-primary-foreground mb-6">
                 Prêt à trouver votre professionnel de confiance ?
               </h2>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-lg text-primary-foreground/80 mb-10 max-w-xl mx-auto">
                 Rejoignez la communauté WeLinkYou et accédez à un réseau d'experts qui comprennent vraiment vos besoins.
               </p>
-              <a
-                href="/recherche"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full gradient-vibrant-horizontal text-white font-medium hover:brightness-110 transition-all shadow-lg"
-              >
-                Trouver un professionnel
-              </a>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <motion.a
+                  href="/recherche"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-primary font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  Trouver un professionnel
+                  <ArrowRight className="w-5 h-5" />
+                </motion.a>
+                <motion.a
+                  href="/espace-professionnel"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary-foreground/10 text-primary-foreground font-semibold border border-primary-foreground/20 hover:bg-primary-foreground/20 transition-all duration-300"
+                >
+                  Espace professionnel
+                </motion.a>
+              </div>
             </motion.div>
           </div>
         </section>
