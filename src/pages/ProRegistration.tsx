@@ -97,7 +97,9 @@ const ProRegistration = () => {
     // Documents
     documents: {} as Record<string, { file: File | null; name: string; status: string }>,
     // Plan
-    plan: "annual",
+    plan: "freemium",
+    // Privacy
+    acceptPrivacyPolicy: false,
   });
 
   const [newSpecialty, setNewSpecialty] = useState("");
@@ -186,6 +188,8 @@ const ProRegistration = () => {
       }
       case 4:
         return formData.plan;
+      case 5:
+        return formData.acceptPrivacyPolicy;
       default:
         return true;
     }
@@ -911,63 +915,24 @@ const ProRegistration = () => {
                   {/* Step 4: Subscription */}
                   {currentStep === 4 && (
                     <div className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Monthly */}
-                        <button
-                          onClick={() => setFormData({ ...formData, plan: "monthly" })}
-                          className={cn(
-                            "p-6 rounded-2xl border-2 text-left transition-all relative overflow-hidden",
-                            formData.plan === "monthly"
-                              ? "border-primary bg-primary/5"
-                              : "border-border hover:border-primary/50"
-                          )}
-                        >
-                          <p className="text-muted-foreground mb-2 font-medium">Mensuel</p>
-                          <p className="text-4xl font-bold text-foreground mb-1">
-                            450 <span className="text-lg font-normal text-muted-foreground">DH</span>
-                          </p>
-                          <p className="text-sm text-muted-foreground">par mois, sans engagement</p>
-                          {formData.plan === "monthly" && (
-                            <div className="absolute top-4 right-4">
-                              <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
-                                <Check className="w-4 h-4" />
-                              </div>
-                            </div>
-                          )}
-                        </button>
-
-                        {/* Annual */}
-                        <button
-                          onClick={() => setFormData({ ...formData, plan: "annual" })}
-                          className={cn(
-                            "p-6 rounded-2xl border-2 text-left transition-all relative overflow-hidden",
-                            formData.plan === "annual"
-                              ? "border-primary bg-primary/5"
-                              : "border-border hover:border-primary/50"
-                          )}
-                        >
-                          <span className="absolute -top-0.5 -right-0.5 px-4 py-1.5 gradient-vibrant text-white text-xs font-bold rounded-bl-xl rounded-tr-xl">
-                            ÉCONOMISEZ 63%
-                          </span>
-                          <p className="text-muted-foreground mb-2 font-medium">Annuel</p>
-                          <p className="text-4xl font-bold text-foreground mb-1">
-                            2000 <span className="text-lg font-normal text-muted-foreground">DH</span>
-                          </p>
-                          <p className="text-sm text-primary font-medium">Économisez 3400 DH/an</p>
-                          {formData.plan === "annual" && (
-                            <div className="absolute top-4 right-4 mt-6">
-                              <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
-                                <Check className="w-4 h-4" />
-                              </div>
-                            </div>
-                          )}
-                        </button>
+                      {/* Freemium Plan */}
+                      <div className="p-6 rounded-2xl border-2 border-primary bg-primary/5 relative overflow-hidden">
+                        <div className="absolute top-4 right-4">
+                          <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
+                            <Check className="w-4 h-4" />
+                          </div>
+                        </div>
+                        <p className="text-muted-foreground mb-2 font-medium">Offre Freemium</p>
+                        <p className="text-4xl font-bold text-foreground mb-1">
+                          Gratuit
+                        </p>
+                        <p className="text-sm text-muted-foreground">Accès complet à la plateforme</p>
                       </div>
 
                       <div className="bg-card border border-border rounded-2xl p-6">
                         <h4 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                           <Star className="w-5 h-5 text-primary" />
-                          Inclus dans votre abonnement
+                          Inclus dans votre inscription
                         </h4>
                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {[
@@ -975,12 +940,34 @@ const ProRegistration = () => {
                             "Badge vérifié après validation",
                             "Visibilité dans les résultats",
                             "Statistiques de votre profil",
-                            "Support dédié prioritaire",
+                            "Support dédié",
                             "Mises à jour illimitées",
                           ].map((item, index) => (
                             <li key={index} className="flex items-center gap-3">
                               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <Check className="w-3 h-3 text-primary" />
+                              </div>
+                              <span className="text-muted-foreground text-sm">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Coming Soon Features */}
+                      <div className="bg-muted/30 border border-border rounded-2xl p-6">
+                        <h4 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                          <Clock className="w-5 h-5 text-muted-foreground" />
+                          Disponible prochainement
+                        </h4>
+                        <ul className="space-y-3">
+                          {[
+                            "Paiements sécurisés sur la plateforme",
+                            "Consultations vidéo intégrées",
+                            "Prise de rendez-vous en ligne",
+                          ].map((item, index) => (
+                            <li key={index} className="flex items-center gap-3">
+                              <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
+                                <Clock className="w-3 h-3 text-muted-foreground" />
                               </div>
                               <span className="text-muted-foreground text-sm">{item}</span>
                             </li>
@@ -1184,6 +1171,40 @@ const ProRegistration = () => {
                     </div>
                   )}
 
+                  {/* Privacy Policy Checkbox - Only on Step 5 */}
+                  {currentStep === 5 && (
+                    <div className="mt-8 p-6 bg-muted/30 rounded-2xl border border-border">
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Les informations que vous communiquez sont traitées conformément à notre Politique de protection des données.
+                      </p>
+                      <label className="flex items-start gap-3 cursor-pointer group">
+                        <div className="relative mt-0.5">
+                          <input
+                            type="checkbox"
+                            checked={formData.acceptPrivacyPolicy}
+                            onChange={(e) => setFormData({ ...formData, acceptPrivacyPolicy: e.target.checked })}
+                            className="peer sr-only"
+                          />
+                          <div className="w-5 h-5 border-2 border-border rounded transition-colors peer-checked:bg-primary peer-checked:border-primary group-hover:border-primary/50">
+                            {formData.acceptPrivacyPolicy && (
+                              <Check className="w-4 h-4 text-primary-foreground" />
+                            )}
+                          </div>
+                        </div>
+                        <span className="text-sm text-foreground">
+                          J'ai pris connaissance de la{" "}
+                          <Link 
+                            to="/confidentialite" 
+                            target="_blank"
+                            className="text-primary hover:underline font-medium"
+                          >
+                            Politique de protection des données
+                          </Link>
+                        </span>
+                      </label>
+                    </div>
+                  )}
+
                   {/* Navigation Buttons */}
                   <div className="flex items-center justify-between mt-10 pt-6 border-t border-border">
                     <Button
@@ -1214,7 +1235,7 @@ const ProRegistration = () => {
                             setIsSuccess(true);
                           }, 2000);
                         }}
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !formData.acceptPrivacyPolicy}
                         className="h-12 px-8 rounded-xl btn-ripple gradient-primary border-0"
                       >
                         {isSubmitting ? (
