@@ -178,7 +178,7 @@ const ProRegistration = () => {
           formData.country
         );
       case 2:
-        return formData.professionType && formData.category && formData.languages.length > 0;
+        return formData.professionType && formData.category && formData.languages.length > 0 && formData.experience;
       case 3: {
         // For regulated professions, all documents are required
         // For non-regulated, at least KBIS and insurance are required
@@ -693,7 +693,7 @@ const ProRegistration = () => {
                       <div className="space-y-3">
                         <Label className="flex items-center gap-2">
                           <Clock className="w-4 h-4 text-primary" />
-                          Années d'expérience
+                          Années d'expérience <span className="text-destructive">*</span>
                         </Label>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                           {experienceOptions.map((option) => (
@@ -764,7 +764,7 @@ const ProRegistration = () => {
                           className="rounded-xl resize-none"
                         />
                         <p className="text-xs text-muted-foreground">
-                          Cette description apparaîtra sur votre profil public
+                          Cette description apparaîtra sur votre profil public. Dites-en plus sur vous : un profil complet génère plus d'intérêt.
                         </p>
                       </div>
 
