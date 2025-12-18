@@ -571,7 +571,7 @@ const ProRegistration = () => {
                             <div>
                               <span className="font-medium text-foreground">Profession réglementée</span>
                               <p className="text-xs text-muted-foreground mt-0.5">
-                                Avocat, médecin, expert-comptable, notaire, etc.
+                                Avocat, expert-comptable, notaire, etc.
                               </p>
                             </div>
                           </button>
@@ -599,7 +599,7 @@ const ProRegistration = () => {
                             <div>
                               <span className="font-medium text-foreground">Profession non réglementée</span>
                               <p className="text-xs text-muted-foreground mt-0.5">
-                                Consultant, coach, formateur, artisan, etc.
+                                Consultant, formateur, etc.
                               </p>
                             </div>
                           </button>
