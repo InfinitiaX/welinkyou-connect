@@ -273,22 +273,17 @@ const FAQ = () => {
               viewport={{ once: true }}
               className="max-w-2xl mx-auto"
             >
-              <span className="text-gradient-vibrant font-semibold text-lg mb-4 block">Vous êtes un professionnel ?</span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
-                Rejoignez WeLinkYou !
+                Vous n'avez pas trouvé votre réponse ?
               </h2>
               <p className="text-white/70 text-lg mb-10 leading-relaxed">
-                Rejoignez notre réseau d'experts et connectez-vous à une clientèle qui recherche précisément votre
-                expertise !
+                Notre équipe est disponible pour répondre à toutes vos questions.
               </p>
               <a
-                href="/espace-professionnel"
+                href="/contact"
                 className="inline-flex items-center gap-2 px-10 py-4 gradient-vibrant-horizontal text-white rounded-full font-semibold hover:brightness-110 hover:scale-[1.02] transition-all shadow-xl shadow-gradient-start/25"
               >
-                Inscrivez-vous
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                Nous contacter
               </a>
             </motion.div>
           </div>
