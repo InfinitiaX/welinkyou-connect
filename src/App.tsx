@@ -61,7 +61,7 @@ const App = () => (
           <Route path="/charte-welinkyou" element={<CharteWeLinkYou />} />
 
           {/* Practitioner Dashboard Routes */}
-          <Route path="/praticien" element={<PractitionerLayout />}>
+          <Route path="/professionnel-espace" element={<PractitionerLayout />}>
             <Route path="dashboard" element={<PractitionerDashboard />} />
             <Route path="profil" element={<PractitionerProfile />} />
             <Route path="abonnement" element={<PractitionerSubscription />} />
@@ -71,7 +71,7 @@ const App = () => (
           {/* Super Admin Dashboard Routes */}
           <Route path="/dashboard/superadmin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
-            <Route path="praticiens" element={<AdminPractitioners />} />
+            <Route path="professionnels" element={<AdminPractitioners />} />
             <Route path="demandes" element={<AdminRegistrations />} />
             <Route path="documents" element={<AdminDocuments />} />
             <Route path="parametres" element={<AdminSettings />} />

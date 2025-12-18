@@ -133,7 +133,7 @@ export const PractitionerDashboard = () => {
           title="Grade plateforme"
           value="Or"
           icon={Award}
-          description="Top 15% des praticiens"
+          description="Top 15% des professionnels"
           delay={0.4}
         />
       </div>

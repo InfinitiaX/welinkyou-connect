@@ -23,9 +23,9 @@ const menuItems = [
     path: "/dashboard/superadmin",
   },
   {
-    title: "Praticiens",
+    title: "Professionnels",
     icon: Users,
-    path: "/dashboard/superadmin/praticiens",
+    path: "/dashboard/superadmin/professionnels",
   },
   {
     title: "Demandes d'inscription",

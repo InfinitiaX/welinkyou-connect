@@ -151,7 +151,7 @@ export const AdminDocuments = () => {
         transition={{ duration: 0.4 }}
       >
         <h1 className="text-3xl font-bold text-primary">Documents</h1>
-        <p className="text-muted-foreground mt-1">Gérez tous les documents soumis par les praticiens</p>
+        <p className="text-muted-foreground mt-1">Gérez tous les documents soumis par les professionnels</p>
       </motion.div>
 
       {/* Stats Cards */}
@@ -245,7 +245,7 @@ export const AdminDocuments = () => {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Rechercher par nom de document ou praticien..."
+            placeholder="Rechercher par nom de document ou professionnel..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
@@ -426,11 +426,11 @@ export const AdminDocuments = () => {
           </DialogHeader>
           <div className="py-4 space-y-3">
             <p className="text-sm text-muted-foreground">
-              Conformément au RGPD, le praticien devra renouveler son consentement pour que vous puissiez continuer à conserver ses documents personnels.
+              Conformément au RGPD, le professionnel devra renouveler son consentement pour que vous puissiez continuer à conserver ses documents personnels.
             </p>
             <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-sm text-blue-800">
-                <strong>Note :</strong> Si le praticien ne répond pas dans les 30 jours, le document devra être supprimé.
+                <strong>Note :</strong> Si le professionnel ne répond pas dans les 30 jours, le document devra être supprimé.
               </p>
             </div>
           </div>
