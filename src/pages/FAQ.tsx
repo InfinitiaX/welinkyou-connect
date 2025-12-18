@@ -260,7 +260,7 @@ const FAQ = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-background-soft">
+        <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -276,7 +276,7 @@ const FAQ = () => {
               </p>
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full gradient-vibrant-horizontal text-white font-medium hover:brightness-110 transition-all shadow-lg"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full gradient-vibrant-horizontal text-white font-medium hover:brightness-110 transition-all shadow-lg"
               >
                 Nous contacter
               </a>
