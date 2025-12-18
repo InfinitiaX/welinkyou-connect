@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound";
 import { MentionsLegales } from "./pages/MentionsLegales";
 import { CGU } from "./pages/CGU";
 import { PolitiqueConfidentialite } from "./pages/PolitiqueConfidentialite";
+import CharteWeLinkYou from "./pages/CharteWeLinkYou";
 import { PractitionerLayout } from "./components/practitioner/PractitionerLayout";
 import { PractitionerDashboard } from "./pages/practitioner/PractitionerDashboard";
 import { PractitionerProfile } from "./pages/practitioner/PractitionerProfile";
@@ -57,6 +58,7 @@ const App = () => (
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/cgu" element={<CGU />} />
           <Route path="/confidentialite" element={<PolitiqueConfidentialite />} />
+          <Route path="/charte-welinkyou" element={<CharteWeLinkYou />} />
 
           {/* Practitioner Dashboard Routes */}
           <Route path="/praticien" element={<PractitionerLayout />}>
