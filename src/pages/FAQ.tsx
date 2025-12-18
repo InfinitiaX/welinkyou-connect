@@ -259,26 +259,36 @@ const FAQ = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4 lg:px-8">
+        {/* CTA Section - Premium Dark with Vibrant Gradient */}
+        <section className="py-24 bg-[#0d0d18] relative overflow-hidden">
+          {/* Background gradient effects */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gradient-start/10 via-transparent to-gradient-end/10" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-start/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-end/20 rounded-full blur-3xl" />
+
+          <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="max-w-2xl mx-auto text-center"
+              className="max-w-2xl mx-auto"
             >
-              <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                Vous n'avez pas trouvé votre réponse ?
+              <span className="text-gradient-vibrant font-semibold text-lg mb-4 block">Vous êtes un professionnel ?</span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
+                Rejoignez WeLinkYou !
               </h2>
-              <p className="text-muted-foreground mb-6">
-                Notre équipe est disponible pour répondre à toutes vos questions.
+              <p className="text-white/70 text-lg mb-10 leading-relaxed">
+                Rejoignez notre réseau d'experts et connectez-vous à une clientèle qui recherche précisément votre
+                expertise !
               </p>
               <a
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full gradient-vibrant-horizontal text-white font-medium hover:brightness-110 transition-all shadow-lg"
+                href="/espace-professionnel"
+                className="inline-flex items-center gap-2 px-10 py-4 gradient-vibrant-horizontal text-white rounded-full font-semibold hover:brightness-110 hover:scale-[1.02] transition-all shadow-xl shadow-gradient-start/25"
               >
-                Nous contacter
+                Inscrivez-vous
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </a>
             </motion.div>
           </div>
