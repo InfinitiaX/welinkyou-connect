@@ -55,7 +55,7 @@ const faqs = [
       {
         question: 'Que signifie le badge "Profil vérifié" ?',
         answer:
-          "Le badge \"Profil vérifié\" atteste que WeLinkYou a contrôlé les informations administratives du professionnel (identité, statut d'activité, diplômes ou équivalents). Ce n'est pas une évaluation de la qualité du service rendu, mais une garantie de fiabilité et de transparence.",
+          "Le badge « Profil vérifié » indique que le professionnel a suivi un processus de vérification administrative documentaire (identité, statut d'activité, diplômes ou équivalents déclarés), reposant sur les informations transmises, et a adhéré à la charte WeLinkYou. Ce dispositif contribue à instaurer un cadre de transparence, sans constituer une garantie ni une évaluation de la qualité des prestations.",
       },
     ],
   },
