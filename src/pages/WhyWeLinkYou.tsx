@@ -331,7 +331,7 @@ const WhyWeLinkYou = () => {
                   </Button>
                 </Link>
                 <Link to="/a-propos">
-                  <Button size="lg" variant="outline" className="gap-2 text-base px-8 border-white/30 text-white hover:bg-white/10">
+                  <Button size="lg" className="gap-2 text-base px-8 bg-white text-foreground hover:bg-white/90">
                     En savoir plus
                   </Button>
                 </Link>
