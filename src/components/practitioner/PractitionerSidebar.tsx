@@ -19,22 +19,22 @@ const menuItems = [
   {
     title: "Tableau de bord",
     icon: LayoutDashboard,
-    path: "/praticien/dashboard",
+    path: "/professionnel-espace/dashboard",
   },
   {
     title: "Mon Profil",
     icon: User,
-    path: "/praticien/profil",
+    path: "/professionnel-espace/profil",
   },
   {
     title: "Mon Abonnement",
     icon: CreditCard,
-    path: "/praticien/abonnement",
+    path: "/professionnel-espace/abonnement",
   },
   {
     title: "Paramètres",
     icon: Settings,
-    path: "/praticien/parametres",
+    path: "/professionnel-espace/parametres",
   },
 ];
 
@@ -67,7 +67,7 @@ export const PractitionerSidebar = ({ collapsed, onToggle }: PractitionerSidebar
                 exit={{ opacity: 0, y: -5 }}
                 className="text-white/80 text-sm font-medium"
               >
-                Espace Praticien
+                Espace Professionnel
               </motion.span>
             )}
           </AnimatePresence>

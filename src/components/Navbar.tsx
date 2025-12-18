@@ -18,7 +18,7 @@ const navLinks = [
 const lightBackgroundPages = [
   "/recherche",
   "/blog",
-  "/praticien",
+  "/professionnel-espace",
   "/dashboard",
   "/connexion",
   "/mot-de-passe-oublie",

@@ -52,7 +52,7 @@ export const AdminRegistrations = () => {
     const request = requests.find(r => r.id === id);
     toast({
       title: "Demande approuvée",
-      description: `${request?.firstName} ${request?.lastName} peut maintenant accéder à son espace praticien.`,
+      description: `${request?.firstName} ${request?.lastName} peut maintenant accéder à son espace professionnel.`,
     });
     setIsDetailDialogOpen(false);
   };
@@ -137,7 +137,7 @@ export const AdminRegistrations = () => {
         transition={{ duration: 0.4 }}
       >
         <h1 className="text-3xl font-bold text-primary">Demandes d'inscription</h1>
-        <p className="text-muted-foreground mt-1">Gérez les nouvelles demandes de praticiens depuis /inscription-pro</p>
+        <p className="text-muted-foreground mt-1">Gérez les nouvelles demandes de professionnels depuis /inscription-pro</p>
       </motion.div>
 
       {/* Stats Cards */}

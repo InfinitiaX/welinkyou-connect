@@ -152,8 +152,8 @@ export const AdminPractitioners = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-primary">Gestion des praticiens</h1>
-        <p className="text-muted-foreground mt-1">Gérez les profils, badges et visibilité des praticiens</p>
+        <h1 className="text-3xl font-bold text-primary">Gestion des professionnels</h1>
+        <p className="text-muted-foreground mt-1">Gérez les profils, badges et visibilité des professionnels</p>
       </motion.div>
 
       {/* Filters */}
@@ -201,14 +201,14 @@ export const AdminPractitioners = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Users className="w-5 h-5 text-gradient-end" />
-              Praticiens ({filteredPractitioners.length})
+              Professionnels ({filteredPractitioners.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Praticien</TableHead>
+                  <TableHead>Professionnel</TableHead>
                   <TableHead>Spécialité</TableHead>
                   <TableHead className="text-center">Vues</TableHead>
                   <TableHead className="text-center">Clics</TableHead>
@@ -313,7 +313,7 @@ export const AdminPractitioners = () => {
           <DialogHeader>
             <DialogTitle>Modifier le profil</DialogTitle>
             <DialogDescription>
-              Modifiez les informations du praticien
+              Modifiez les informations du professionnel
             </DialogDescription>
           </DialogHeader>
           {editingPractitioner && (

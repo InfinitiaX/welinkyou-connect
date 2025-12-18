@@ -49,7 +49,7 @@ export const AdminDashboard = () => {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <AdminStatCard
-          title="Praticiens actifs"
+          title="Professionnels actifs"
           value={mockPlatformStats.activePractitioners}
           icon={Users}
           trend={{ value: 12, isPositive: true }}
@@ -70,7 +70,7 @@ export const AdminDashboard = () => {
           delay={0.2}
         />
         <AdminStatCard
-          title="Praticiens certifiés"
+          title="Professionnels certifiés"
           value={mockPlatformStats.certifiedPractitioners}
           icon={Award}
           delay={0.3}
@@ -201,9 +201,9 @@ export const AdminDashboard = () => {
           <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <Star className="w-5 h-5 text-gradient-end" />
-                Top praticiens (vues)
+                Top professionnels (vues)
               </CardTitle>
-            <Button variant="outline" onClick={() => navigate('/dashboard/superadmin/praticiens')}>
+            <Button variant="outline" onClick={() => navigate('/dashboard/superadmin/professionnels')}>
               Voir tous
             </Button>
           </CardHeader>
