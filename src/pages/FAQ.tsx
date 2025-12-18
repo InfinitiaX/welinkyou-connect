@@ -65,7 +65,7 @@ const faqs = [
       {
         question: "WeLinkYou intervient-il dans la relation entre le professionnel et le client ?",
         answer:
-          "Non. WeLinkYou met simplement à disposition un espace de visibilité et de confiance. Les échanges, prestations et conditions relèvent exclusivement du professionnel et du client.",
+          "Non. WeLinkYou facilite et structure la mise en relation entre utilisateurs et professionnels, en proposant un cadre clair et transparent. Les échanges, prestations et conditions sont ensuite définis directement entre le professionnel et le client, sans intervention de WeLinkYou.",
       },
       {
         question: "Est-ce que WeLinkYou prend une commission ?",
