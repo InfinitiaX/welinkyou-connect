@@ -369,15 +369,26 @@ const ProfessionalSpace = () => {
                     <p className="text-white/70 text-lg mb-10 leading-relaxed">
                       Rejoignez WeLinkYou dès maintenant et connectez-vous à des clients en recherche active de votre expertise.
                     </p>
-                    <Link to="/inscription-pro">
-                      <Button
-                        size="lg"
-                        className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-10 py-4 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-xl shadow-gradient-start/25"
-                      >
-                        Créer mon profil professionnel
-                        <ArrowRight className="w-5 h-5" />
-                      </Button>
-                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Link to="/inscription-pro">
+                        <Button
+                          size="lg"
+                          className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-10 py-4 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-xl shadow-gradient-start/25"
+                        >
+                          Créer mon profil professionnel
+                          <ArrowRight className="w-5 h-5" />
+                        </Button>
+                      </Link>
+                      <Link to="/connexion">
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="bg-white/10 border-white/30 text-white hover:bg-white/20 gap-2 text-base px-10 py-4 rounded-full transition-all"
+                        >
+                          Se connecter
+                        </Button>
+                      </Link>
+                    </div>
                   </motion.div>
                 </div>
               </section>
