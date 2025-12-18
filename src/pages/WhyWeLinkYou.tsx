@@ -303,9 +303,9 @@ const WhyWeLinkYou = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 bg-background relative overflow-hidden">
+        <section className="py-24 bg-[#0a1a1f] relative overflow-hidden">
           {/* Background decoration */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-primary/5 to-transparent" />
 
           <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <motion.div
@@ -314,11 +314,11 @@ const WhyWeLinkYou = () => {
               viewport={{ once: true }}
               className="max-w-3xl mx-auto text-center"
             >
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
                 Prêt à trouver votre professionnel de confiance ?
               </h2>
-              <p className="text-lg text-muted-foreground mb-10">
-                Accédez librement à notre sélection d’experts et trouvez celui qui comprend au mieux à vos besoins. .
+              <p className="text-lg text-white/70 mb-10">
+                Accédez librement à notre sélection d'experts et trouvez celui qui comprend au mieux à vos besoins.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/recherche">
@@ -331,7 +331,7 @@ const WhyWeLinkYou = () => {
                   </Button>
                 </Link>
                 <Link to="/a-propos">
-                  <Button size="lg" variant="outline" className="gap-2 text-base px-8">
+                  <Button size="lg" variant="outline" className="gap-2 text-base px-8 border-white/30 text-white hover:bg-white/10">
                     En savoir plus
                   </Button>
                 </Link>
