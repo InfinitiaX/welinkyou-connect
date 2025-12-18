@@ -324,7 +324,7 @@ const WhyWeLinkYou = () => {
                 <Link to="/recherche">
                   <Button
                     size="lg"
-                    className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-8 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg"
+                    className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-8 hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg"
                   >
                     Trouver un professionnel
                     <ArrowRight className="w-5 h-5" />
