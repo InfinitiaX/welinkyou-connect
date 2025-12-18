@@ -25,6 +25,7 @@ import {
   Building,
   MessageCircle,
   Plus,
+  Download,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -61,12 +62,11 @@ const experienceOptions = [
 ];
 
 const allDocuments = [
-  { id: "diploma", name: "Diplôme", description: "Diplôme ou certificat professionnel", icon: Award, requiredForRegulated: true },
-  { id: "identity", name: "Preuve d'identité", description: "Passeport ou CIN", icon: User, requiredForRegulated: true },
-  { id: "registration", name: "Numéro d'enregistrement", description: "Attestation d'exercice", icon: FileText, requiredForRegulated: true },
-  { id: "kbis", name: "Extrait d'immatriculation", description: "KBIS ou Registre de Commerce", icon: Building, requiredForRegulated: true },
-  { id: "charter", name: "Charte WeLinkYou signée", description: "Engagement sur les conditions d'utilisation", icon: Shield, requiredForRegulated: true },
-  { id: "insurance", name: "Attestation d'assurance", description: "Assurance responsabilité professionnelle", icon: Shield, requiredForRegulated: true },
+  { id: "identity", name: "Preuve d'identité", description: "Carte d'identité ou passeport en cours de validité.", icon: User, required: true },
+  { id: "registration", name: "Inscription ou autorisation professionnelle", description: "Attestation d'inscription à un ordre ou registre professionnel ou document équivalent.", icon: FileText, required: true },
+  { id: "diploma", name: "Diplôme ou titre professionnel", description: "Diplôme ou titre permettant l'accès à la profession, ou document équivalent déclaré.", icon: Award, required: false, recommended: true },
+  { id: "kbis", name: "Justificatif d'activité professionnelle", description: "Document attestant de l'activité en cours (ex. extrait d'immatriculation).", icon: Building, required: false, conditional: true },
+  { id: "charter", name: "Charte WeLinkYou signée", description: "Signature de la charte d'engagement de la plateforme.", icon: Shield, required: true, hasDownload: true },
 ];
 
 const ProRegistration = () => {
@@ -180,15 +180,9 @@ const ProRegistration = () => {
       case 2:
         return formData.professionType && formData.category && formData.languages.length > 0 && formData.experience;
       case 3: {
-        // For regulated professions, all documents are required
-        // For non-regulated, at least KBIS and insurance are required
-        if (formData.professionType === "regulated") {
-          const requiredDocs = allDocuments.map(d => d.id);
-          return requiredDocs.every(docId => formData.documents[docId]);
-        } else {
-          // Non-regulated: only kbis and insurance are required
-          return formData.documents["kbis"] && formData.documents["insurance"];
-        }
+        // Required documents: identity, registration, charter
+        const requiredDocs = allDocuments.filter(d => d.required).map(d => d.id);
+        return requiredDocs.every(docId => formData.documents[docId]);
       }
       case 4:
         return formData.plan;
@@ -289,7 +283,7 @@ const ProRegistration = () => {
                 Créez votre profil professionnel
               </h1>
               <p className="text-muted-foreground max-w-xl mx-auto">
-                En quelques minutes, gagnez en visibilité auprès d'une clientèle franco-marocaine qualifiée
+                En quelques minutes, rendez votre expertise accessible auprès d'une audience ciblée, réellement en recherche de vos compétences.
               </p>
             </motion.div>
           </div>
@@ -802,18 +796,15 @@ const ProRegistration = () => {
                               La vérification de vos documents nous permet d'attribuer le badge "Profil vérifié" 
                               et d'assurer la confiance des utilisateurs.
                             </p>
-                            {formData.professionType === "non-regulated" && (
-                              <p className="text-xs text-primary mt-2 font-medium">
-                                Profession non réglementée : seuls l'extrait d'immatriculation et l'attestation d'assurance sont obligatoires.
-                              </p>
-                            )}
                           </div>
                         </div>
                       </div>
 
                       <div className="space-y-3">
                         {allDocuments.map((doc) => {
-                          const isRequired = formData.professionType === "regulated" || doc.id === "kbis" || doc.id === "insurance";
+                          const isRequired = doc.required;
+                          const isRecommended = doc.recommended;
+                          const isConditional = doc.conditional;
                           
                           return (
                             <div
@@ -841,6 +832,14 @@ const ProRegistration = () => {
                                       <span className="text-xs px-2 py-0.5 bg-destructive/10 text-destructive rounded-full">
                                         Requis
                                       </span>
+                                    ) : isRecommended ? (
+                                      <span className="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">
+                                        Optionnel – recommandé
+                                      </span>
+                                    ) : isConditional ? (
+                                      <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-full">
+                                        Si applicable
+                                      </span>
                                     ) : (
                                       <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-full">
                                         Optionnel
@@ -849,33 +848,46 @@ const ProRegistration = () => {
                                   </div>
                                   <p className="text-sm text-muted-foreground mt-0.5">{doc.description}</p>
                                   
-                                  {formData.documents[doc.id] ? (
-                                    <div className="flex items-center gap-3 mt-2">
-                                      <div className="flex items-center gap-2 px-3 py-1.5 bg-background rounded-lg border border-border">
-                                        <FileText className="w-4 h-4 text-primary" />
-                                        <span className="text-sm text-foreground truncate max-w-[180px]">
-                                          {formData.documents[doc.id].name}
-                                        </span>
-                                      </div>
-                                      <button
-                                        onClick={() => removeDocument(doc.id)}
-                                        className="p-1.5 text-muted-foreground hover:text-destructive transition-colors"
+                                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                                    {doc.hasDownload && (
+                                      <a
+                                        href="/documents/charte-welinkyou.pdf"
+                                        download
+                                        className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-start/10 text-gradient-start rounded-lg hover:bg-gradient-start/20 transition-colors"
                                       >
-                                        <X className="w-4 h-4" />
-                                      </button>
-                                    </div>
-                                  ) : (
-                                    <label className="inline-flex items-center gap-2 mt-2 px-3 py-1.5 bg-primary/10 text-primary rounded-lg cursor-pointer hover:bg-primary/20 transition-colors">
-                                      <Upload className="w-4 h-4" />
-                                      <span className="text-sm font-medium">Choisir un fichier</span>
-                                      <input
-                                        type="file"
-                                        accept=".pdf,.jpg,.jpeg,.png"
-                                        onChange={(e) => handleDocumentUpload(doc.id, e)}
-                                        className="hidden"
-                                      />
-                                    </label>
-                                  )}
+                                        <Download className="w-4 h-4" />
+                                        <span className="text-sm font-medium">Télécharger la charte</span>
+                                      </a>
+                                    )}
+                                    
+                                    {formData.documents[doc.id] ? (
+                                      <div className="flex items-center gap-3">
+                                        <div className="flex items-center gap-2 px-3 py-1.5 bg-background rounded-lg border border-border">
+                                          <FileText className="w-4 h-4 text-primary" />
+                                          <span className="text-sm text-foreground truncate max-w-[180px]">
+                                            {formData.documents[doc.id].name}
+                                          </span>
+                                        </div>
+                                        <button
+                                          onClick={() => removeDocument(doc.id)}
+                                          className="p-1.5 text-muted-foreground hover:text-destructive transition-colors"
+                                        >
+                                          <X className="w-4 h-4" />
+                                        </button>
+                                      </div>
+                                    ) : (
+                                      <label className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-lg cursor-pointer hover:bg-primary/20 transition-colors">
+                                        <Upload className="w-4 h-4" />
+                                        <span className="text-sm font-medium">Choisir un fichier</span>
+                                        <input
+                                          type="file"
+                                          accept=".pdf,.jpg,.jpeg,.png"
+                                          onChange={(e) => handleDocumentUpload(doc.id, e)}
+                                          className="hidden"
+                                        />
+                                      </label>
+                                    )}
+                                  </div>
                                 </div>
                                 {formData.documents[doc.id] && (
                                   <div className="flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium flex-shrink-0">
