@@ -34,6 +34,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { PrivacyPolicyDialog } from "@/components/PrivacyPolicyDialog";
 import { categories, countries, cities } from "@/data/categories";
 import { cn } from "@/lib/utils";
 
@@ -1193,13 +1194,14 @@ const ProRegistration = () => {
                         </div>
                         <span className="text-sm text-foreground">
                           J'ai pris connaissance de la{" "}
-                          <Link 
-                            to="/confidentialite" 
-                            target="_blank"
-                            className="text-primary hover:underline font-medium"
-                          >
-                            Politique de protection des données
-                          </Link>
+                          <PrivacyPolicyDialog>
+                            <button
+                              type="button"
+                              className="text-primary hover:underline font-medium"
+                            >
+                              Politique de protection des données
+                            </button>
+                          </PrivacyPolicyDialog>
                         </span>
                       </label>
                     </div>
