@@ -32,15 +32,15 @@ const news = [
 const benefits = [
   {
     icon: Users,
-    text: "Visibilité auprès d'une clientèle ciblée France-Maroc",
+    text: "Accès simplifié à une clientèle ciblée",
   },
   {
     icon: Shield,
-    text: 'Badge "Profil vérifié" pour rassurer vos clients',
+    text: "Badge « Profil vérifié » pour attirer et rassurer vos clients",
   },
   {
     icon: CheckCircle,
-    text: "Contact direct sans commission",
+    text: "Contact direct sans intermédiaire ni commission",
   },
 ];
 
@@ -241,6 +241,39 @@ const Login = () => {
                   </Button>
                 </Link>
               </motion.div>
+
+              {/* Footer links */}
+              <div className="mt-12 pt-8 border-t border-border">
+                <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+                  <Link to="/confidentialite" className="hover:text-primary transition-colors">
+                    Politique de protection des données
+                  </Link>
+                  <span className="text-border">|</span>
+                  <Link to="/politique-cookies" className="hover:text-primary transition-colors">
+                    Politique de cookies
+                  </Link>
+                  <span className="text-border">|</span>
+                  <Link to="/cgu" className="hover:text-primary transition-colors">
+                    CGU
+                  </Link>
+                  <span className="text-border">|</span>
+                  <Link to="/mentions-legales" className="hover:text-primary transition-colors">
+                    Mentions légales
+                  </Link>
+                  <span className="text-border">|</span>
+                  <button 
+                    onClick={() => {
+                      // Trigger cookie consent manager if available
+                      if (typeof window !== 'undefined' && (window as any).openCookieConsent) {
+                        (window as any).openCookieConsent();
+                      }
+                    }}
+                    className="hover:text-primary transition-colors"
+                  >
+                    Gestion des cookies
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
