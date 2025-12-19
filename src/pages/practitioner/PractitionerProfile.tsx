@@ -86,10 +86,6 @@ const mockDocuments = [
 ];
 
 export const PractitionerProfile = () => {
-  const [experiences, setExperiences] = useState([
-    { id: 1, title: "Médecin généraliste", company: "Cabinet Martin", period: "2018 - Présent" },
-    { id: 2, title: "Interne", company: "Hôpital Saint-Louis", period: "2015 - 2018" },
-  ]);
 
   const [formData, setFormData] = useState({
     // Personal
@@ -214,10 +210,6 @@ export const PractitionerProfile = () => {
             <Languages className="w-4 h-4" />
             Langues & Zones
           </TabsTrigger>
-          <TabsTrigger value="experience" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-            <FileText className="w-4 h-4" />
-            Expériences
-          </TabsTrigger>
           <TabsTrigger value="documents" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <File className="w-4 h-4" />
             Mes Documents
@@ -262,19 +254,19 @@ export const PractitionerProfile = () => {
                 {/* Form Fields */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName">Prénom</Label>
+                    <Label htmlFor="firstName">Prénom <span className="text-destructive">*</span></Label>
                     <Input id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastName">Nom</Label>
+                    <Label htmlFor="lastName">Nom <span className="text-destructive">*</span></Label>
                     <Input id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email professionnel</Label>
+                    <Label htmlFor="email">Email professionnel <span className="text-destructive">*</span></Label>
                     <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Téléphone</Label>
+                    <Label htmlFor="phone">Téléphone <span className="text-destructive">*</span></Label>
                     <Input id="phone" name="phone" value={formData.phone} onChange={handleInputChange} />
                   </div>
                 </div>
@@ -285,7 +277,7 @@ export const PractitionerProfile = () => {
                     <Input id="whatsapp" name="whatsapp" value={formData.whatsapp} onChange={handleInputChange} placeholder="+212 6 12 34 56 78" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="country">Pays</Label>
+                    <Label htmlFor="country">Pays <span className="text-destructive">*</span></Label>
                     <select id="country" name="country" value={formData.country} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground">
                       <option value="">Sélectionnez un pays</option>
                       {countries.map((c) => (
@@ -343,7 +335,7 @@ export const PractitionerProfile = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="category">Domaine d'expertise</Label>
+                  <Label htmlFor="category">Domaine d'expertise <span className="text-destructive">*</span></Label>
                   <select id="category" name="category" value={formData.category} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground">
                     <option value="">Sélectionnez un domaine</option>
                     {categories.map((c) => (
@@ -384,7 +376,7 @@ export const PractitionerProfile = () => {
                 <div className="space-y-3">
                   <Label className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-primary" />
-                    Années d'expérience
+                    Années d'expérience <span className="text-destructive">*</span>
                   </Label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {experienceOptions.map((option) => (
@@ -411,7 +403,7 @@ export const PractitionerProfile = () => {
               <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <Languages className="w-5 h-5 text-gradient-end" />
-                Langues parlées
+                Langues parlées <span className="text-destructive">*</span>
               </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -474,53 +466,6 @@ export const PractitionerProfile = () => {
           </motion.div>
         </TabsContent>
 
-        {/* Experience Tab */}
-        <TabsContent value="experience">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <Card className="border-0 shadow-sm">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">Expériences professionnelles</CardTitle>
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Plus className="w-4 h-4" />
-                    Ajouter
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {experiences.map((exp) => (
-                  <div
-                    key={exp.id}
-                    className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gradient-start/30 transition-colors"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h4 className="font-medium text-foreground">{exp.title}</h4>
-                        <p className="text-sm text-muted-foreground">{exp.company}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{exp.period}</p>
-                      </div>
-                      <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive">
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-
-                {experiences.length === 0 && (
-                  <div className="text-center py-8 text-muted-foreground">
-                    <Briefcase className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                    <p>Aucune expérience ajoutée</p>
-                    <p className="text-sm">Cliquez sur "Ajouter" pour commencer</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-        </TabsContent>
-
         {/* Documents Tab */}
         <TabsContent value="documents">
           <motion.div
@@ -535,33 +480,22 @@ export const PractitionerProfile = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {Object.entries(formData.documents).length > 0 && Object.entries(formData.documents).map(([key, d]) => (
-                  <div key={key} className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gradient-start/30 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-start/10 flex items-center justify-center">
-                          <FileText className="w-5 h-5 text-gradient-end" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-foreground">{d.name}</h4>
-                          <p className="text-xs text-muted-foreground">Soumis</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Badge variant="secondary" className={d.status === "validated" ? "bg-green-100 text-green-700" : d.status === "pending" ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}>
-                          {d.status === "validated" ? "Validé" : d.status === "pending" ? "En attente" : "Rejeté"}
-                        </Badge>
-                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary"><Download className="w-4 h-4" /></Button>
-                        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary"><ExternalLink className="w-4 h-4" /></Button>
-                      </div>
-                    </div>
+                {/* Info message about document modification */}
+                <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-3">
+                  <Shield className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-amber-800">Documents non modifiables</p>
+                    <p className="text-xs text-amber-700 mt-1">
+                      Les documents soumis lors de l'inscription ne peuvent pas être modifiés directement. 
+                      Si vous souhaitez mettre à jour un document, veuillez nous contacter via la page <a href="/contact" className="underline hover:text-amber-900">Contact</a>.
+                    </p>
                   </div>
-                ))}
+                </div>
 
                 {mockDocuments.map((doc) => (
                   <div
                     key={doc.id}
-                    className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gradient-start/30 transition-colors"
+                    className="p-4 rounded-xl bg-gray-50 border border-gray-100"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
