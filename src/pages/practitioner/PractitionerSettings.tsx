@@ -331,15 +331,17 @@ export const PractitionerSettings = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-red-50 rounded-xl border border-red-100">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 bg-red-50 rounded-xl border border-red-100">
               <div>
-                <p className="font-medium text-red-800">Supprimer le compte</p>
+                <p className="font-medium text-red-800">Demander la suppression de mon compte</p>
                 <p className="text-sm text-red-600">
-                  Cette action est irréversible et supprimera toutes vos données
+                  Vous pouvez demander la suppression de votre compte à tout moment.
+                  La demande sera traitée conformément à notre Politique de protection des données
+                  et entraînera la désactivation de votre profil professionnel.
                 </p>
               </div>
-              <Button variant="destructive" size="sm">
-                Supprimer
+              <Button variant="destructive" size="sm" className="shrink-0">
+                Demander la suppression
               </Button>
             </div>
           </CardContent>
