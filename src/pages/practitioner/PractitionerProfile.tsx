@@ -94,15 +94,15 @@ export const PractitionerProfile = () => {
     email: "dr.martin@example.com",
     phone: "+33 6 12 34 56 78",
     whatsapp: "",
-    country: "",
-    city: "",
+    country: "france",
+    city: "paris",
     // Professional
-    professionType: "",
-    category: "",
-    subcategory: "",
-    specialties: [] as string[],
-    experienceRange: "",
-    languages: [] as string[],
+    professionType: "regulated",
+    category: "sante",
+    subcategory: "medecin-generaliste",
+    specialties: ["Cardiologie", "Médecine interne"] as string[],
+    experienceRange: "8-12",
+    languages: ["fr", "ar", "en"] as string[],
     description: "Médecin généraliste avec plus de 10 ans d'expérience, spécialisé dans l'accompagnement des patients franco-marocains...",
     professionalLink: "",
     photoPreview: "",
@@ -161,39 +161,11 @@ export const PractitionerProfile = () => {
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="gap-2">
-            <Eye className="w-4 h-4" />
-            Prévisualiser
-          </Button>
           <Button className="gap-2 gradient-vibrant-horizontal border-0 hover:brightness-110">
             <Save className="w-4 h-4" />
             Enregistrer
           </Button>
         </div>
-      </motion.div>
-
-      {/* Profile Completion */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-      >
-        <Card className="border-0 shadow-sm bg-gradient-to-r from-gradient-start/10 to-gradient-end/5 border-l-4 border-l-gradient-start">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-gradient-end" />
-                <div>
-                  <p className="font-medium text-foreground">Profil complété à 85%</p>
-                  <p className="text-sm text-muted-foreground">
-                    Ajoutez vos expériences pour atteindre 100%
-                  </p>
-                </div>
-              </div>
-              <Badge className="gradient-vibrant text-white">85%</Badge>
-            </div>
-          </CardContent>
-        </Card>
       </motion.div>
 
       <Tabs defaultValue="general" className="space-y-6">
@@ -263,7 +235,8 @@ export const PractitionerProfile = () => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email professionnel <span className="text-destructive">*</span></Label>
-                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
+                    <Input id="email" name="email" type="email" value={formData.email} disabled className="bg-muted cursor-not-allowed" />
+                    <p className="text-xs text-muted-foreground">L'email ne peut pas être modifié</p>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Téléphone <span className="text-destructive">*</span></Label>
@@ -307,6 +280,45 @@ export const PractitionerProfile = () => {
                   <Label htmlFor="description">Biographie</Label>
                   <Textarea id="description" name="description" rows={4} value={formData.description} onChange={handleInputChange} className="resize-none" />
                   <p className="text-xs text-muted-foreground">Cette description apparaîtra sur votre profil public</p>
+                </div>
+
+                {/* Professional Summary */}
+                <div className="p-4 rounded-xl bg-gradient-to-r from-primary/5 to-gradient-end/5 border border-primary/10">
+                  <h4 className="font-medium text-foreground mb-3 flex items-center gap-2">
+                    <Briefcase className="w-4 h-4 text-primary" />
+                    Résumé professionnel
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">Domaine :</span>{" "}
+                      <span className="font-medium text-foreground">
+                        {categories.find(c => c.id === formData.category)?.name || "Non défini"}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Spécialité :</span>{" "}
+                      <span className="font-medium text-foreground">
+                        {categories.find(c => c.id === formData.category)?.subcategories?.find((s:any) => s.id === formData.subcategory)?.name || "Non définie"}
+                      </span>
+                    </div>
+                    {formData.specialties.length > 0 && (
+                      <div className="md:col-span-2">
+                        <span className="text-muted-foreground">Spécialités additionnelles :</span>{" "}
+                        <span className="font-medium text-foreground">
+                          {formData.specialties.join(", ")}
+                        </span>
+                      </div>
+                    )}
+                    <div className="md:col-span-2">
+                      <span className="text-muted-foreground">Langues :</span>{" "}
+                      <span className="font-medium text-foreground">
+                        {formData.languages.map(langId => availableLanguages.find(l => l.id === langId)?.name).filter(Boolean).join(", ") || "Non définies"}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    Pour modifier ces informations, rendez-vous dans les onglets "Spécialité" et "Langues & Zones".
+                  </p>
                 </div>
 
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
