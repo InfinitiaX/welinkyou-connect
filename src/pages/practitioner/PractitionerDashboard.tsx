@@ -131,220 +131,244 @@ export const PractitionerDashboard = () => {
         />
         <StatCard
           title="Grade plateforme"
-          value="Or"
+          value="—"
           icon={Award}
-          description="Top 15% des professionnels"
+          description="Bientôt disponible"
           delay={0.4}
+          className="opacity-50"
         />
       </div>
 
-      {/* Charts & Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Views Chart */}
+      {/* Charts & Activity - Coming Soon */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-background/60 backdrop-blur-[1px] z-10 rounded-xl flex items-center justify-center">
+          <Badge variant="secondary" className="text-base px-4 py-2">
+            📊 Statistiques détaillées — Bientôt disponible
+          </Badge>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 opacity-40 pointer-events-none">
+          {/* Views Chart */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="lg:col-span-2"
+          >
+            <Card className="border-0 shadow-sm">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg font-semibold text-primary">
+                    Évolution des vues
+                  </CardTitle>
+                  <Badge variant="secondary" className="bg-primary/5 text-primary">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    30 derniers jours
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[280px] mt-4">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={viewsData}>
+                      <defs>
+                        <linearGradient id="colorVues" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(280, 85%, 55%)" stopOpacity={0.3} />
+                          <stop offset="95%" stopColor="hsl(25, 95%, 55%)" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <XAxis 
+                        dataKey="date" 
+                        axisLine={false} 
+                        tickLine={false}
+                        tick={{ fill: '#6b7280', fontSize: 12 }}
+                      />
+                      <YAxis 
+                        axisLine={false} 
+                        tickLine={false}
+                        tick={{ fill: '#6b7280', fontSize: 12 }}
+                      />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: 'white',
+                          border: 'none',
+                          borderRadius: '12px',
+                          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                        }}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="vues"
+                        stroke="hsl(280, 85%, 55%)"
+                        strokeWidth={2}
+                        fillOpacity={1}
+                        fill="url(#colorVues)"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Notifications */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <Card className="border-0 shadow-sm h-full">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
+                  Notifications
+                  <Badge className="gradient-vibrant text-white text-xs">3 nouvelles</Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {notifications.map((notif) => (
+                  <div
+                    key={notif.id}
+                    className={`p-3 rounded-xl transition-colors ${
+                      notif.read ? "bg-gray-50" : "bg-gradient-start/5 border border-gradient-start/20"
+                    }`}
+                  >
+                    <p className="text-sm text-foreground">{notif.message}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{notif.time}</p>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Recent Reviews - Coming Soon */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-background/60 backdrop-blur-[1px] z-10 rounded-xl flex items-center justify-center">
+          <Badge variant="secondary" className="text-base px-4 py-2">
+            💬 Évaluations — Bientôt disponible
+          </Badge>
+        </div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="lg:col-span-2"
+          transition={{ delay: 0.5 }}
+          className="opacity-40 pointer-events-none"
         >
           <Card className="border-0 shadow-sm">
-            <CardHeader className="pb-2">
+            <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg font-semibold text-primary">
-                  Évolution des vues
+                <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-gradient-end" />
+                  Dernières évaluations
                 </CardTitle>
-                <Badge variant="secondary" className="bg-primary/5 text-primary">
-                  <TrendingUp className="w-3 h-3 mr-1" />
-                  30 derniers jours
+                <Badge variant="outline" className="text-muted-foreground">
+                  0 avis au total
                 </Badge>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="h-[280px] mt-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={viewsData}>
-                    <defs>
-                      <linearGradient id="colorVues" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(280, 85%, 55%)" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="hsl(25, 95%, 55%)" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis 
-                      dataKey="date" 
-                      axisLine={false} 
-                      tickLine={false}
-                      tick={{ fill: '#6b7280', fontSize: 12 }}
-                    />
-                    <YAxis 
-                      axisLine={false} 
-                      tickLine={false}
-                      tick={{ fill: '#6b7280', fontSize: 12 }}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: 'white',
-                        border: 'none',
-                        borderRadius: '12px',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                      }}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="vues"
-                      stroke="hsl(280, 85%, 55%)"
-                      strokeWidth={2}
-                      fillOpacity={1}
-                      fill="url(#colorVues)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {recentReviews.map((review) => (
+                  <div
+                    key={review.id}
+                    className="p-4 rounded-xl bg-gray-50"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <Avatar className="w-10 h-10">
+                        <AvatarImage src={review.avatar} />
+                        <AvatarFallback className="bg-primary/10 text-primary">
+                          {review.name.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <p className="font-medium text-sm text-foreground">{review.name}</p>
+                        <p className="text-xs text-muted-foreground">{review.date}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 mb-2">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-4 h-4 ${
+                            i < review.rating
+                              ? "fill-emerald text-emerald"
+                              : "fill-gray-200 text-gray-200"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {review.comment}
+                    </p>
+                  </div>
+                ))}
               </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Notifications */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <Card className="border-0 shadow-sm h-full">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
-                Notifications
-                <Badge className="gradient-vibrant text-white text-xs">3 nouvelles</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {notifications.map((notif) => (
-                <div
-                  key={notif.id}
-                  className={`p-3 rounded-xl transition-colors ${
-                    notif.read ? "bg-gray-50" : "bg-gradient-start/5 border border-gradient-start/20"
-                  }`}
-                >
-                  <p className="text-sm text-foreground">{notif.message}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{notif.time}</p>
-                </div>
-              ))}
             </CardContent>
           </Card>
         </motion.div>
       </div>
 
-      {/* Recent Reviews */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <Card className="border-0 shadow-sm">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-gradient-end" />
-                Dernières évaluations
-              </CardTitle>
-              <Badge variant="outline" className="text-muted-foreground">
-                47 avis au total
-              </Badge>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {recentReviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <Avatar className="w-10 h-10">
-                      <AvatarImage src={review.avatar} />
-                      <AvatarFallback className="bg-primary/10 text-primary">
-                        {review.name.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <p className="font-medium text-sm text-foreground">{review.name}</p>
-                      <p className="text-xs text-muted-foreground">{review.date}</p>
+      {/* Platform Grade Progress - Coming Soon */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-background/60 backdrop-blur-[1px] z-10 rounded-xl flex items-center justify-center">
+          <Badge variant="secondary" className="text-base px-4 py-2">
+            🏆 Système de grades — Bientôt disponible
+          </Badge>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="opacity-40 pointer-events-none"
+        >
+          <Card className="border-0 shadow-sm gradient-vibrant text-white">
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row md:items-center gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-emerald/20 flex items-center justify-center">
+                      <Award className="w-6 h-6 text-emerald" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold">Grade —</h3>
+                      <p className="text-white/70 text-sm">À venir</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 mb-2">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${
-                          i < review.rating
-                            ? "fill-emerald text-emerald"
-                            : "fill-gray-200 text-gray-200"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <p className="text-sm text-muted-foreground line-clamp-2">
-                    {review.comment}
+                  <p className="text-white/80 text-sm mb-4">
+                    Le système de grades sera bientôt disponible pour récompenser les professionnels actifs sur la plateforme.
                   </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      {/* Platform Grade Progress */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-      >
-        <Card className="border-0 shadow-sm gradient-vibrant text-white">
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row md:items-center gap-6">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-emerald/20 flex items-center justify-center">
-                    <Award className="w-6 h-6 text-emerald" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold">Grade Or</h3>
-                    <p className="text-white/70 text-sm">Prochain niveau: Platine</p>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>Progression</span>
+                      <span className="text-emerald">—%</span>
+                    </div>
+                    <Progress value={0} className="h-2 bg-white/20" />
                   </div>
                 </div>
-                <p className="text-white/80 text-sm mb-4">
-                  Continuez à recevoir des avis positifs et à compléter votre profil pour atteindre le grade Platine.
-                </p>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Progression vers Platine</span>
-                    <span className="text-emerald">75%</span>
+                <div className="flex flex-col gap-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-white/30" />
+                    <span className="text-white/50">Profil complet</span>
                   </div>
-                  <Progress value={75} className="h-2 bg-white/20" />
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-white/30" />
+                    <span className="text-white/50">Avis clients</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-white/30" />
+                    <span className="text-white/50">Note moyenne</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-white/30" />
+                    <span className="text-white/50">Ancienneté</span>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-2 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-400" />
-                  <span className="text-white/80">Profil complet à 100%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-400" />
-                  <span className="text-white/80">Plus de 40 avis</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald" />
-                  <span className="text-white/80">Note moyenne &gt; 4.5</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-white/30" />
-                  <span className="text-white/50">Membre depuis +1 an</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
     </div>
   );
 };
