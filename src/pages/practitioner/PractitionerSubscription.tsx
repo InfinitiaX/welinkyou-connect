@@ -9,6 +9,8 @@ import {
   Receipt,
   Download,
   ArrowRight,
+  Clock,
+  Gift,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,11 +27,14 @@ import {
 import { cn } from "@/lib/utils";
 
 const features = [
-  "Profil professionnel complet",
-  "Badge vérifié après validation",
-  "Visibilité dans les résultats de recherche",
-  "Statistiques de votre profil",
-  "Support dédié",
+  { name: "Profil professionnel complet", available: true },
+  { name: "Badge vérifié après validation", available: true },
+  { name: "Visibilité dans les résultats de recherche", available: true },
+  { name: "Statistiques de votre profil", available: true },
+  { name: "Support dédié", available: true },
+  { name: "Paiement sur la plateforme", available: false, comingSoon: true },
+  { name: "Consultation sur la plateforme en visio", available: false, comingSoon: true },
+  { name: "Agenda de rendez-vous", available: false, comingSoon: true },
 ];
 
 const invoices = [
@@ -40,7 +45,7 @@ const invoices = [
 ];
 
 export const PractitionerSubscription = () => {
-  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
+  const [billingPeriod, setBillingPeriod] = useState<"freemium" | "monthly" | "annual">("monthly");
 
   return (
     <div className="space-y-8">
@@ -60,12 +65,34 @@ export const PractitionerSubscription = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="flex flex-col sm:flex-row gap-4"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4"
       >
+        {/* Freemium */}
+        <Card
+          onClick={() => setBillingPeriod("freemium")}
+          className={cn(
+            "cursor-pointer transition-all border-2 p-6 relative",
+            billingPeriod === "freemium"
+              ? "border-primary shadow-lg"
+              : "border-border hover:border-primary/30"
+          )}
+        >
+          <Badge className="absolute -top-3 right-4 bg-gray-100 text-gray-700 border border-gray-200">
+            <Gift className="w-3 h-3 mr-1" />
+            Gratuit
+          </Badge>
+          <p className="text-muted-foreground text-sm mb-2">Freemium</p>
+          <p className="text-3xl font-bold text-primary">
+            0 <span className="text-lg font-normal text-muted-foreground">DH</span>
+          </p>
+          <p className="text-sm text-muted-foreground mt-1">Visibilité limitée</p>
+        </Card>
+
+        {/* Monthly */}
         <Card
           onClick={() => setBillingPeriod("monthly")}
           className={cn(
-            "cursor-pointer transition-all border-2 p-6 flex-1",
+            "cursor-pointer transition-all border-2 p-6",
             billingPeriod === "monthly"
               ? "border-primary shadow-lg"
               : "border-border hover:border-primary/30"
@@ -78,10 +105,11 @@ export const PractitionerSubscription = () => {
           <p className="text-sm text-muted-foreground mt-1">par mois, sans engagement</p>
         </Card>
 
+        {/* Annual */}
         <Card
           onClick={() => setBillingPeriod("annual")}
           className={cn(
-            "cursor-pointer transition-all border-2 p-6 flex-1 relative",
+            "cursor-pointer transition-all border-2 p-6 relative",
             billingPeriod === "annual"
               ? "border-gradient-start shadow-lg ring-2 ring-gradient-start ring-offset-2"
               : "border-border hover:border-gradient-start/30"
@@ -109,11 +137,27 @@ export const PractitionerSubscription = () => {
             <h3 className="font-semibold text-foreground mb-4">Ce qui est inclus :</h3>
             <ul className="space-y-3">
               {features.map((feature) => (
-                <li key={feature} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-3 h-3 text-primary" />
+                <li key={feature.name} className="flex items-center gap-3">
+                  <div className={cn(
+                    "w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0",
+                    feature.comingSoon ? "bg-amber-100" : "bg-primary/10"
+                  )}>
+                    {feature.comingSoon ? (
+                      <Clock className="w-3 h-3 text-amber-600" />
+                    ) : (
+                      <Check className="w-3 h-3 text-primary" />
+                    )}
                   </div>
-                  <span className="text-muted-foreground">{feature}</span>
+                  <span className={cn(
+                    feature.comingSoon ? "text-muted-foreground" : "text-muted-foreground"
+                  )}>
+                    {feature.name}
+                    {feature.comingSoon && (
+                      <Badge variant="outline" className="ml-2 text-xs bg-amber-50 text-amber-700 border-amber-200">
+                        Bientôt disponible
+                      </Badge>
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>
