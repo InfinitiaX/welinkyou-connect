@@ -138,7 +138,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-20 z-40 bg-background lg:hidden"
+            className="fixed inset-0 top-20 z-[60] bg-background lg:hidden"
           >
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col gap-2">
