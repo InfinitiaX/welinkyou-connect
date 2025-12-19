@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Globe } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const footerLinks = {
@@ -34,7 +35,7 @@ export const Footer = () => {
               La plateforme unique qui connecte des utilisateurs avec des professionnels experts d’un pays donné.
             </p>
             <div className="flex items-center gap-3">
-              <span className="text-2xl">ww</span>
+              <Globe className="w-7 h-7 text-background" />
               <span className="text-background/50">×</span>
               <span className="text-2xl">🇲🇦</span>
             </div>
