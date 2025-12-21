@@ -4,6 +4,7 @@ export interface Professional {
   lastName: string;
   title: string;
   photo: string;
+  photo_url?: string;
   category: string;
   subcategory: string;
   country: string;

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth, getDashboardUrl } from "@/contexts/AuthContext";
 import logo from "@/assets/logo.png";
 
 const navLinks = [
@@ -18,24 +19,27 @@ const navLinks = [
 const lightBackgroundPages = [
   "/recherche",
   "/blog",
-  "/praticien",
+  "/professionnel",
   "/dashboard",
   "/connexion",
   "/mot-de-passe-oublie",
   "/inscription-pro",
-  "/professionnel",
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, user, logout, isLoading } = useAuth();
 
   // Détermine si la page actuelle a un fond clair
   const isLightPage = lightBackgroundPages.some((page) => location.pathname.startsWith(page));
 
   // Si page claire, on force le style "scrolled" même en haut
   const useDarkNavbar = isScrolled || isLightPage;
+
+  // URL du dashboard selon le rôle
+  const dashboardUrl = user ? getDashboardUrl(user.role) : "/espace-professionnel";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,20 +96,54 @@ export const Navbar = () => {
 
             {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-3">
-              <Link to="/espace-professionnel">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className={cn(
-                    "font-bold transition-all duration-300 bg-transparent border-gradient-start relative overflow-hidden group",
-                    "hover:bg-gradient-start hover:text-white hover:border-gradient-start hover:scale-105 hover:shadow-[0_0_20px_hsl(280_85%_55%/0.5)]",
-                    useDarkNavbar ? "text-gradient-start" : "text-white",
-                  )}
-                >
-                  <span className="relative z-10">Espace Professionnel</span>
-                  <span className="absolute inset-0 gradient-vibrant opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </Button>
-              </Link>
+              {isLoading ? (
+                <div className="w-32 h-9 bg-muted/50 rounded-lg animate-pulse" />
+              ) : isAuthenticated && user ? (
+                <div className="flex items-center gap-2">
+                  <Link to={dashboardUrl}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className={cn(
+                        "font-bold transition-all duration-300 bg-transparent border-gradient-start relative overflow-hidden group",
+                        "hover:bg-gradient-start hover:text-white hover:border-gradient-start hover:scale-105 hover:shadow-[0_0_20px_hsl(280_85%_55%/0.5)]",
+                        useDarkNavbar ? "text-gradient-start" : "text-white",
+                      )}
+                    >
+                      <User className="w-4 h-4 mr-2" />
+                      <span className="relative z-10">{user.first_name}</span>
+                      <span className="absolute inset-0 gradient-vibrant opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={logout}
+                    className={cn(
+                      "font-medium transition-all duration-200",
+                      useDarkNavbar ? "text-foreground/70 hover:text-foreground hover:bg-muted" : "text-white/70 hover:text-white hover:bg-white/10"
+                    )}
+                    title="Déconnexion"
+                  >
+                    <LogOut className="w-4 h-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/espace-professionnel">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={cn(
+                      "font-bold transition-all duration-300 bg-transparent border-gradient-start relative overflow-hidden group",
+                      "hover:bg-gradient-start hover:text-white hover:border-gradient-start hover:scale-105 hover:shadow-[0_0_20px_hsl(280_85%_55%/0.5)]",
+                      useDarkNavbar ? "text-gradient-start" : "text-white",
+                    )}
+                  >
+                    <span className="relative z-10">Espace Professionnel</span>
+                    <span className="absolute inset-0 gradient-vibrant opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </Button>
+                </Link>
+              )}
               <Link to="/recherche">
                 <Button
                   size="sm"
@@ -163,14 +201,33 @@ export const Navbar = () => {
                   </motion.div>
                 ))}
                 <div className="mt-6 flex flex-col gap-3">
-                  <Link to="/espace-professionnel">
-                    <Button
-                      variant="outline"
-                      className="w-full font-bold border-gradient-start text-gradient-start hover:gradient-vibrant hover:text-white hover:border-transparent"
-                    >
-                      Espace Professionnel
-                    </Button>
-                  </Link>
+                  {isAuthenticated && user ? (
+                    <>
+                      <Link to={dashboardUrl}>
+                        <Button variant="outline" className="w-full font-bold border-gradient-start text-gradient-start hover:gradient-vibrant hover:text-white hover:border-transparent">
+                          <User className="w-4 h-4 mr-2" />
+                          Mon espace ({user.first_name})
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="outline"
+                        className="w-full font-medium"
+                        onClick={logout}
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Déconnexion
+                      </Button>
+                    </>
+                  ) : (
+                    <Link to="/espace-professionnel">
+                      <Button
+                        variant="outline"
+                        className="w-full font-bold border-gradient-start text-gradient-start hover:gradient-vibrant hover:text-white hover:border-transparent"
+                      >
+                        Espace Professionnel
+                      </Button>
+                    </Link>
+                  )}
                   <Link to="/recherche">
                     <Button className="w-full btn-ripple gradient-vibrant-horizontal border-0 rounded-full">
                       Trouver un expert

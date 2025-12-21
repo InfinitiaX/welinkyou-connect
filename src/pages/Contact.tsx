@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, CheckCircle, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { api, ApiError } from "@/services/api";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -42,21 +43,44 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      await api.submitContactForm({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        subject: formData.subject,
+        message: formData.message,
+      });
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    toast({
-      title: "Message envoyé !",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
+      setIsSuccess(true);
+      toast({
+        title: "Message envoyé !",
+        description: "Nous vous répondrons dans les plus brefs délais.",
+      });
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSuccess(false);
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-    }, 3000);
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSuccess(false);
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      }, 3000);
+    } catch (err) {
+      console.error("Erreur lors de l'envoi:", err);
+      if (err instanceof ApiError) {
+        toast({
+          title: "Erreur",
+          description: err.data?.message as string || "Une erreur est survenue. Veuillez réessayer.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Erreur",
+          description: "Impossible de contacter le serveur. Veuillez réessayer.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

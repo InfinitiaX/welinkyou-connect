@@ -1,31 +1,54 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+﻿import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Search, MapPin, Briefcase } from "lucide-react";
+import { ChevronDown, Search, MapPin, Briefcase, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { categories, countries, cities } from "@/data/categories";
+import { countries, cities } from "@/data/categories";
+import { api } from "@/services/api";
 import { cn } from "@/lib/utils";
+import type { ApiDomaine } from "@/types/api";
 
 export const FilterBlock = () => {
   const navigate = useNavigate();
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  const [searchParams] = useSearchParams();
+  
+  const [domaines, setDomaines] = useState<ApiDomaine[]>([]);
+  const [isLoadingDomaines, setIsLoadingDomaines] = useState(true);
+  const [selectedCountry, setSelectedCountry] = useState(searchParams.get("country") || "");
+  const [selectedCity, setSelectedCity] = useState(searchParams.get("city") || "");
+  const [selectedDomaine, setSelectedDomaine] = useState(searchParams.get("domaine") || "");
+  const [selectedSpecialite, setSelectedSpecialite] = useState(searchParams.get("specialite") || "");
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  useEffect(() => {
+    api.getDomaines().then(data => {
+      setDomaines(data);
+      setIsLoadingDomaines(false);
+    }).catch(() => setIsLoadingDomaines(false));
+  }, []);
 
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (selectedCountry) params.set("country", selectedCountry);
     if (selectedCity && selectedCity !== "all") params.set("city", selectedCity);
-    if (selectedCategory) params.set("category", selectedCategory);
-    if (selectedSubcategory) params.set("subcategory", selectedSubcategory);
-    
-    navigate(`/recherche?${params.toString()}`);
+    if (selectedDomaine) params.set("domaine", selectedDomaine);
+    if (selectedSpecialite) params.set("specialite", selectedSpecialite);
+    navigate("/recherche?" + params.toString());
   };
 
-  const currentCategory = categories.find((c) => c.id === selectedCategory);
-  const availableCities = selectedCountry ? cities[selectedCountry] : [];
+  const currentDomaine = domaines.find(d => d.slug === selectedDomaine);
+  const availableCities = selectedCountry ? cities[selectedCountry] || [] : [];
+  const availableSpecialites = currentDomaine?.specialites || [];
+
+  const hasActiveFilters = selectedCountry || selectedCity || selectedDomaine || selectedSpecialite;
+
+  const handleResetFilters = () => {
+    setSelectedCountry("");
+    setSelectedCity("");
+    setSelectedDomaine("");
+    setSelectedSpecialite("");
+    setOpenDropdown(null);
+  };
 
   const dropdownVariants = {
     hidden: { opacity: 0, y: -10, scale: 0.95 },
@@ -35,14 +58,12 @@ export const FilterBlock = () => {
 
   return (
     <>
-      {/* Overlay to close dropdown */}
       <AnimatePresence>
         {openDropdown && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
             className="fixed inset-0 bg-black/20 z-40"
             onClick={() => setOpenDropdown(null)}
           />
@@ -52,236 +73,187 @@ export const FilterBlock = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ delay: 0.6, duration: 0.5 }}
         className="w-full max-w-5xl mx-auto relative z-50"
       >
-        <div className="bg-white rounded-2xl p-4 md:p-6 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)] relative border-2 border-gradient-start/50">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.3fr_1.3fr_auto] gap-4">
-          {/* Country */}
-          <div className="relative">
-            <button
-              onClick={() => setOpenDropdown(openDropdown === "country" ? null : "country")}
-              className={cn(
-                "w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border-2 transition-all duration-300",
-                openDropdown === "country"
-                  ? "border-primary bg-primary/5"
-                  : "border-gray-200 hover:border-primary/50 bg-white"
-              )}
-            >
-              <div className="flex items-center gap-3">
-                <MapPin className="w-5 h-5 text-primary" />
-                <span className={cn("text-sm font-medium whitespace-nowrap", selectedCountry ? "text-black" : "text-gray-500")}>
-                  {selectedCountry
-                    ? countries.find((c) => c.id === selectedCountry)?.name
-                    : "Pays du professionnel"}
+        <div className="bg-white rounded-2xl p-4 md:p-6 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)] border-2 border-gold">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.3fr_1.3fr_auto] gap-4">
+            
+            {/* Country */}
+            <div className="relative">
+              <button
+                onClick={() => setOpenDropdown(openDropdown === "country" ? null : "country")}
+                className={cn(
+                  "w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border-2 transition-all",
+                  openDropdown === "country" ? "border-primary bg-primary/5" : "border-gray-200 hover:border-primary/50 bg-white"
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-5 h-5 text-primary" />
+                  <span className={cn("text-sm font-medium", selectedCountry ? "text-black" : "text-gray-500")}>
+                    {selectedCountry ? countries.find(c => c.id === selectedCountry)?.name : "Pays"}
+                  </span>
+                </div>
+                <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform", openDropdown === "country" && "rotate-180")} />
+              </button>
+              <AnimatePresence>
+                {openDropdown === "country" && (
+                  <motion.div variants={dropdownVariants} initial="hidden" animate="visible" exit="exit"
+                    className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden">
+                    <button onClick={() => { setSelectedCountry(""); setSelectedCity(""); setOpenDropdown(null); }}
+                      className={cn("w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors",
+                        !selectedCountry ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-gray-500")}>
+                      <span className="text-xl">🌍</span>
+                      <span className="text-sm font-medium">Tous les pays</span>
+                    </button>
+                    {countries.map(country => (
+                      <button key={country.id} onClick={() => { setSelectedCountry(country.id); setSelectedCity(""); setOpenDropdown(null); }}
+                        className={cn("w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors",
+                          selectedCountry === country.id ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-black")}>
+                        <span className="text-xl">{country.flag}</span>
+                        <span className="text-sm font-medium">{country.name}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* City */}
+            <div className="relative">
+              <button
+                onClick={() => setOpenDropdown(openDropdown === "city" ? null : "city")}
+                disabled={!selectedCountry}
+                className={cn(
+                  "w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border-2 transition-all",
+                  !selectedCountry && "opacity-50 cursor-not-allowed",
+                  openDropdown === "city" ? "border-primary bg-primary/5" : "border-gray-200 hover:border-primary/50 bg-white"
+                )}
+              >
+                <span className={cn("text-sm font-medium", selectedCity ? "text-black" : "text-gray-500")}>
+                  {selectedCity ? availableCities.find(c => c.id === selectedCity)?.name : "Ville"}
                 </span>
-              </div>
-              <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform duration-300", openDropdown === "country" && "rotate-180")} />
-            </button>
-            <AnimatePresence>
-              {openDropdown === "country" && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden"
-                >
-                  {countries.map((country) => (
-                    <button
-                      key={country.id}
-                      onClick={() => {
-                        setSelectedCountry(country.id);
-                        setSelectedCity("");
-                        setOpenDropdown(null);
-                      }}
-                      className={cn(
-                        "w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors",
-                        selectedCountry === country.id
-                          ? "bg-primary/10 text-primary"
-                          : "hover:bg-gray-50 text-black"
-                      )}
-                    >
-                      <span className="text-xl">{country.flag}</span>
-                      <span className="text-sm font-medium">{country.name}</span>
+                <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform", openDropdown === "city" && "rotate-180")} />
+              </button>
+              <AnimatePresence>
+                {openDropdown === "city" && (
+                  <motion.div variants={dropdownVariants} initial="hidden" animate="visible" exit="exit"
+                    className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden max-h-60 overflow-y-auto">
+                    <button onClick={() => { setSelectedCity(""); setOpenDropdown(null); }}
+                      className={cn("w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
+                        !selectedCity ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-gray-500")}>
+                      Toutes les villes
                     </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+                    {availableCities.map(city => (
+                      <button key={city.id} onClick={() => { setSelectedCity(city.id); setOpenDropdown(null); }}
+                        className={cn("w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
+                          selectedCity === city.id ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-black")}>
+                        {city.name}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
-          {/* City */}
-          <div className="relative">
-            <button
-              onClick={() => setOpenDropdown(openDropdown === "city" ? null : "city")}
-              disabled={!selectedCountry}
-              className={cn(
-                "w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border-2 transition-all duration-300",
-                !selectedCountry && "opacity-50 cursor-not-allowed",
-                openDropdown === "city"
-                  ? "border-primary bg-primary/5"
-                  : "border-gray-200 hover:border-primary/50 bg-white"
-              )}
-            >
-              <span className={cn("text-sm font-medium whitespace-nowrap", selectedCity ? "text-black" : "text-gray-500")}>
-                {selectedCity
-                  ? availableCities.find((c) => c.id === selectedCity)?.name
-                  : "Ville"}
-              </span>
-              <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform duration-300", openDropdown === "city" && "rotate-180")} />
-            </button>
-            <AnimatePresence>
-              {openDropdown === "city" && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden max-h-60 overflow-y-auto"
-                >
-                  {availableCities.map((city) => (
-                    <button
-                      key={city.id}
-                      onClick={() => {
-                        setSelectedCity(city.id);
-                        setOpenDropdown(null);
-                      }}
-                      className={cn(
-                        "w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
-                        selectedCity === city.id
-                          ? "bg-primary/10 text-primary"
-                          : "hover:bg-gray-50 text-black"
-                      )}
-                    >
-                      {city.name}
+            {/* Domaine */}
+            <div className="relative">
+              <button
+                onClick={() => setOpenDropdown(openDropdown === "domaine" ? null : "domaine")}
+                disabled={isLoadingDomaines}
+                className={cn(
+                  "w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border-2 transition-all",
+                  isLoadingDomaines && "opacity-50 cursor-not-allowed",
+                  openDropdown === "domaine" ? "border-primary bg-primary/5" : "border-gray-200 hover:border-primary/50 bg-white"
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <Briefcase className="w-5 h-5 text-primary" />
+                  <span className={cn("text-sm font-medium truncate", selectedDomaine ? "text-black" : "text-gray-500")}>
+                    {isLoadingDomaines ? "Chargement..." : selectedDomaine ? domaines.find(d => d.slug === selectedDomaine)?.name : "Domaine"}
+                  </span>
+                </div>
+                <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform flex-shrink-0", openDropdown === "domaine" && "rotate-180")} />
+              </button>
+              <AnimatePresence>
+                {openDropdown === "domaine" && (
+                  <motion.div variants={dropdownVariants} initial="hidden" animate="visible" exit="exit"
+                    className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden max-h-80 overflow-y-auto">
+                    <button onClick={() => { setSelectedDomaine(""); setSelectedSpecialite(""); setOpenDropdown(null); }}
+                      className={cn("w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
+                        !selectedDomaine ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-gray-500")}>
+                      Tous les domaines
                     </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+                    {domaines.map(domaine => (
+                      <button key={domaine.id} onClick={() => { setSelectedDomaine(domaine.slug); setSelectedSpecialite(""); setOpenDropdown(null); }}
+                        className={cn("w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
+                          selectedDomaine === domaine.slug ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-black")}>
+                        {domaine.name}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
-          {/* Category */}
-          <div className="relative">
-            <button
-              onClick={() => setOpenDropdown(openDropdown === "category" ? null : "category")}
-              className={cn(
-                "w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border-2 transition-all duration-300",
-                openDropdown === "category"
-                  ? "border-primary bg-primary/5"
-                  : "border-gray-200 hover:border-primary/50 bg-white"
-              )}
-            >
-              <div className="flex items-center gap-3">
-                <Briefcase className="w-5 h-5 text-primary" />
-                <span className={cn("text-sm font-medium truncate", selectedCategory ? "text-black" : "text-gray-500")}>
-                  {selectedCategory
-                    ? categories.find((c) => c.id === selectedCategory)?.name
-                    : "Domaine"}
+            {/* Specialite */}
+            <div className="relative">
+              <button
+                onClick={() => setOpenDropdown(openDropdown === "specialite" ? null : "specialite")}
+                disabled={!selectedDomaine || availableSpecialites.length === 0}
+                className={cn(
+                  "w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border-2 transition-all",
+                  (!selectedDomaine || availableSpecialites.length === 0) && "opacity-50 cursor-not-allowed",
+                  openDropdown === "specialite" ? "border-primary bg-primary/5" : "border-gray-200 hover:border-primary/50 bg-white"
+                )}
+              >
+                <span className={cn("text-sm font-medium truncate", selectedSpecialite ? "text-black" : "text-gray-500")}>
+                  {selectedSpecialite ? availableSpecialites.find(s => s.slug === selectedSpecialite)?.name : "Specialite"}
                 </span>
-              </div>
-              <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform duration-300 flex-shrink-0", openDropdown === "category" && "rotate-180")} />
-            </button>
-            <AnimatePresence>
-              {openDropdown === "category" && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden max-h-80 overflow-y-auto"
-                >
-                  {categories.map((category) => (
-                    <button
-                      key={category.id}
-                      onClick={() => {
-                        setSelectedCategory(category.id);
-                        setSelectedSubcategory("");
-                        setOpenDropdown(null);
-                      }}
-                      className={cn(
-                        "w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
-                        selectedCategory === category.id
-                          ? "bg-primary/10 text-primary"
-                          : "hover:bg-gray-50 text-black"
-                      )}
-                    >
-                      {category.name}
+                <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform flex-shrink-0", openDropdown === "specialite" && "rotate-180")} />
+              </button>
+              <AnimatePresence>
+                {openDropdown === "specialite" && availableSpecialites.length > 0 && (
+                  <motion.div variants={dropdownVariants} initial="hidden" animate="visible" exit="exit"
+                    className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden max-h-60 overflow-y-auto">
+                    <button onClick={() => { setSelectedSpecialite(""); setOpenDropdown(null); }}
+                      className={cn("w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
+                        !selectedSpecialite ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-gray-500")}>
+                      Toutes les spécialités
                     </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+                    {availableSpecialites.map(specialite => (
+                      <button key={specialite.id} onClick={() => { setSelectedSpecialite(specialite.slug); setOpenDropdown(null); }}
+                        className={cn("w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
+                          selectedSpecialite === specialite.slug ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-black")}>
+                        {specialite.name}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
-          {/* Subcategory */}
-          <div className="relative">
-            <button
-              onClick={() => setOpenDropdown(openDropdown === "subcategory" ? null : "subcategory")}
-              disabled={!selectedCategory}
-              className={cn(
-                "w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border-2 transition-all duration-300",
-                !selectedCategory && "opacity-50 cursor-not-allowed",
-                openDropdown === "subcategory"
-                  ? "border-primary bg-primary/5"
-                  : "border-gray-200 hover:border-primary/50 bg-white"
-              )}
-            >
-              <span className={cn("text-sm font-medium truncate", selectedSubcategory ? "text-black" : "text-gray-500")}>
-                {selectedSubcategory
-                  ? currentCategory?.subcategories.find((s) => s.id === selectedSubcategory)?.name
-                  : "Spécialité"}
-              </span>
-              <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform duration-300 flex-shrink-0", openDropdown === "subcategory" && "rotate-180")} />
-            </button>
-            <AnimatePresence>
-              {openDropdown === "subcategory" && currentCategory && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  transition={{ duration: 0.2 }}
-                  className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden max-h-60 overflow-y-auto"
+            {/* Action Buttons */}
+            <div className="flex gap-2">
+              {hasActiveFilters && (
+                <Button 
+                  onClick={handleResetFilters} 
+                  variant="outline" 
+                  size="lg" 
+                  className="h-[52px] px-4 rounded-xl border-2 border-gray-200 hover:border-primary/50 hover:bg-primary/5"
+                  title="Réinitialiser les filtres"
                 >
-                  {currentCategory.subcategories.map((sub) => (
-                    <button
-                      key={sub.id}
-                      onClick={() => {
-                        setSelectedSubcategory(sub.id);
-                        setOpenDropdown(null);
-                      }}
-                      className={cn(
-                        "w-full px-4 py-3.5 text-left text-sm font-medium transition-colors",
-                        selectedSubcategory === sub.id
-                          ? "bg-primary/10 text-primary"
-                          : "hover:bg-gray-50 text-black"
-                      )}
-                    >
-                      {sub.name}
-                    </button>
-                  ))}
-                </motion.div>
+                  <RotateCcw className="w-5 h-5" />
+                </Button>
               )}
-            </AnimatePresence>
+              <Button onClick={handleSearch} size="lg" className="btn-ripple gradient-primary border-0 h-[52px] text-base font-semibold gap-2 rounded-xl">
+                <Search className="w-5 h-5" />
+                Rechercher
+              </Button>
+            </div>
           </div>
-
-          {/* Search Button */}
-          <Button
-            onClick={handleSearch}
-            size="lg"
-            className="btn-ripple gradient-vibrant-horizontal border-0 h-[52px] text-base font-semibold gap-2 rounded-full shadow-lg hover:shadow-xl hover:brightness-110 hover:scale-[1.02] transition-all"
-          >
-            <Search className="w-5 h-5" />
-            Rechercher
-          </Button>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
     </>
   );
 };

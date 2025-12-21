@@ -27,11 +27,11 @@ export const AdminStatCard = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg hover:shadow-gradient-start/10 transition-all duration-300"
+      className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
     >
       <div className="flex items-start justify-between mb-4">
-        <div className="w-12 h-12 rounded-xl gradient-vibrant flex items-center justify-center">
-          <Icon className="w-6 h-6 text-white" />
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center">
+          <Icon className="w-6 h-6 text-gold" />
         </div>
         {trend && (
           <div className={cn(
@@ -50,7 +50,7 @@ export const AdminStatCard = ({
         )}
       </div>
 
-      <h3 className="text-3xl font-bold text-gradient-vibrant mb-1">{value}</h3>
+      <h3 className="text-3xl font-bold text-primary mb-1">{value}</h3>
       <p className="text-sm text-muted-foreground">{title}</p>
       {description && (
         <p className="text-xs text-muted-foreground/70 mt-2">{description}</p>

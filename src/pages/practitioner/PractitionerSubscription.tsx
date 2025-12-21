@@ -83,11 +83,11 @@ export const PractitionerSubscription = () => {
           className={cn(
             "cursor-pointer transition-all border-2 p-6 flex-1 relative",
             billingPeriod === "annual"
-              ? "border-gradient-start shadow-lg ring-2 ring-gradient-start ring-offset-2"
-              : "border-border hover:border-gradient-start/30"
+              ? "border-gold shadow-lg ring-2 ring-gold ring-offset-2"
+              : "border-border hover:border-gold/30"
           )}
         >
-          <Badge className="absolute -top-3 right-4 gradient-vibrant text-white">
+          <Badge className="absolute -top-3 right-4 bg-gold text-white">
             -63%
           </Badge>
           <p className="text-muted-foreground text-sm mb-2">Annuel</p>
@@ -131,7 +131,7 @@ export const PractitionerSubscription = () => {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg flex items-center gap-2">
-                <Receipt className="w-5 h-5 text-gradient-end" />
+                <Receipt className="w-5 h-5 text-gold" />
                 Historique des factures
               </CardTitle>
               <Button variant="outline" size="sm" className="gap-2">
@@ -184,7 +184,7 @@ export const PractitionerSubscription = () => {
         <Card className="border-0 shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-gradient-end" />
+              <CreditCard className="w-5 h-5 text-gold" />
               Moyen de paiement
             </CardTitle>
           </CardHeader>

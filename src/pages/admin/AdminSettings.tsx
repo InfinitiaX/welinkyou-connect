@@ -25,7 +25,7 @@ export const AdminSettings = () => {
   const [adminProfile, setAdminProfile] = useState({
     firstName: "Ahmed",
     lastName: "Benali",
-    email: "admin@welinkyou.com",
+    email: "admin@welinkyou.co",
     phone: "+33 6 12 34 56 78",
   });
 
@@ -43,7 +43,7 @@ export const AdminSettings = () => {
       id: 1,
       firstName: "Ahmed",
       lastName: "Benali",
-      email: "admin@welinkyou.com",
+      email: "admin@welinkyou.co",
       status: "Actif",
       createdAt: "2025-01-01",
     },
@@ -51,7 +51,7 @@ export const AdminSettings = () => {
       id: 2,
       firstName: "Sophia",
       lastName: "Martin",
-      email: "sophia@welinkyou.com",
+      email: "sophia@welinkyou.co",
       status: "Actif",
       createdAt: "2025-02-15",
     },

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -25,6 +25,9 @@ import {
   Building,
   MessageCircle,
   Plus,
+  Loader2,
+  AlertCircle,
+  CheckCircle2,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -33,8 +36,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { categories, countries, cities } from "@/data/categories";
+import { countries, cities } from "@/data/categories";
 import { cn } from "@/lib/utils";
+import { useRegistration } from "@/hooks/useRegistration";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth, getDashboardUrl } from "@/contexts/AuthContext";
+import { api } from "@/services/api";
+import type { ApiDomaine } from "@/types/api";
 
 const steps = [
   { id: 1, title: "Informations", icon: User, description: "Vos coordonnées" },
@@ -70,9 +78,77 @@ const allDocuments = [
 ];
 
 const ProRegistration = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { isAuthenticated, user, isLoading: authLoading } = useAuth();
+  
+  // Rediriger si déjà connecté
+  useEffect(() => {
+    if (!authLoading && isAuthenticated && user) {
+      toast({
+        title: "Vous êtes déjà connecté",
+        description: "Vous avez été redirigé vers votre tableau de bord.",
+      });
+      navigate(getDashboardUrl(user.role), { replace: true });
+    }
+  }, [authLoading, isAuthenticated, user, navigate, toast]);
+  
+  // Charger les domaines depuis l'API
+  const [domaines, setDomaines] = useState<ApiDomaine[]>([]);
+  const [domainesLoading, setDomainesLoading] = useState(true);
+  
+  useEffect(() => {
+    const loadDomaines = async () => {
+      try {
+        const data = await api.getDomaines();
+        setDomaines(data);
+      } catch (err) {
+        console.error("Erreur lors du chargement des domaines:", err);
+        toast({
+          title: "Erreur",
+          description: "Impossible de charger les domaines. Veuillez rafraîchir la page.",
+          variant: "destructive",
+        });
+      } finally {
+        setDomainesLoading(false);
+      }
+    };
+    loadDomaines();
+  }, [toast]);
+  
+  // Hook d'inscription avec sauvegarde locale
+  const {
+    localDraft,
+    isSaving,
+    isFinalizing,
+    error: registrationError,
+    lastSaved,
+    saveToLocal,
+    finalizeRegistration,
+    clearLocalDraft,
+  } = useRegistration({
+    onAutoSave: () => {
+      // Toast silencieux pour ne pas spammer
+    },
+    onError: (err) => {
+      toast({
+        title: "Erreur",
+        description: err.message,
+        variant: "destructive",
+      });
+    },
+  });
+
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [draftLoaded, setDraftLoaded] = useState(false);
+  const [emailChecked, setEmailChecked] = useState(false);
+  
   const [formData, setFormData] = useState({
     // Step 1 - Personal Info
     firstName: "",
@@ -100,28 +176,177 @@ const ProRegistration = () => {
     plan: "annual",
   });
 
+  // Charger les données du brouillon local si existant
+  useEffect(() => {
+    if (localDraft?.formData && !draftLoaded) {
+      const fd = localDraft.formData;
+      setFormData(prev => ({
+        ...prev,
+        firstName: fd.firstName || prev.firstName,
+        lastName: fd.lastName || prev.lastName,
+        email: fd.email || localDraft.email || prev.email,
+        phone: fd.phone || prev.phone,
+        whatsapp: fd.whatsapp || prev.whatsapp,
+        country: fd.country || prev.country,
+        city: fd.city || prev.city,
+        professionType: fd.professionType || prev.professionType,
+        category: fd.category || prev.category,
+        subcategory: fd.subcategory || prev.subcategory,
+        specialties: fd.specialties || prev.specialties,
+        description: fd.description || prev.description,
+        experience: fd.experience || prev.experience,
+        languages: fd.languages || prev.languages,
+        professionalLink: fd.professionalLink || prev.professionalLink,
+        plan: fd.plan || prev.plan,
+      }));
+      setCurrentStep(localDraft.currentStep || 1);
+      // Marquer l'email comme vérifié si un brouillon existe
+      if (localDraft.email) {
+        setEmailChecked(true);
+      }
+      setDraftLoaded(true);
+    }
+  }, [localDraft, draftLoaded]);
+
   const [newSpecialty, setNewSpecialty] = useState("");
+
+  // Sauvegarder dans localStorage
+  const saveCurrentData = useCallback((step: number) => {
+    const dataToSave = {
+      email: formData.email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      phone: formData.phone,
+      whatsapp: formData.whatsapp,
+      country: formData.country,
+      city: formData.city,
+      professionType: formData.professionType,
+      category: formData.category,
+      subcategory: formData.subcategory,
+      specialties: formData.specialties,
+      description: formData.description,
+      experience: formData.experience,
+      languages: formData.languages,
+      professionalLink: formData.professionalLink,
+      plan: formData.plan,
+    };
+    saveToLocal(step, dataToSave);
+  }, [formData, saveToLocal]);
+
+  // Gérer le changement d'étape avec sauvegarde locale
+  const handleStepChange = (newStep: number) => {
+    if (newStep > currentStep && !canProceed()) return;
+    
+    // Sauvegarder la nouvelle étape courante
+    saveCurrentData(newStep);
+    setCurrentStep(newStep);
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const newData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(newData);
   };
 
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFormData({
-        ...formData,
-        photo: file,
-        photoPreview: URL.createObjectURL(file),
-      });
+  // Sauvegarder le brouillon quand l'email est renseigné
+  const handleEmailBlur = () => {
+    if (formData.email && !emailChecked) {
+      setEmailChecked(true);
+      // Sauvegarder le brouillon en localStorage
+      saveToLocal(currentStep, formData);
     }
   };
 
-  const handleDocumentUpload = (docId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Vérifier que c'est une image
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowedTypes.includes(file.type)) {
+        toast({
+          title: "Format invalide",
+          description: "Seuls les formats JPG, PNG et WebP sont acceptés.",
+          variant: "destructive",
+        });
+        e.target.value = "";
+        return;
+      }
+      
+      // Vérifier la taille (max 5MB)
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      if (file.size > maxSize) {
+        toast({
+          title: "Image trop volumineuse",
+          description: "La taille maximum est de 5 MB.",
+          variant: "destructive",
+        });
+        e.target.value = "";
+        return;
+      }
+      
+      // Mise à jour locale immédiate avec preview
+      const preview = URL.createObjectURL(file);
+      setFormData({
+        ...formData,
+        photo: file,
+        photoPreview: preview,
+      });
+      
+      // Upload vers le backend si email disponible
+      if (formData.email) {
+        try {
+          await api.uploadProfilePhoto({
+            email: formData.email,
+            draft_id: localDraft?.id,
+            photo: file,
+          });
+          
+          toast({
+            title: "Photo uploadée",
+            description: "Votre photo de profil a été sauvegardée.",
+          });
+        } catch (err) {
+          console.error("Erreur upload photo:", err);
+          // On garde quand même la preview locale
+          toast({
+            title: "Avertissement",
+            description: "La photo sera sauvegardée localement en attendant.",
+            variant: "default",
+          });
+        }
+      }
+    }
+  };
+
+  const handleDocumentUpload = async (docId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Vérifier que c'est un PDF
+      if (file.type !== "application/pdf") {
+        toast({
+          title: "Format invalide",
+          description: "Seuls les fichiers PDF sont acceptés.",
+          variant: "destructive",
+        });
+        // Réinitialiser l'input
+        e.target.value = "";
+        return;
+      }
+      
+      // Vérifier la taille (max 10MB)
+      const maxSize = 10 * 1024 * 1024; // 10MB
+      if (file.size > maxSize) {
+        toast({
+          title: "Fichier trop volumineux",
+          description: "La taille maximum est de 10 MB.",
+          variant: "destructive",
+        });
+        e.target.value = "";
+        return;
+      }
+      
+      // Mise à jour locale immédiate (les fichiers seront uploadés à la finalisation)
       setFormData({
         ...formData,
         documents: {
@@ -164,7 +389,8 @@ const ProRegistration = () => {
     });
   };
 
-  const currentCategory = categories.find((c) => c.id === formData.category);
+  // Trouver le domaine sélectionné depuis les données de l'API
+  const currentDomaine = domaines.find((d) => d.id === formData.category);
   const availableCities = formData.country ? cities[formData.country] : [];
 
   const canProceed = () => {
@@ -258,7 +484,7 @@ const ProRegistration = () => {
                   </Button>
                 </Link>
                 <Link to="/recherche">
-                  <Button className="h-12 px-6 rounded-full gradient-vibrant-horizontal border-0 hover:brightness-110 transition-all">
+                  <Button className="h-12 px-6 rounded-xl gradient-primary border-0">
                     Découvrir les professionnels
                   </Button>
                 </Link>
@@ -281,7 +507,7 @@ const ProRegistration = () => {
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-12"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full gradient-vibrant-soft text-white text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
                 <Star className="w-4 h-4" />
                 Rejoignez notre réseau de professionnels vérifiés
               </div>
@@ -301,7 +527,7 @@ const ProRegistration = () => {
                 {/* Progress Line */}
                 <div className="absolute top-6 left-0 right-0 h-0.5 bg-border hidden md:block" />
                 <div
-                  className="absolute top-6 left-0 h-0.5 bg-gradient-to-r from-gradient-start via-gradient-mid to-gradient-end transition-all duration-500 hidden md:block"
+                  className="absolute top-6 left-0 h-0.5 bg-primary transition-all duration-500 hidden md:block"
                   style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
                 />
 
@@ -317,17 +543,17 @@ const ProRegistration = () => {
                         currentStep >= step.id ? "text-primary" : "text-muted-foreground"
                       )}
                     >
-                        <div
-                          className={cn(
-                            "relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer",
-                            currentStep > step.id
-                              ? "gradient-vibrant text-white shadow-lg shadow-gradient-start/30"
-                              : currentStep === step.id
-                              ? "bg-gradient-start/10 border-2 border-gradient-start"
-                              : "bg-card border-2 border-border"
-                          )}
-                          onClick={() => currentStep > step.id && setCurrentStep(step.id)}
-                        >
+                      <div
+                        className={cn(
+                          "relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer",
+                          currentStep > step.id
+                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                            : currentStep === step.id
+                            ? "bg-primary/10 border-2 border-primary"
+                            : "bg-card border-2 border-border"
+                        )}
+                        onClick={() => currentStep > step.id && handleStepChange(step.id)}
+                      >
                         {currentStep > step.id ? (
                           <Check className="w-5 h-5" />
                         ) : (
@@ -353,9 +579,9 @@ const ProRegistration = () => {
                 className="bg-card rounded-2xl border border-border shadow-xl overflow-hidden"
               >
                 {/* Step Header */}
-                <div className="px-8 py-6 border-b border-border bg-gradient-to-r from-gradient-start/5 via-gradient-mid/5 to-transparent">
+                <div className="px-8 py-6 border-b border-border bg-gradient-to-r from-primary/5 to-transparent">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl gradient-vibrant flex items-center justify-center text-white">
+                    <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center text-primary-foreground">
                       {steps[currentStep - 1] && (() => { const StepIcon = steps[currentStep - 1].icon; return <StepIcon className="w-6 h-6" />; })()}
                     </div>
                     <div>
@@ -376,7 +602,7 @@ const ProRegistration = () => {
                       {/* Photo Upload - Centered */}
                       <div className="flex flex-col items-center mb-8">
                         <div className="relative group">
-                          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary/20 to-emerald/20 p-1">
+                          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary/20 to-gold/20 p-1">
                             <div className="w-full h-full rounded-full bg-card overflow-hidden">
                               {formData.photoPreview ? (
                                 <img
@@ -449,15 +675,32 @@ const ProRegistration = () => {
                             <Mail className="w-4 h-4 text-primary" />
                             Email <span className="text-destructive">*</span>
                           </Label>
-                          <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            placeholder="y.elmansouri@cabinet.ma"
-                            className="h-12 rounded-xl"
-                          />
+                          <div className="relative">
+                            <Input
+                              id="email"
+                              name="email"
+                              type="email"
+                              value={formData.email}
+                              onChange={handleInputChange}
+                              onBlur={handleEmailBlur}
+                              placeholder="y.elmansouri@cabinet.ma"
+                              className={cn(
+                                "h-12 rounded-xl pr-10",
+                                emailChecked && "border-green-500"
+                              )}
+                            />
+                            {isSaving && (
+                              <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-muted-foreground" />
+                            )}
+                            {emailChecked && !isSaving && (
+                              <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-500" />
+                            )}
+                          </div>
+                          {localDraft && (
+                            <p className="text-xs text-green-600">
+                              ✓ Brouillon trouvé, vos données seront sauvegardées automatiquement
+                            </p>
+                          )}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="phone" className="flex items-center gap-2">
@@ -562,7 +805,7 @@ const ProRegistration = () => {
                               "w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0",
                               formData.professionType === "regulated"
                                 ? "border-primary bg-primary"
-                                : "border-emerald"
+                                : "border-gold"
                             )}>
                               {formData.professionType === "regulated" && (
                                 <Check className="w-3 h-3 text-primary-foreground" />
@@ -590,7 +833,7 @@ const ProRegistration = () => {
                               "w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0",
                               formData.professionType === "non-regulated"
                                 ? "border-primary bg-primary"
-                                : "border-emerald"
+                                : "border-gold"
                             )}>
                               {formData.professionType === "non-regulated" && (
                                 <Check className="w-3 h-3 text-primary-foreground" />
@@ -618,12 +861,15 @@ const ProRegistration = () => {
                             name="category"
                             value={formData.category}
                             onChange={handleInputChange}
-                            className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                            disabled={domainesLoading}
+                            className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all disabled:opacity-50"
                           >
-                            <option value="">Sélectionnez un domaine</option>
-                            {categories.map((c) => (
-                              <option key={c.id} value={c.id}>
-                                {c.icon} {c.name}
+                            <option value="">
+                              {domainesLoading ? "Chargement..." : "Sélectionnez un domaine"}
+                            </option>
+                            {domaines.map((d) => (
+                              <option key={d.id} value={d.id}>
+                                {d.icon} {d.name}
                               </option>
                             ))}
                           </select>
@@ -642,7 +888,7 @@ const ProRegistration = () => {
                             className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all disabled:opacity-50"
                           >
                             <option value="">Sélectionnez une spécialité</option>
-                            {currentCategory?.subcategories.map((s) => (
+                            {currentDomaine?.specialites?.map((s) => (
                               <option key={s.id} value={s.id}>
                                 {s.name}
                               </option>
@@ -867,10 +1113,10 @@ const ProRegistration = () => {
                                   ) : (
                                     <label className="inline-flex items-center gap-2 mt-2 px-3 py-1.5 bg-primary/10 text-primary rounded-lg cursor-pointer hover:bg-primary/20 transition-colors">
                                       <Upload className="w-4 h-4" />
-                                      <span className="text-sm font-medium">Choisir un fichier</span>
+                                      <span className="text-sm font-medium">Choisir un PDF</span>
                                       <input
                                         type="file"
-                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        accept="application/pdf,.pdf"
                                         onChange={(e) => handleDocumentUpload(doc.id, e)}
                                         className="hidden"
                                       />
@@ -933,7 +1179,7 @@ const ProRegistration = () => {
                               : "border-border hover:border-primary/50"
                           )}
                         >
-                          <span className="absolute -top-0.5 -right-0.5 px-4 py-1.5 gradient-vibrant text-white text-xs font-bold rounded-bl-xl rounded-tr-xl">
+                          <span className="absolute -top-0.5 -right-0.5 px-4 py-1.5 gradient-gold text-gold-foreground text-xs font-bold rounded-bl-xl rounded-tr-xl">
                             ÉCONOMISEZ 63%
                           </span>
                           <p className="text-muted-foreground mb-2 font-medium">Annuel</p>
@@ -1015,8 +1261,8 @@ const ProRegistration = () => {
                                 {formData.firstName || "Prénom"} {formData.lastName || "Nom"}
                               </h3>
                               <p className="text-primary text-lg font-medium mb-4">
-                                {currentCategory?.name || "Domaine"} - {
-                                  currentCategory?.subcategories.find(s => s.id === formData.subcategory)?.name || "Spécialité"
+                                {currentDomaine?.name || "Domaine"} - {
+                                  currentDomaine?.specialites?.find(s => s.id === formData.subcategory)?.name || "Spécialité"
                                 }
                               </p>
 
@@ -1040,7 +1286,7 @@ const ProRegistration = () => {
                               </div>
 
                               <div className="flex items-center gap-1.5">
-                                <Star className="w-5 h-5 fill-emerald text-emerald" />
+                                <Star className="w-5 h-5 fill-gold text-gold" />
                                 <span className="font-semibold text-foreground text-lg">4.9</span>
                                 <span className="text-muted-foreground">(0 avis)</span>
                               </div>
@@ -1159,10 +1405,10 @@ const ProRegistration = () => {
                             <div className="text-center">
                               <span className="text-sm text-muted-foreground">Catégorie</span>
                               <p className="font-medium text-foreground">
-                                {currentCategory?.icon} {currentCategory?.name || "Domaine"}
+                                {currentDomaine?.icon} {currentDomaine?.name || "Domaine"}
                               </p>
                               <p className="text-sm text-primary">
-                                {currentCategory?.subcategories.find(s => s.id === formData.subcategory)?.name || "Spécialité"}
+                                {currentDomaine?.specialites?.find(s => s.id === formData.subcategory)?.name || "Spécialité"}
                               </p>
                             </div>
                           </div>
@@ -1175,7 +1421,7 @@ const ProRegistration = () => {
                   <div className="flex items-center justify-between mt-10 pt-6 border-t border-border">
                     <Button
                       variant="outline"
-                      onClick={() => setCurrentStep(currentStep - 1)}
+                      onClick={() => handleStepChange(currentStep - 1)}
                       disabled={currentStep === 1}
                       className="h-12 px-6 rounded-xl"
                     >
@@ -1185,28 +1431,31 @@ const ProRegistration = () => {
 
                     {currentStep < 5 ? (
                       <Button
-                        onClick={() => setCurrentStep(currentStep + 1)}
-                        disabled={!canProceed()}
+                        onClick={() => handleStepChange(currentStep + 1)}
+                        disabled={!canProceed() || isSaving}
                         className="h-12 px-8 rounded-xl btn-ripple gradient-primary border-0"
                       >
-                        Continuer
-                        <ArrowRight className="w-4 h-4 ml-2" />
+                        {isSaving ? (
+                          <>
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            Sauvegarde...
+                          </>
+                        ) : (
+                          <>
+                            Continuer
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </>
+                        )}
                       </Button>
                     ) : (
                       <Button 
-                        onClick={() => {
-                          setIsSubmitting(true);
-                          setTimeout(() => {
-                            setIsSubmitting(false);
-                            setIsSuccess(true);
-                          }, 2000);
-                        }}
-                        disabled={isSubmitting}
+                        onClick={() => setShowPasswordModal(true)}
+                        disabled={isSubmitting || isFinalizing}
                         className="h-12 px-8 rounded-xl btn-ripple gradient-primary border-0"
                       >
-                        {isSubmitting ? (
+                        {isSubmitting || isFinalizing ? (
                           <>
-                            <div className="w-4 h-4 mr-2 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                             Traitement...
                           </>
                         ) : (
@@ -1218,12 +1467,171 @@ const ProRegistration = () => {
                       </Button>
                     )}
                   </div>
+
+                  {/* Indicateur de sauvegarde */}
+                  {lastSaved && (
+                    <div className="flex items-center justify-center gap-2 mt-4 text-sm text-muted-foreground">
+                      <CheckCircle2 className="w-4 h-4 text-green-500" />
+                      Dernière sauvegarde : {lastSaved.toLocaleTimeString()}
+                    </div>
+                  )}
+
+                  {registrationError && (
+                    <div className="flex items-center justify-center gap-2 mt-4 text-sm text-destructive">
+                      <AlertCircle className="w-4 h-4" />
+                      {registrationError}
+                    </div>
+                  )}
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
         </>
           )}
+
+        {/* Modal de création de mot de passe */}
+        {showPasswordModal && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-background rounded-2xl p-8 max-w-md w-full shadow-2xl"
+            >
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Créez votre mot de passe
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                Ce mot de passe vous permettra d'accéder à votre espace professionnel.
+              </p>
+
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="password">Mot de passe</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setPasswordError("");
+                    }}
+                    placeholder="Minimum 8 caractères"
+                    className="mt-1"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="passwordConfirm">Confirmer le mot de passe</Label>
+                  <Input
+                    id="passwordConfirm"
+                    type="password"
+                    value={passwordConfirm}
+                    onChange={(e) => {
+                      setPasswordConfirm(e.target.value);
+                      setPasswordError("");
+                    }}
+                    placeholder="Retapez votre mot de passe"
+                    className="mt-1"
+                  />
+                </div>
+
+                {passwordError && (
+                  <p className="text-sm text-destructive flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4" />
+                    {passwordError}
+                  </p>
+                )}
+
+                <div className="flex gap-3 mt-6">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setShowPasswordModal(false);
+                      setPassword("");
+                      setPasswordConfirm("");
+                      setPasswordError("");
+                    }}
+                    className="flex-1"
+                    disabled={isFinalizing}
+                  >
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={async () => {
+                      // Validation
+                      if (password.length < 8) {
+                        setPasswordError("Le mot de passe doit contenir au moins 8 caractères.");
+                        return;
+                      }
+                      if (password !== passwordConfirm) {
+                        setPasswordError("Les mots de passe ne correspondent pas.");
+                        return;
+                      }
+
+                      setIsSubmitting(true);
+                      
+                      // Convertir formData vers le format attendu par l'API
+                      const registrationData = {
+                        firstName: formData.firstName,
+                        lastName: formData.lastName,
+                        email: formData.email,
+                        phone: formData.phone,
+                        whatsapp: formData.whatsapp,
+                        country: formData.country,
+                        city: formData.city,
+                        professionType: formData.professionType,
+                        category: formData.category,
+                        subcategory: formData.subcategory,
+                        specialties: formData.specialties,
+                        description: formData.description,
+                        experience: formData.experience,
+                        languages: formData.languages,
+                        professionalLink: formData.professionalLink,
+                        plan: formData.plan,
+                      };
+                      
+                      // Préparer les documents à uploader
+                      const documentsToUpload = Object.entries(formData.documents)
+                        .filter(([, doc]) => doc.file)
+                        .map(([docType, doc]) => ({
+                          docType,
+                          file: doc.file as File,
+                        }));
+                      
+                      const result = await finalizeRegistration(
+                        registrationData, 
+                        password, 
+                        passwordConfirm,
+                        documentsToUpload
+                      );
+                      
+                      if (result) {
+                        setShowPasswordModal(false);
+                        setIsSuccess(true);
+                        toast({
+                          title: "Inscription réussie ! 🎉",
+                          description: "Votre profil est en attente de validation.",
+                        });
+                      }
+                      setIsSubmitting(false);
+                    }}
+                    disabled={isFinalizing || !password || !passwordConfirm}
+                    className="flex-1 gradient-primary border-0"
+                  >
+                    {isFinalizing ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Création...
+                      </>
+                    ) : (
+                      "Créer mon compte"
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
         </div>
       </main>
 

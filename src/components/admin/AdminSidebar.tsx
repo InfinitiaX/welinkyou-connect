@@ -1,4 +1,4 @@
-import { NavLink, useLocation, Link } from "react-router-dom";
+import { NavLink, useLocation, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
@@ -10,10 +10,13 @@ import {
   LogOut,
   Bell,
   FileText,
+  MessageSquare,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/logo.png";
 
 const menuItems = [
@@ -23,9 +26,9 @@ const menuItems = [
     path: "/dashboard/superadmin",
   },
   {
-    title: "Praticiens",
+    title: "Professionnels",
     icon: Users,
-    path: "/dashboard/superadmin/praticiens",
+    path: "/dashboard/superadmin/professionnels",
   },
   {
     title: "Demandes d'inscription",
@@ -36,6 +39,16 @@ const menuItems = [
     title: "Documents",
     icon: FileText,
     path: "/dashboard/superadmin/documents",
+  },
+  {
+    title: "Analytics",
+    icon: BarChart3,
+    path: "/dashboard/superadmin/analytics",
+  },
+  {
+    title: "Messages",
+    icon: MessageSquare,
+    path: "/dashboard/superadmin/contacts",
   },
   {
     title: "Paramètres",
@@ -51,7 +64,14 @@ interface AdminSidebarProps {
 
 export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const notifications = 5;
+
+  const handleLogout = () => {
+    logout();
+    navigate("/connexion", { replace: true });
+  };
 
   return (
     <motion.aside
@@ -63,7 +83,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
       <div className="p-4 border-b border-white/5">
         <div className="flex flex-col items-center gap-2">
           <Link to="/">
-            <img src={logo} alt="WeLinkYou" className="h-10 w-5px cursor-pointer hover:opacity-80 transition-opacity" />
+            <img src={logo} alt="WeLinkYou" className="h-20 w-auto cursor-pointer hover:opacity-80 transition-opacity" />
           </Link>
           <AnimatePresence mode="wait">
             {!collapsed && (
@@ -85,7 +105,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
         variant="ghost"
         size="icon"
         onClick={onToggle}
-        className="absolute -right-3 top-20 w-6 h-6 rounded-full gradient-vibrant text-white hover:brightness-110 shadow-lg"
+        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#ce4af7] text-white hover:bg-[#ce4af7]/80 shadow-lg"
       >
         {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
       </Button>
@@ -111,7 +131,7 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               {isActive && (
                 <motion.div
                   layoutId="adminActiveIndicator"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 gradient-vibrant rounded-r-full"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-[#ce4af7] rounded-r-full"
                 />
               )}
               
@@ -144,9 +164,9 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
           collapsed && "justify-center"
         )}>
           <div className="relative">
-            <Bell className="w-5 h-5 text-gradient-end" />
+            <Bell className="w-5 h-5 text-[#ce4af7]" />
             {notifications > 0 && (
-              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center gradient-vibrant text-white text-xs border-0">
+              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-[#ce4af7] text-white text-xs border-0">
                 {notifications}
               </Badge>
             )}
@@ -163,8 +183,8 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
           "flex items-center gap-3",
           collapsed && "justify-center"
         )}>
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gradient-start/30 to-gradient-end/10 flex items-center justify-center border border-gradient-start/30">
-            <span className="text-gradient-end text-sm font-bold">SA</span>
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ce4af7]/30 to-[#ce4af7]/10 flex items-center justify-center border border-[#ce4af7]/30">
+            <span className="text-[#ce4af7] text-sm font-bold">SA</span>
           </div>
           
           <AnimatePresence mode="wait">
@@ -175,20 +195,25 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 exit={{ opacity: 0, x: -10 }}
                 className="flex-1 min-w-0"
               >
-                <p className="text-gradient-end text-sm font-medium truncate">Super Admin</p>
+                <p className="text-[#ce4af7] text-sm font-medium truncate">
+                  {user ? `${user.first_name} ${user.last_name}` : "Super Admin"}
+                </p>
                 <p className="text-white/50 text-xs truncate">Administrateur</p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        <div className={cn(
-          "flex items-center gap-2 mt-4 text-white/60 hover:text-white cursor-pointer transition-colors",
-          collapsed && "justify-center"
-        )}>
+        <button
+          onClick={handleLogout}
+          className={cn(
+            "flex items-center gap-2 mt-4 text-white/60 hover:text-white cursor-pointer transition-colors w-full",
+            collapsed && "justify-center"
+          )}
+        >
           <LogOut className="w-4 h-4" />
           {!collapsed && <span className="text-sm">Déconnexion</span>}
-        </div>
+        </button>
       </div>
     </motion.aside>
   );

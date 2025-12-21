@@ -22,14 +22,18 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
       whileHover={{ y: -4 }}
       className="group"
     >
-      <div className="card-premium p-6 h-full flex flex-col min-h-[380px] transition-all duration-300 group-hover:shadow-[0_0_40px_-5px_hsl(160_84%_39%/0.4)] group-hover:border-emerald/60">
+      <div className="card-premium p-6 h-full flex flex-col min-h-[380px]">
         {/* Header with photo and verified badge */}
         <div className="flex items-start gap-4 mb-4">
           <div className="relative flex-shrink-0">
             <img
-              src={professional.photo}
+              src={professional.photo_url || professional.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(professional.firstName + ' ' + professional.lastName)}&size=400&background=random`}
               alt={`${professional.firstName} ${professional.lastName}`}
-              className="w-20 h-20 rounded-2xl object-cover ring-2 ring-border group-hover:ring-emerald/50 transition-all duration-300"
+              className="w-20 h-20 rounded-2xl object-cover ring-2 ring-border group-hover:ring-primary/30 transition-all duration-300"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(professional.firstName + ' ' + professional.lastName)}&size=400&background=random`;
+              }}
             />
             {professional.verified && (
               <motion.div
@@ -85,7 +89,7 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
         {/* Rating and Experience */}
         <div className="flex items-center justify-between mb-4 py-3 border-y border-border">
           <div className="flex items-center gap-1.5">
-            <Star className="w-4 h-4 fill-emerald text-emerald" />
+            <Star className="w-4 h-4 fill-gold text-gold" />
             <span className="font-semibold text-foreground">{professional.rating}</span>
             <span className="text-muted-foreground text-sm">
               ({professional.reviewCount} avis)
@@ -99,7 +103,7 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
         {/* Actions */}
         <div className="flex gap-2">
           <Link to={`/professionnel/${professional.id}`} className="flex-1">
-            <Button variant="outline" className="w-full group-hover:border-emerald group-hover:text-emerald group-hover:bg-emerald/5 transition-all duration-300">
+            <Button variant="outline" className="w-full">
               Voir le profil
             </Button>
           </Link>
@@ -108,9 +112,9 @@ export const ProfessionalCard = ({ professional, index = 0 }: ProfessionalCardPr
             target="_blank"
             rel="noopener noreferrer"
           >
-          <Button size="icon" className="gradient-vibrant-horizontal border-0 btn-ripple hover:brightness-110">
-            <MessageCircle className="w-4 h-4" />
-          </Button>
+            <Button size="icon" className="gradient-primary border-0 btn-ripple">
+              <MessageCircle className="w-4 h-4" />
+            </Button>
           </a>
         </div>
       </div>

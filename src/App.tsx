@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import SearchResults from "./pages/SearchResults";
 import ProfessionalDetail from "./pages/ProfessionalDetail";
@@ -31,6 +32,8 @@ import { AdminPractitioners } from "./pages/admin/AdminPractitioners";
 import { AdminRegistrations } from "./pages/admin/AdminRegistrations";
 import { AdminDocuments } from "./pages/admin/AdminDocuments";
 import { AdminSettings } from "./pages/admin/AdminSettings";
+import { AdminContacts } from "./pages/admin/AdminContacts";
+import { AdminAnalytics } from "./pages/admin/AdminAnalytics";
 
 const queryClient = new QueryClient();
 
@@ -40,7 +43,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
+        <AuthProvider>
+          <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/recherche" element={<SearchResults />} />
           <Route path="/professionnel/:id" element={<ProfessionalDetail />} />
@@ -59,7 +63,7 @@ const App = () => (
           <Route path="/confidentialite" element={<PolitiqueConfidentialite />} />
 
           {/* Practitioner Dashboard Routes */}
-          <Route path="/praticien" element={<PractitionerLayout />}>
+          <Route path="/professionnel" element={<PractitionerLayout />}>
             <Route path="dashboard" element={<PractitionerDashboard />} />
             <Route path="profil" element={<PractitionerProfile />} />
             <Route path="abonnement" element={<PractitionerSubscription />} />
@@ -69,15 +73,18 @@ const App = () => (
           {/* Super Admin Dashboard Routes */}
           <Route path="/dashboard/superadmin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
-            <Route path="praticiens" element={<AdminPractitioners />} />
+            <Route path="professionnels" element={<AdminPractitioners />} />
             <Route path="demandes" element={<AdminRegistrations />} />
             <Route path="documents" element={<AdminDocuments />} />
+            <Route path="analytics" element={<AdminAnalytics />} />
+            <Route path="contacts" element={<AdminContacts />} />
             <Route path="parametres" element={<AdminSettings />} />
           </Route>
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

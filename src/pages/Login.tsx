@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
-import { ArrowRight, Eye, EyeOff, ArrowLeft, CheckCircle, Shield, Users } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight, Eye, EyeOff, ArrowLeft, CheckCircle, Shield, Users, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ApiError } from "@/services/api";
+import { useAuth, getDashboardUrl } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 const news = [
   {
@@ -45,10 +48,22 @@ const benefits = [
 ];
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { login, isAuthenticated, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
+
+  // Rediriger si déjà connecté
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      navigate(getDashboardUrl(user.role), { replace: true });
+    }
+  }, [isAuthenticated, user, navigate]);
 
   // Auto-rotate news carousel
   useEffect(() => {
@@ -58,9 +73,44 @@ const Login = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
+    setError(null);
+    
+    if (!email || !password) {
+      setError("Veuillez remplir tous les champs");
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      const loggedUser = await login(email, password);
+      
+      toast({
+        title: "Connexion réussie",
+        description: `Bienvenue ${loggedUser.first_name} !`,
+      });
+
+      // Rediriger vers le dashboard approprié selon le rôle
+      navigate(getDashboardUrl(loggedUser.role), { replace: true });
+    } catch (err) {
+      console.error("Erreur de connexion:", err);
+      
+      if (err instanceof ApiError) {
+        if (err.status === 401) {
+          setError("Email ou mot de passe incorrect");
+        } else if (err.data?.detail) {
+          setError(String(err.data.detail));
+        } else {
+          setError("Une erreur est survenue. Veuillez réessayer.");
+        }
+      } else {
+        setError("Impossible de se connecter au serveur");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -169,7 +219,18 @@ const Login = () => {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2">Identifiez-vous</h1>
 
-                <form onSubmit={handleLogin} className="space-y-6">
+                {/* Error message */}
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm"
+                  >
+                    {error}
+                  </motion.div>
+                )}
+
+                <form onSubmit={handleLogin} className="space-y-6 mt-6">
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-foreground font-medium">
                       Adresse e-mail
@@ -210,9 +271,17 @@ const Login = () => {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-vibrant-horizontal border-0 rounded-full text-white"
+                    disabled={isLoading}
+                    className="w-full h-14 text-base font-semibold uppercase tracking-wide btn-ripple gradient-vibrant-horizontal border-0 rounded-full text-white disabled:opacity-70"
                   >
-                    Continuer
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Connexion en cours...
+                      </>
+                    ) : (
+                      "Continuer"
+                    )}
                   </Button>
 
                   <Link
