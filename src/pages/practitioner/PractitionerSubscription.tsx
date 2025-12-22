@@ -11,7 +11,9 @@ import {
   ArrowRight,
   Clock,
   Gift,
+  XCircle,
 } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -245,6 +247,41 @@ export const PractitionerSubscription = () => {
               </div>
               <Button variant="outline" size="sm">
                 Modifier
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      {/* Cancellation Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <Card className="border-0 shadow-sm border-destructive/20">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div>
+                <h3 className="font-semibold text-foreground flex items-center gap-2">
+                  <XCircle className="w-5 h-5 text-destructive" />
+                  Résiliation de l'abonnement
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Vous pouvez demander la résiliation de votre abonnement à tout moment.
+                </p>
+              </div>
+              <Button 
+                variant="outline" 
+                className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                onClick={() => {
+                  toast({
+                    title: "Demande de résiliation envoyée",
+                    description: "Notre équipe vous contactera sous 48h pour finaliser votre demande.",
+                  });
+                }}
+              >
+                Demander la résiliation
               </Button>
             </div>
           </CardContent>
