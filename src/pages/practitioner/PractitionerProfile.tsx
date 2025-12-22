@@ -176,7 +176,7 @@ export const PractitionerProfile = () => {
           </TabsTrigger>
           <TabsTrigger value="specialty" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <Briefcase className="w-4 h-4" />
-            Spécialité
+            Domaine
           </TabsTrigger>
           <TabsTrigger value="languages" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <Languages className="w-4 h-4" />
@@ -343,9 +343,32 @@ export const PractitionerProfile = () => {
           >
             <Card className="border-0 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg">Spécialité et expertise</CardTitle>
+                <CardTitle className="text-lg">Domaine et expertise</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
+                {/* Current Domain & Specialty Display */}
+                <div className="p-4 rounded-xl bg-gradient-to-r from-primary/5 to-gradient-end/5 border border-primary/10">
+                  <h4 className="font-medium text-foreground mb-3 flex items-center gap-2">
+                    <Briefcase className="w-4 h-4 text-primary" />
+                    Votre domaine actuel
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {formData.category && (
+                      <Badge className="px-3 py-1.5 bg-primary text-primary-foreground">
+                        {categories.find(c => c.id === formData.category)?.name || "Non défini"}
+                      </Badge>
+                    )}
+                    {formData.subcategory && (
+                      <Badge variant="outline" className="px-3 py-1.5 bg-primary/10 border-primary/30 text-primary">
+                        {categories.find(c => c.id === formData.category)?.subcategories?.find((s: any) => s.id === formData.subcategory)?.name || "Non définie"}
+                      </Badge>
+                    )}
+                    {!formData.category && !formData.subcategory && (
+                      <span className="text-sm text-muted-foreground">Aucun domaine sélectionné</span>
+                    )}
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="category">Domaine d'expertise <span className="text-destructive">*</span></Label>
                   <select id="category" name="category" value={formData.category} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-input bg-background text-foreground">
