@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Eye, MousePointerClick, Star, Award, TrendingUp, MessageSquare, Calendar } from "lucide-react";
+import { Eye, MousePointerClick, Target, Award, TrendingUp, MessageSquare, Calendar, Star } from "lucide-react";
 import { StatCard } from "@/components/practitioner/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -123,10 +123,11 @@ export const PractitionerDashboard = () => {
           delay={0.2}
         />
         <StatCard
-          title="Note moyenne"
-          value="4.8"
-          icon={Star}
-          description="Sur 47 avis"
+          title="Prix moyen par lead"
+          value="45 €"
+          icon={Target}
+          trend={{ value: 6, isPositive: true }}
+          description="Coût par prospect qualifié (LAT)"
           delay={0.3}
         />
         <StatCard
