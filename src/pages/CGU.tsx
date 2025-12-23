@@ -21,7 +21,7 @@ export const CGU = () => {
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">1. Objet</h2>
               <p>
-                Les présentes conditions générales d'utilisation (CGU) régissent l'accès et l'utilisation du site welinkyou.co et de tous ses services. En accédant au site, vous acceptez inconditionnellement ces conditions.
+                Les présentes conditions générales d'utilisation (CGU) régissent l'accès et l'utilisation du site WeLinkYou.com et de tous ses services. En accédant au site, vous acceptez inconditionnellement ces conditions.
               </p>
             </section>
 
@@ -181,7 +181,7 @@ export const CGU = () => {
               <h2 className="text-2xl font-semibold text-foreground mb-4">13. Contact</h2>
               <p className="mb-2">Pour toute question concernant ces CGU, veuillez nous contacter :</p>
               <div className="bg-muted/50 p-6 rounded-lg">
-                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.co</p>
+                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.com</p>
                 <p><strong>Formulaire de contact :</strong> <a href="/contact" className="text-primary hover:text-primary-light">Cliquez ici</a></p>
               </div>
             </section>

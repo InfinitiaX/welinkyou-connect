@@ -24,7 +24,7 @@ export const MentionsLegales = () => {
                 <p className="mb-2"><strong>Nom de l'entreprise :</strong> WeLinkYou</p>
                 <p className="mb-2"><strong>Forme juridique :</strong> SARL/SAS/EIRL</p>
                 <p className="mb-2"><strong>Siège social :</strong> [Adresse complète]</p>
-                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.co</p>
+                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.com</p>
                 <p className="mb-2"><strong>Téléphone :</strong> [Numéro de téléphone]</p>
                 <p className="mb-2"><strong>SIRET :</strong> [Numéro SIRET]</p>
                 <p><strong>Directeur de la publication :</strong> [Nom du directeur]</p>
@@ -101,7 +101,7 @@ export const MentionsLegales = () => {
               <h2 className="text-2xl font-semibold text-foreground mb-4">Contact</h2>
               <p className="mb-2">Pour toute question, veuillez nous contacter à :</p>
               <div className="bg-muted/50 p-6 rounded-lg">
-                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.co</p>
+                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.com</p>
                 <p><strong>Formulaire de contact :</strong> <a href="/contact" className="text-primary hover:text-primary-light">Cliquez ici</a></p>
               </div>
             </section>

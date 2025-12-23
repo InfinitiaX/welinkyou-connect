@@ -349,9 +349,12 @@ const ProfessionalSpace = () => {
                 </div>
               </section>
 
-              {/* CTA Section */}
-              <section className="py-24 bg-background relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
+              {/* CTA Section - Premium Dark with Vibrant Gradient */}
+              <section className="py-24 bg-[#0d0d18] relative overflow-hidden">
+                {/* Background gradient effects */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gradient-start/10 via-transparent to-gradient-end/10" />
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-start/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-end/20 rounded-full blur-3xl" />
 
                 <div className="container mx-auto px-4 lg:px-8 relative z-10">
                   <motion.div
@@ -360,21 +363,32 @@ const ProfessionalSpace = () => {
                     viewport={{ once: true }}
                     className="max-w-3xl mx-auto text-center"
                   >
-                    <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
                       Envie d'attirer plus de clients ciblés ?
                     </h2>
-                    <p className="text-lg text-muted-foreground mb-10">
+                    <p className="text-white/70 text-lg mb-10 leading-relaxed">
                       Rejoignez WeLinkYou dès maintenant et connectez-vous à des clients en recherche active de votre expertise.
                     </p>
-                    <Link to="/inscription-pro">
-                      <Button
-                        size="lg"
-                        className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-8 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg"
-                      >
-                        Créer mon profil professionnel
-                        <ArrowRight className="w-5 h-5" />
-                      </Button>
-                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Link to="/inscription-pro">
+                        <Button
+                          size="lg"
+                          className="btn-ripple gradient-vibrant-horizontal border-0 gap-2 text-base px-10 py-4 rounded-full hover:brightness-110 hover:scale-[1.02] transition-all shadow-xl shadow-gradient-start/25"
+                        >
+                          Créer mon profil professionnel
+                          <ArrowRight className="w-5 h-5" />
+                        </Button>
+                      </Link>
+                      <Link to="/connexion">
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="bg-white/10 border-white/30 text-white hover:bg-white/20 gap-2 text-base px-10 py-4 rounded-full transition-all"
+                        >
+                          Se connecter
+                        </Button>
+                      </Link>
+                    </div>
                   </motion.div>
                 </div>
               </section>

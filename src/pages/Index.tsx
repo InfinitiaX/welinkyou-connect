@@ -7,7 +7,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { BlogSection } from "@/components/BlogSection";
 import { FeaturedPractitioners } from "@/components/FeaturedPractitioners";
 import SpecialtiesMarquee from "@/components/SpecialtiesMarquee";
-import { Shield, Users, Globe, Star, Check } from "lucide-react";
+import { Shield, Briefcase, BadgePercent, Check } from "lucide-react";
 import trustHandshake from "@/assets/trust-handshake.jpg";
 
 // Easing constant
@@ -69,14 +69,14 @@ const imageVariants: Variants = {
 };
 
 // Apple-style split text animation
-const heroTitleWords = ["Vous cherchez un"];
-const heroAccentWords = ["avocat", "un notaire", "ou un expert"];
+const heroTitleLine1 = ["Vous", "cherchez", "un"];
+const heroAccentWords = ["avocat,", "un", "notaire", "ou", "un", "expert"];
+const heroTitleLine2 = "en lien avec le Maroc ?";
 
 const stats = [
-  { icon: Users, value: "500+", label: "Professionnels vérifiés" },
-  { icon: Shield, value: "100%", label: "Profils authentifiés" },
-  { icon: Globe, value: "2", label: "Pays couverts" },
-  { icon: Star, value: "4.8", label: "Note moyenne" },
+  { icon: Shield, value: "100%", label: "Profils vérifiés" },
+  { icon: Briefcase, value: "18", label: "Spécialités couvertes" },
+  { icon: BadgePercent, value: "0%", label: "Commission" },
 ];
 
 const Index = () => {
@@ -107,33 +107,33 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center mb-10">
             {/* Apple-style Split Text Animation for Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-2 leading-tight">
-              {/* First line: "Trouvez les" */}
+              {/* First line: "Vous cherchez un" */}
               <span className="block overflow-hidden">
-                {heroTitleWords.map((word, i) => (
+                {heroTitleLine1.map((word, i) => (
                   <motion.span
                     key={i}
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ 
-                      delay: 0.1 + i * 0.08, 
-                      duration: 0.8, 
-                      ease: [0.25, 0.1, 0.25, 1] 
+                    transition={{
+                      delay: 0.1 + i * 0.08,
+                      duration: 0.8,
+                      ease: [0.25, 0.1, 0.25, 1],
                     }}
                     className="inline-block mr-3"
                   >
                     {word}
                   </motion.span>
                 ))}
-                {/* Accent words: "meilleurs experts" */}
+                {/* Accent words: "avocat, un notaire ou un expert" */}
                 {heroAccentWords.map((word, i) => (
                   <motion.span
                     key={`accent-${i}`}
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ 
-                      delay: 0.26 + i * 0.08, 
-                      duration: 0.8, 
-                      ease: [0.25, 0.1, 0.25, 1] 
+                    transition={{
+                      delay: 0.34 + i * 0.08,
+                      duration: 0.8,
+                      ease: [0.25, 0.1, 0.25, 1],
                     }}
                     className="inline-block mr-3 text-gradient-vibrant"
                   >
@@ -141,15 +141,15 @@ const Index = () => {
                   </motion.span>
                 ))}
               </span>
-              
-              {/* Second line: "de la diaspora France-Maroc" */}
-              <motion.span 
+
+              {/* Second line: "en lien avec le Maroc ?" */}
+              <motion.span
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.45, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ delay: 0.85, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
                 className="block mt-1"
               >
-                en lien avec le Maroc ?
+                {heroTitleLine2}
               </motion.span>
             </h1>
 
@@ -157,13 +157,11 @@ const Index = () => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
+              transition={{ delay: 1.1, duration: 0.6 }}
               className="text-lg md:text-xl text-white/85 max-w-3xl mx-auto mt-6 mb-10"
             >
-Marocains du monde, expatriés, porteurs de projets ou investisseurs transfrontaliers : WeLinkYou vous connecte à des professionnels de confiance, basés au Maroc ou dans votre pays de résidence.
-
-
-
+              Marocains du monde, expatriés, porteurs de projets ou investisseurs transfrontaliers : WeLinkYou vous
+              connecte à des professionnels de confiance, basés au Maroc ou dans votre pays de résidence.
             </motion.p>
           </div>
 
@@ -206,7 +204,7 @@ Marocains du monde, expatriés, porteurs de projets ou investisseurs transfronta
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+            className="flex flex-wrap justify-center gap-8 md:gap-16 max-w-4xl mx-auto"
           >
             {stats.map((stat, index) => (
               <motion.div

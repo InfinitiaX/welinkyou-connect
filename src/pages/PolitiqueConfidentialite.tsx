@@ -181,7 +181,7 @@ export const PolitiqueConfidentialite = () => {
                 Pour exercer vos droits, veuillez nous contacter par e-mail à :
               </p>
               <div className="bg-muted/50 p-6 rounded-lg">
-                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.co</p>
+                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.com</p>
                 <p className="mb-2"><strong>Objet :</strong> Demande d'exercice des droits RGPD</p>
                 <p>
                   Nous traiterons votre demande dans un délai de 30 jours.
@@ -226,7 +226,7 @@ export const PolitiqueConfidentialite = () => {
                 Si vous avez des questions concernant notre traitement de vos données personnelles, vous pouvez contacter notre Délégué à la Protection des Données :
               </p>
               <div className="bg-muted/50 p-6 rounded-lg">
-                <p className="mb-2"><strong>Email :</strong> dpo@welinkyou.co</p>
+                <p className="mb-2"><strong>Email :</strong> dpo@welinkyou.com</p>
                 <p className="mb-2"><strong>Adresse :</strong> [Adresse du siège social]</p>
                 <p>
                   Vous pouvez également contacter la CNIL (Commission Nationale de l'Informatique et des Libertés) si vous estimez que vos droits ne sont pas respectés.
@@ -239,7 +239,7 @@ export const PolitiqueConfidentialite = () => {
               <h2 className="text-2xl font-semibold text-foreground mb-4">14. Nous Contacter</h2>
               <p className="mb-2">Pour toute question concernant cette politique ou vos données, veuillez nous contacter :</p>
               <div className="bg-muted/50 p-6 rounded-lg">
-                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.co</p>
+                <p className="mb-2"><strong>Email :</strong> contact@welinkyou.com</p>
                 <p className="mb-2"><strong>Téléphone :</strong> [Numéro de téléphone]</p>
                 <p><strong>Formulaire de contact :</strong> <a href="/contact" className="text-primary hover:text-primary-light">Cliquez ici</a></p>
               </div>

@@ -381,15 +381,6 @@ export const AdminContacts = () => {
                   {selectedContact.message}
                 </div>
               </div>
-              <div className="flex justify-end gap-2 pt-4 border-t">
-                <Button
-                  variant="outline"
-                  onClick={() => window.location.href = `mailto:${selectedContact.email}?subject=Re: ${selectedContact.subject}`}
-                >
-                  <Mail className="w-4 h-4 mr-2" />
-                  Répondre par email
-                </Button>
-              </div>
             </div>
           )}
         </DialogContent>

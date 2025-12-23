@@ -1,195 +1,321 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Settings, Bell, Shield, User, Plus, Trash2, Save, X } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Settings,
+  Shield,
+  User,
+  Plus,
+  Trash2,
+  Save,
+  Eye,
+  EyeOff,
+  Loader2,
+  Clock,
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { api, ApiError } from "@/services/api";
+import type { SuperAdmin } from "@/services/api";
+
+// Composant pour les sections "Coming Soon"
+const ComingSoonOverlay = ({ children }: { children: React.ReactNode }) => (
+  <div className="relative">
+    <div className="absolute inset-0 bg-white/80 backdrop-blur-[1px] z-10 flex items-center justify-center rounded-xl">
+      <div className="bg-primary/10 text-primary px-4 py-2 rounded-full flex items-center gap-2">
+        <Clock className="w-4 h-4" />
+        <span className="font-medium text-sm">Bientôt disponible</span>
+      </div>
+    </div>
+    <div className="opacity-50 pointer-events-none">{children}</div>
+  </div>
+);
 
 export const AdminSettings = () => {
-  const { toast } = useToast();
+  // États pour le profil
+  const [profile, setProfile] = useState<SuperAdmin | null>(null);
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
-  const [openCreateAdmin, setOpenCreateAdmin] = useState(false);
-  
-  // Admin profile
-  const [adminProfile, setAdminProfile] = useState({
-    firstName: "Ahmed",
-    lastName: "Benali",
-    email: "admin@welinkyou.co",
-    phone: "+33 6 12 34 56 78",
+  const [editedProfile, setEditedProfile] = useState({
+    first_name: "",
+    last_name: "",
+    phone_number: "",
   });
+  const [savingProfile, setSavingProfile] = useState(false);
 
-  const [editedProfile, setEditedProfile] = useState(adminProfile);
-  const [showPasswordChange, setShowPasswordChange] = useState(false);
+  // États pour le changement de mot de passe
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
 
-  // Super admins list
-  const [superAdmins, setSuperAdmins] = useState([
-    {
-      id: 1,
-      firstName: "Ahmed",
-      lastName: "Benali",
-      email: "admin@welinkyou.co",
-      status: "Actif",
-      createdAt: "2025-01-01",
-    },
-    {
-      id: 2,
-      firstName: "Sophia",
-      lastName: "Martin",
-      email: "sophia@welinkyou.co",
-      status: "Actif",
-      createdAt: "2025-02-15",
-    },
-  ]);
+  // États pour la liste des superadmins
+  const [superAdmins, setSuperAdmins] = useState<SuperAdmin[]>([]);
+  const [isLoadingSuperAdmins, setIsLoadingSuperAdmins] = useState(true);
 
-  // New admin form
+  // États pour la création d'un nouveau superadmin
+  const [openCreateAdmin, setOpenCreateAdmin] = useState(false);
   const [newAdmin, setNewAdmin] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
+    phoneNumber: "",
   });
+  const [showNewAdminPassword, setShowNewAdminPassword] = useState(false);
+  const [creatingAdmin, setCreatingAdmin] = useState(false);
 
-  // Notification settings
-  const [settings, setSettings] = useState({
-    emailNotifications: true,
-    newRegistrationAlert: true,
-    weeklyReport: false,
-    autoApprove: false,
-    maintenanceMode: false,
-  });
+  // Charger le profil et la liste des superadmins
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        // Charger le profil
+        const profileData = await api.getSuperAdminProfile();
+        setProfile(profileData);
+        setEditedProfile({
+          first_name: profileData.first_name,
+          last_name: profileData.last_name,
+          phone_number: profileData.phone_number || "",
+        });
+      } catch (err) {
+        console.error("Erreur lors du chargement du profil:", err);
+        toast.error("Erreur lors du chargement du profil");
+      } finally {
+        setIsLoadingProfile(false);
+      }
 
-  const handleSaveProfile = () => {
-    setAdminProfile(editedProfile);
-    setIsEditingProfile(false);
-    toast({
-      title: "Profil mis à jour",
-      description: "Vos informations ont été enregistrées avec succès.",
-    });
+      try {
+        // Charger la liste des superadmins
+        const admins = await api.getSuperAdmins();
+        setSuperAdmins(admins);
+      } catch (err) {
+        console.error("Erreur lors du chargement des superadmins:", err);
+        toast.error("Erreur lors du chargement des superadmins");
+      } finally {
+        setIsLoadingSuperAdmins(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  // Sauvegarder le profil
+  const handleSaveProfile = async () => {
+    try {
+      setSavingProfile(true);
+      const updatedProfile = await api.updateSuperAdminProfile(editedProfile);
+      setProfile(updatedProfile);
+      setIsEditingProfile(false);
+      toast.success("Profil mis à jour avec succès");
+    } catch (err) {
+      console.error("Erreur lors de la mise à jour du profil:", err);
+      if (err instanceof ApiError) {
+        toast.error(err.data?.error as string || "Erreur lors de la mise à jour");
+      } else {
+        toast.error("Erreur lors de la mise à jour du profil");
+      }
+    } finally {
+      setSavingProfile(false);
+    }
   };
 
-  const handleChangePassword = () => {
-    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs.",
-        variant: "destructive",
-      });
-      return;
-    }
+  // Changer le mot de passe
+  const handleChangePassword = async () => {
+    setPasswordErrors([]);
+    const errors: string[] = [];
 
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      toast({
-        title: "Erreur",
-        description: "Les nouveaux mots de passe ne correspondent pas.",
-        variant: "destructive",
-      });
-      return;
+    if (!passwordData.currentPassword) {
+      errors.push("Le mot de passe actuel est requis");
     }
-
+    if (!passwordData.newPassword) {
+      errors.push("Le nouveau mot de passe est requis");
+    }
     if (passwordData.newPassword.length < 8) {
-      toast({
-        title: "Erreur",
-        description: "Le mot de passe doit contenir au moins 8 caractères.",
-        variant: "destructive",
-      });
+      errors.push("Le nouveau mot de passe doit contenir au moins 8 caractères");
+    }
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      errors.push("Les mots de passe ne correspondent pas");
+    }
+
+    if (errors.length > 0) {
+      setPasswordErrors(errors);
       return;
     }
 
-    setPasswordData({
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
-    setShowPasswordChange(false);
-
-    toast({
-      title: "Mot de passe modifié",
-      description: "Votre mot de passe a été changé avec succès.",
-    });
+    try {
+      setChangingPassword(true);
+      await api.changeSuperAdminPassword(
+        passwordData.currentPassword,
+        passwordData.newPassword
+      );
+      toast.success("Mot de passe modifié avec succès");
+      setShowPasswordDialog(false);
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    } catch (err) {
+      console.error("Erreur lors du changement de mot de passe:", err);
+      if (err instanceof ApiError) {
+        const apiErrors: string[] = [];
+        if (err.data?.current_password) {
+          apiErrors.push(
+            ...(Array.isArray(err.data.current_password)
+              ? err.data.current_password
+              : [err.data.current_password as string])
+          );
+        }
+        if (err.data?.new_password) {
+          apiErrors.push(
+            ...(Array.isArray(err.data.new_password)
+              ? err.data.new_password
+              : [err.data.new_password as string])
+          );
+        }
+        if (apiErrors.length > 0) {
+          setPasswordErrors(apiErrors);
+        } else {
+          toast.error("Erreur lors du changement de mot de passe");
+        }
+      } else {
+        toast.error("Erreur lors du changement de mot de passe");
+      }
+    } finally {
+      setChangingPassword(false);
+    }
   };
 
-  const handleCreateAdmin = () => {
-    if (!newAdmin.firstName || !newAdmin.lastName || !newAdmin.email || !newAdmin.password) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs obligatoires.",
-        variant: "destructive",
-      });
+  // Créer un nouveau superadmin
+  const handleCreateAdmin = async () => {
+    if (
+      !newAdmin.firstName ||
+      !newAdmin.lastName ||
+      !newAdmin.email ||
+      !newAdmin.password
+    ) {
+      toast.error("Veuillez remplir tous les champs obligatoires");
       return;
     }
 
     if (newAdmin.password !== newAdmin.confirmPassword) {
-      toast({
-        title: "Erreur",
-        description: "Les mots de passe ne correspondent pas.",
-        variant: "destructive",
-      });
+      toast.error("Les mots de passe ne correspondent pas");
       return;
     }
 
-    const newSuperAdmin = {
-      id: superAdmins.length + 1,
-      firstName: newAdmin.firstName,
-      lastName: newAdmin.lastName,
-      email: newAdmin.email,
-      status: "Actif",
-      createdAt: new Date().toISOString().split('T')[0],
-    };
-
-    setSuperAdmins([...superAdmins, newSuperAdmin]);
-    setNewAdmin({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
-    setOpenCreateAdmin(false);
-
-    toast({
-      title: "Super Admin créé",
-      description: `${newAdmin.firstName} ${newAdmin.lastName} a été ajouté avec succès.`,
-    });
-  };
-
-  const handleDeleteAdmin = (id: number) => {
-    if (id === superAdmins[0].id) {
-      toast({
-        title: "Erreur",
-        description: "Vous ne pouvez pas supprimer le super admin principal.",
-        variant: "destructive",
-      });
+    if (newAdmin.password.length < 8) {
+      toast.error("Le mot de passe doit contenir au moins 8 caractères");
       return;
     }
 
-    setSuperAdmins(superAdmins.filter((admin) => admin.id !== id));
-    toast({
-      title: "Super Admin supprimé",
-      description: "Le super admin a été supprimé avec succès.",
-    });
+    try {
+      setCreatingAdmin(true);
+      const createdAdmin = await api.createSuperAdmin({
+        first_name: newAdmin.firstName,
+        last_name: newAdmin.lastName,
+        email: newAdmin.email,
+        password: newAdmin.password,
+        phone_number: newAdmin.phoneNumber || undefined,
+      });
+
+      setSuperAdmins([...superAdmins, createdAdmin]);
+      setOpenCreateAdmin(false);
+      setNewAdmin({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        phoneNumber: "",
+      });
+      toast.success(
+        `Super Admin ${createdAdmin.first_name} ${createdAdmin.last_name} créé avec succès`
+      );
+    } catch (err) {
+      console.error("Erreur lors de la création du superadmin:", err);
+      if (err instanceof ApiError) {
+        if (err.data?.email) {
+          toast.error(
+            Array.isArray(err.data.email)
+              ? err.data.email[0]
+              : (err.data.email as string)
+          );
+        } else if (err.data?.password) {
+          toast.error(
+            Array.isArray(err.data.password)
+              ? err.data.password[0]
+              : (err.data.password as string)
+          );
+        } else {
+          toast.error("Erreur lors de la création");
+        }
+      } else {
+        toast.error("Erreur lors de la création du super admin");
+      }
+    } finally {
+      setCreatingAdmin(false);
+    }
   };
 
-  const handleSaveSettings = () => {
-    toast({
-      title: "Paramètres enregistrés",
-      description: "Vos modifications ont été sauvegardées avec succès.",
+  // Supprimer un superadmin
+  const handleDeleteAdmin = async (admin: SuperAdmin) => {
+    try {
+      await api.deleteSuperAdmin(admin.id);
+      setSuperAdmins(superAdmins.filter((a) => a.id !== admin.id));
+      toast.success(
+        `Super Admin ${admin.first_name} ${admin.last_name} supprimé`
+      );
+    } catch (err) {
+      console.error("Erreur lors de la suppression:", err);
+      if (err instanceof ApiError) {
+        toast.error(err.data?.error as string || "Erreur lors de la suppression");
+      } else {
+        toast.error("Erreur lors de la suppression");
+      }
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
     });
   };
 
@@ -202,11 +328,13 @@ export const AdminSettings = () => {
         transition={{ duration: 0.4 }}
       >
         <h1 className="text-3xl font-bold text-primary">Paramètres</h1>
-        <p className="text-muted-foreground mt-1">Gérez votre profil et les super admins</p>
+        <p className="text-muted-foreground mt-1">
+          Gérez votre profil et les super admins
+        </p>
       </motion.div>
 
       <div className="grid gap-6">
-        {/* My Profile */}
+        {/* Mon Profil */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -219,28 +347,37 @@ export const AdminSettings = () => {
                 Mon Profil
               </CardTitle>
               <CardDescription>
-                Modifiez vos informations personnelles
+                Modifiez vos informations personnelles (l'email ne peut pas être
+                modifié)
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {!isEditingProfile ? (
+              {isLoadingProfile ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                </div>
+              ) : !isEditingProfile ? (
                 <div className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <p className="text-sm text-muted-foreground">Prénom</p>
-                      <p className="font-semibold">{adminProfile.firstName}</p>
+                      <p className="font-semibold">{profile?.first_name}</p>
                     </div>
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <p className="text-sm text-muted-foreground">Nom</p>
-                      <p className="font-semibold">{adminProfile.lastName}</p>
+                      <p className="font-semibold">{profile?.last_name}</p>
                     </div>
                     <div className="bg-muted/50 p-4 rounded-lg">
-                      <p className="text-sm text-muted-foreground">Email</p>
-                      <p className="font-semibold">{adminProfile.email}</p>
+                      <p className="text-sm text-muted-foreground">
+                        Email (non modifiable)
+                      </p>
+                      <p className="font-semibold">{profile?.email}</p>
                     </div>
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <p className="text-sm text-muted-foreground">Téléphone</p>
-                      <p className="font-semibold">{adminProfile.phone}</p>
+                      <p className="font-semibold">
+                        {profile?.phone_number || "Non renseigné"}
+                      </p>
                     </div>
                   </div>
                   <div className="flex gap-2">
@@ -250,12 +387,127 @@ export const AdminSettings = () => {
                     >
                       Modifier mon profil
                     </Button>
-                    <Button
-                      onClick={() => setShowPasswordChange(true)}
-                      variant="outline"
+                    <Dialog
+                      open={showPasswordDialog}
+                      onOpenChange={setShowPasswordDialog}
                     >
-                      Changer mon mot de passe
-                    </Button>
+                      <DialogTrigger asChild>
+                        <Button variant="outline">
+                          Changer mon mot de passe
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Changer le mot de passe</DialogTitle>
+                          <DialogDescription>
+                            Entrez votre mot de passe actuel et le nouveau mot
+                            de passe
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          {passwordErrors.length > 0 && (
+                            <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                              <ul className="list-disc list-inside text-sm text-red-600 space-y-1">
+                                {passwordErrors.map((error, index) => (
+                                  <li key={index}>{error}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          <div className="space-y-2">
+                            <Label>Mot de passe actuel</Label>
+                            <div className="relative">
+                              <Input
+                                type={showCurrentPassword ? "text" : "password"}
+                                value={passwordData.currentPassword}
+                                onChange={(e) =>
+                                  setPasswordData({
+                                    ...passwordData,
+                                    currentPassword: e.target.value,
+                                  })
+                                }
+                                className="pr-10"
+                              />
+                              <button
+                                type="button"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                onClick={() =>
+                                  setShowCurrentPassword(!showCurrentPassword)
+                                }
+                              >
+                                {showCurrentPassword ? (
+                                  <EyeOff className="w-4 h-4" />
+                                ) : (
+                                  <Eye className="w-4 h-4" />
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Nouveau mot de passe</Label>
+                            <div className="relative">
+                              <Input
+                                type={showNewPassword ? "text" : "password"}
+                                value={passwordData.newPassword}
+                                onChange={(e) =>
+                                  setPasswordData({
+                                    ...passwordData,
+                                    newPassword: e.target.value,
+                                  })
+                                }
+                                className="pr-10"
+                              />
+                              <button
+                                type="button"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                onClick={() =>
+                                  setShowNewPassword(!showNewPassword)
+                                }
+                              >
+                                {showNewPassword ? (
+                                  <EyeOff className="w-4 h-4" />
+                                ) : (
+                                  <Eye className="w-4 h-4" />
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Confirmer le nouveau mot de passe</Label>
+                            <Input
+                              type="password"
+                              value={passwordData.confirmPassword}
+                              onChange={(e) =>
+                                setPasswordData({
+                                  ...passwordData,
+                                  confirmPassword: e.target.value,
+                                })
+                              }
+                            />
+                          </div>
+                        </div>
+                        <DialogFooter>
+                          <Button
+                            variant="outline"
+                            onClick={() => setShowPasswordDialog(false)}
+                          >
+                            Annuler
+                          </Button>
+                          <Button
+                            onClick={handleChangePassword}
+                            disabled={changingPassword}
+                            className="gradient-vibrant-horizontal border-0"
+                          >
+                            {changingPassword && (
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            )}
+                            {changingPassword
+                              ? "Modification..."
+                              : "Modifier le mot de passe"}
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               ) : (
@@ -265,9 +517,12 @@ export const AdminSettings = () => {
                       <Label htmlFor="firstName">Prénom</Label>
                       <Input
                         id="firstName"
-                        value={editedProfile.firstName}
+                        value={editedProfile.first_name}
                         onChange={(e) =>
-                          setEditedProfile({ ...editedProfile, firstName: e.target.value })
+                          setEditedProfile({
+                            ...editedProfile,
+                            first_name: e.target.value,
+                          })
                         }
                       />
                     </div>
@@ -275,30 +530,35 @@ export const AdminSettings = () => {
                       <Label htmlFor="lastName">Nom</Label>
                       <Input
                         id="lastName"
-                        value={editedProfile.lastName}
+                        value={editedProfile.last_name}
                         onChange={(e) =>
-                          setEditedProfile({ ...editedProfile, lastName: e.target.value })
+                          setEditedProfile({
+                            ...editedProfile,
+                            last_name: e.target.value,
+                          })
                         }
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">Email (non modifiable)</Label>
                       <Input
                         id="email"
                         type="email"
-                        value={editedProfile.email}
-                        onChange={(e) =>
-                          setEditedProfile({ ...editedProfile, email: e.target.value })
-                        }
+                        value={profile?.email || ""}
+                        disabled
+                        className="bg-muted"
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="phone">Téléphone</Label>
                       <Input
                         id="phone"
-                        value={editedProfile.phone}
+                        value={editedProfile.phone_number}
                         onChange={(e) =>
-                          setEditedProfile({ ...editedProfile, phone: e.target.value })
+                          setEditedProfile({
+                            ...editedProfile,
+                            phone_number: e.target.value,
+                          })
                         }
                       />
                     </div>
@@ -306,15 +566,25 @@ export const AdminSettings = () => {
                   <div className="flex gap-2">
                     <Button
                       onClick={handleSaveProfile}
+                      disabled={savingProfile}
                       className="gradient-vibrant-horizontal border-0 hover:brightness-110"
                     >
+                      {savingProfile && (
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      )}
                       <Save className="w-4 h-4 mr-2" />
-                      Enregistrer
+                      {savingProfile ? "Enregistrement..." : "Enregistrer"}
                     </Button>
                     <Button
                       onClick={() => {
                         setIsEditingProfile(false);
-                        setEditedProfile(adminProfile);
+                        if (profile) {
+                          setEditedProfile({
+                            first_name: profile.first_name,
+                            last_name: profile.last_name,
+                            phone_number: profile.phone_number || "",
+                          });
+                        }
                       }}
                       variant="outline"
                     >
@@ -327,7 +597,7 @@ export const AdminSettings = () => {
           </Card>
         </motion.div>
 
-        {/* Super Admins Management */}
+        {/* Gestion des Super Admins */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -348,45 +618,47 @@ export const AdminSettings = () => {
                 <DialogTrigger asChild>
                   <Button className="gradient-vibrant-horizontal border-0 hover:brightness-110">
                     <Plus className="w-4 h-4 mr-2" />
-                    Créer Super Admin
+                    Ajouter
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="bg-background">
+                <DialogContent className="max-w-md">
                   <DialogHeader>
-                    <DialogTitle>Créer un nouveau Super Admin</DialogTitle>
+                    <DialogTitle>Créer un Super Admin</DialogTitle>
                     <DialogDescription>
-                      Remplissez les informations pour créer un nouveau compte super administrateur.
+                      Ajoutez un nouveau super administrateur
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="newFirstName">Prénom *</Label>
-                      <Input
-                        id="newFirstName"
-                        placeholder="Prénom"
-                        value={newAdmin.firstName}
-                        onChange={(e) =>
-                          setNewAdmin({ ...newAdmin, firstName: e.target.value })
-                        }
-                      />
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label>Prénom *</Label>
+                        <Input
+                          value={newAdmin.firstName}
+                          onChange={(e) =>
+                            setNewAdmin({
+                              ...newAdmin,
+                              firstName: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Nom *</Label>
+                        <Input
+                          value={newAdmin.lastName}
+                          onChange={(e) =>
+                            setNewAdmin({
+                              ...newAdmin,
+                              lastName: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="newLastName">Nom *</Label>
+                      <Label>Email *</Label>
                       <Input
-                        id="newLastName"
-                        placeholder="Nom"
-                        value={newAdmin.lastName}
-                        onChange={(e) =>
-                          setNewAdmin({ ...newAdmin, lastName: e.target.value })
-                        }
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="newEmail">Email *</Label>
-                      <Input
-                        id="newEmail"
                         type="email"
-                        placeholder="email@example.com"
                         value={newAdmin.email}
                         onChange={(e) =>
                           setNewAdmin({ ...newAdmin, email: e.target.value })
@@ -394,226 +666,187 @@ export const AdminSettings = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="newPassword">Mot de passe *</Label>
+                      <Label>Téléphone</Label>
                       <Input
-                        id="newPassword"
-                        type="password"
-                        placeholder="Mot de passe"
-                        value={newAdmin.password}
+                        value={newAdmin.phoneNumber}
                         onChange={(e) =>
-                          setNewAdmin({ ...newAdmin, password: e.target.value })
+                          setNewAdmin({
+                            ...newAdmin,
+                            phoneNumber: e.target.value,
+                          })
                         }
+                        placeholder="+33 6 12 34 56 78"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="confirmPassword">Confirmer le mot de passe *</Label>
+                      <Label>Mot de passe *</Label>
+                      <div className="relative">
+                        <Input
+                          type={showNewAdminPassword ? "text" : "password"}
+                          value={newAdmin.password}
+                          onChange={(e) =>
+                            setNewAdmin({
+                              ...newAdmin,
+                              password: e.target.value,
+                            })
+                          }
+                          className="pr-10"
+                        />
+                        <button
+                          type="button"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                          onClick={() =>
+                            setShowNewAdminPassword(!showNewAdminPassword)
+                          }
+                        >
+                          {showNewAdminPassword ? (
+                            <EyeOff className="w-4 h-4" />
+                          ) : (
+                            <Eye className="w-4 h-4" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Confirmer le mot de passe *</Label>
                       <Input
-                        id="confirmPassword"
                         type="password"
-                        placeholder="Confirmer le mot de passe"
                         value={newAdmin.confirmPassword}
                         onChange={(e) =>
-                          setNewAdmin({ ...newAdmin, confirmPassword: e.target.value })
+                          setNewAdmin({
+                            ...newAdmin,
+                            confirmPassword: e.target.value,
+                          })
                         }
                       />
                     </div>
-                    <div className="flex gap-2 pt-4">
-                      <Button
-                        onClick={handleCreateAdmin}
-                        className="flex-1 gradient-vibrant-horizontal border-0 hover:brightness-110"
-                      >
-                        Créer
-                      </Button>
-                      <Button
-                        onClick={() => setOpenCreateAdmin(false)}
-                        variant="outline"
-                        className="flex-1"
-                      >
-                        Annuler
-                      </Button>
-                    </div>
                   </div>
+                  <DialogFooter>
+                    <Button
+                      variant="outline"
+                      onClick={() => setOpenCreateAdmin(false)}
+                    >
+                      Annuler
+                    </Button>
+                    <Button
+                      onClick={handleCreateAdmin}
+                      disabled={creatingAdmin}
+                      className="gradient-vibrant-horizontal border-0"
+                    >
+                      {creatingAdmin && (
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      )}
+                      {creatingAdmin ? "Création..." : "Créer"}
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {superAdmins.map((admin, index) => (
-                  <div
-                    key={admin.id}
-                    className="flex items-center justify-between p-4 bg-muted/50 rounded-lg border border-border"
-                  >
-                    <div className="flex-1">
-                      <p className="font-semibold">
-                        {admin.firstName} {admin.lastName}
-                      </p>
-                      <p className="text-sm text-muted-foreground">{admin.email}</p>
-                      <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
-                        <span>Status: {admin.status}</span>
-                        <span>Créé le: {admin.createdAt}</span>
-                        {index === 0 && (
-                          <span className="text-primary font-semibold">(Admin Principal)</span>
+              {isLoadingSuperAdmins ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {superAdmins.map((admin) => (
+                    <div
+                      key={admin.id}
+                      className="flex items-center justify-between p-4 bg-muted/50 rounded-lg"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ce4af7]/30 to-[#ce4af7]/10 flex items-center justify-center border border-[#ce4af7]/30">
+                          <span className="text-[#ce4af7] text-sm font-bold">
+                            {admin.first_name.charAt(0)}
+                            {admin.last_name.charAt(0)}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="font-semibold">
+                            {admin.first_name} {admin.last_name}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {admin.email}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Badge
+                          variant={admin.is_active ? "default" : "secondary"}
+                          className={
+                            admin.is_active
+                              ? "bg-green-100 text-green-700"
+                              : ""
+                          }
+                        >
+                          {admin.is_active ? "Actif" : "Inactif"}
+                        </Badge>
+                        <span className="text-sm text-muted-foreground">
+                          Créé le {formatDate(admin.date_joined)}
+                        </span>
+                        {admin.id !== profile?.id && (
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                <Trash2 className="w-4 h-4 text-destructive" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Supprimer ce Super Admin ?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Êtes-vous sûr de vouloir supprimer{" "}
+                                  <strong>
+                                    {admin.first_name} {admin.last_name}
+                                  </strong>
+                                  ? Cette action est irréversible.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => handleDeleteAdmin(admin)}
+                                  className="bg-destructive hover:bg-destructive/90"
+                                >
+                                  Supprimer
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
                         )}
                       </div>
                     </div>
-                    {index !== 0 && (
-                      <Button
-                        onClick={() => handleDeleteAdmin(admin.id)}
-                        variant="destructive"
-                        size="sm"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </motion.div>
 
-        {/* Change Password Dialog */}
-        <Dialog open={showPasswordChange} onOpenChange={setShowPasswordChange}>
-          <DialogContent className="bg-background">
-            <DialogHeader>
-              <DialogTitle>Changer votre mot de passe</DialogTitle>
-              <DialogDescription>
-                Entrez votre mot de passe actuel et le nouveau mot de passe.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="currentPassword">Mot de passe actuel *</Label>
-                <Input
-                  id="currentPassword"
-                  type="password"
-                  placeholder="Entrez votre mot de passe actuel"
-                  value={passwordData.currentPassword}
-                  onChange={(e) =>
-                    setPasswordData({ ...passwordData, currentPassword: e.target.value })
-                  }
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="newPassword">Nouveau mot de passe *</Label>
-                <Input
-                  id="newPassword"
-                  type="password"
-                  placeholder="Entrez votre nouveau mot de passe"
-                  value={passwordData.newPassword}
-                  onChange={(e) =>
-                    setPasswordData({ ...passwordData, newPassword: e.target.value })
-                  }
-                />
-                <p className="text-xs text-muted-foreground">
-                  Minimum 8 caractères
-                </p>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirmNewPassword">Confirmer le nouveau mot de passe *</Label>
-                <Input
-                  id="confirmNewPassword"
-                  type="password"
-                  placeholder="Confirmez votre nouveau mot de passe"
-                  value={passwordData.confirmPassword}
-                  onChange={(e) =>
-                    setPasswordData({ ...passwordData, confirmPassword: e.target.value })
-                  }
-                />
-              </div>
-              <div className="flex gap-2 pt-4">
-                <Button
-                  onClick={handleChangePassword}
-                  className="flex-1 gradient-vibrant-horizontal border-0 hover:brightness-110"
-                >
-                  Changer le mot de passe
-                </Button>
-                <Button
-                  onClick={() => setShowPasswordChange(false)}
-                  variant="outline"
-                  className="flex-1"
-                >
-                  Annuler
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-
-        {/* Notifications */}
+        {/* Notifications - Coming Soon */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
-          <Card className="opacity-50 pointer-events-none">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bell className="w-5 h-5 text-gradient-end" />
-                Notifications
-              </CardTitle>
-              <CardDescription>
-                Gérez vos préférences de notifications (bientôt disponible)
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>Notifications par email</Label>
-                  <p className="text-sm text-muted-foreground">Recevoir les alertes par email</p>
-                </div>
-                <Switch
-                  disabled
-                  checked={settings.emailNotifications}
-                  onCheckedChange={(checked) =>
-                    setSettings({ ...settings, emailNotifications: checked })
-                  }
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>Alertes nouvelles inscriptions</Label>
-                  <p className="text-sm text-muted-foreground">Être notifié des nouvelles demandes</p>
-                </div>
-                <Switch
-                  disabled
-                  checked={settings.newRegistrationAlert}
-                  onCheckedChange={(checked) =>
-                    setSettings({ ...settings, newRegistrationAlert: checked })
-                  }
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>Rapport hebdomadaire</Label>
-                  <p className="text-sm text-muted-foreground">Recevoir un résumé chaque semaine</p>
-                </div>
-                <Switch
-                  disabled
-                  checked={settings.weeklyReport}
-                  onCheckedChange={(checked) =>
-                    setSettings({ ...settings, weeklyReport: checked })
-                  }
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Save Settings Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-        >
-          <Button
-            size="lg"
-            onClick={handleSaveSettings}
-            className="w-full md:w-auto gradient-vibrant-horizontal border-0 hover:brightness-110"
-          >
-            <Save className="w-4 h-4 mr-2" />
-            Enregistrer les modifications
-          </Button>
+          <ComingSoonOverlay>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="w-5 h-5 text-gradient-end" />
+                  Préférences de notifications
+                </CardTitle>
+                <CardDescription>
+                  Gérez vos alertes et notifications
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="h-32 bg-gray-100 rounded-lg"></div>
+              </CardContent>
+            </Card>
+          </ComingSoonOverlay>
         </motion.div>
       </div>
     </div>

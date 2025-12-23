@@ -938,6 +938,110 @@ class ApiService {
       }
     );
   }
+
+  // ============================================================================
+  // SUPERADMIN MANAGEMENT API
+  // ============================================================================
+
+  /**
+   * Récupère la liste des superadmins
+   */
+  async getSuperAdmins(): Promise<SuperAdmin[]> {
+    const token = localStorage.getItem("access_token");
+    return this.fetch<SuperAdmin[]>("/practitioners/admin/superadmins/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  /**
+   * Crée un nouveau superadmin
+   */
+  async createSuperAdmin(data: CreateSuperAdminData): Promise<SuperAdmin> {
+    const token = localStorage.getItem("access_token");
+    return this.fetch<SuperAdmin>("/practitioners/admin/superadmins/", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * Met à jour un superadmin
+   */
+  async updateSuperAdmin(id: number, data: UpdateSuperAdminData): Promise<SuperAdmin> {
+    const token = localStorage.getItem("access_token");
+    return this.fetch<SuperAdmin>(`/practitioners/admin/superadmins/${id}/`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * Supprime un superadmin
+   */
+  async deleteSuperAdmin(id: number): Promise<{ message: string }> {
+    const token = localStorage.getItem("access_token");
+    return this.fetch<{ message: string }>(`/practitioners/admin/superadmins/${id}/`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  /**
+   * Récupère le profil du superadmin connecté
+   */
+  async getSuperAdminProfile(): Promise<SuperAdmin> {
+    const token = localStorage.getItem("access_token");
+    return this.fetch<SuperAdmin>("/practitioners/admin/superadmins/me/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  /**
+   * Met à jour le profil du superadmin connecté
+   */
+  async updateSuperAdminProfile(data: UpdateSuperAdminData): Promise<SuperAdmin> {
+    const token = localStorage.getItem("access_token");
+    return this.fetch<SuperAdmin>("/practitioners/admin/superadmins/me/", {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * Change le mot de passe du superadmin connecté
+   */
+  async changeSuperAdminPassword(currentPassword: string, newPassword: string): Promise<{ message: string }> {
+    const token = localStorage.getItem("access_token");
+    return this.fetch<{ message: string }>("/practitioners/admin/superadmins/me/password/", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        current_password: currentPassword,
+        new_password: newPassword,
+      }),
+    });
+  }
 }
 
 // Types pour l'admin
@@ -1008,6 +1112,33 @@ export interface ContactSubmission {
   message: string;
   status: "unread" | "read" | "replied";
   created_at: string;
+}
+
+// Types pour la gestion des superadmins
+export interface SuperAdmin {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  is_active: boolean;
+  date_joined: string;
+  last_login: string | null;
+}
+
+export interface CreateSuperAdminData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  phone_number?: string;
+}
+
+export interface UpdateSuperAdminData {
+  first_name?: string;
+  last_name?: string;
+  phone_number?: string;
+  is_active?: boolean;
 }
 
 /**

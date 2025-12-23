@@ -5,11 +5,27 @@ import {
   Eye, 
   MousePointerClick, 
   Award, 
-  Loader2
+  Loader2,
+  Clock
 } from "lucide-react";
 import { AdminStatCard } from "@/components/admin/AdminStatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { api, type AdminStats } from "@/services/api";
+
+// Composant pour les sections "Coming Soon"
+const ComingSoonOverlay = ({ children }: { children: React.ReactNode }) => (
+  <div className="relative">
+    <div className="absolute inset-0 bg-white/80 backdrop-blur-[1px] z-10 flex items-center justify-center rounded-xl">
+      <div className="bg-primary/10 text-primary px-4 py-2 rounded-full flex items-center gap-2">
+        <Clock className="w-4 h-4" />
+        <span className="font-medium text-sm">Bientôt disponible</span>
+      </div>
+    </div>
+    <div className="opacity-50 pointer-events-none">
+      {children}
+    </div>
+  </div>
+);
 
 export const AdminDashboard = () => {
   const [stats, setStats] = useState<AdminStats | null>(null);
@@ -88,24 +104,16 @@ export const AdminDashboard = () => {
       ) : null}
 
       {/* Section grisée - Fonctionnalités à venir */}
-      <div className="relative">
-        {/* Overlay grisé */}
-        <div className="absolute inset-0 bg-gray-100/80 backdrop-blur-sm z-10 rounded-xl flex items-center justify-center">
-          <div className="text-center p-8 bg-white rounded-xl shadow-lg">
-            <Loader2 className="w-12 h-12 text-primary mx-auto mb-4 animate-spin" />
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">Fonctionnalités en développement</h3>
-            <p className="text-gray-500 max-w-md">
-              Les graphiques de trafic, les demandes en attente et le classement des professionnels 
-              seront bientôt disponibles.
-            </p>
-          </div>
-        </div>
-        
-        {/* Contenu grisé (visible mais non interactif) */}
-        <div className="opacity-30 pointer-events-none">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            {/* Chart placeholder */}
-            <Card className="lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Chart placeholder */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="lg:col-span-2"
+        >
+          <ComingSoonOverlay>
+            <Card className="border-0 shadow-sm">
               <CardHeader>
                 <CardTitle>Trafic de la semaine</CardTitle>
               </CardHeader>
@@ -113,9 +121,17 @@ export const AdminDashboard = () => {
                 <div className="h-[300px] bg-gray-100 rounded-lg"></div>
               </CardContent>
             </Card>
+          </ComingSoonOverlay>
+        </motion.div>
 
-            {/* Pending Requests placeholder */}
-            <Card>
+        {/* Pending Requests placeholder */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <ComingSoonOverlay>
+            <Card className="border-0 shadow-sm h-full">
               <CardHeader>
                 <CardTitle>Nouvelles demandes</CardTitle>
               </CardHeader>
@@ -125,10 +141,18 @@ export const AdminDashboard = () => {
                 ))}
               </CardContent>
             </Card>
-          </div>
+          </ComingSoonOverlay>
+        </motion.div>
+      </div>
 
-          {/* Top Practitioners placeholder */}
-          <Card>
+      {/* Top Practitioners placeholder */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <ComingSoonOverlay>
+          <Card className="border-0 shadow-sm">
             <CardHeader>
               <CardTitle>Top professionnels (vues)</CardTitle>
             </CardHeader>
@@ -140,8 +164,8 @@ export const AdminDashboard = () => {
               </div>
             </CardContent>
           </Card>
-        </div>
-      </div>
+        </ComingSoonOverlay>
+      </motion.div>
     </div>
   );
 };

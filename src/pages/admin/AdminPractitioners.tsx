@@ -14,7 +14,8 @@ import {
   Filter,
   Loader2,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Clock
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -217,7 +218,12 @@ export const AdminPractitioners = () => {
                       <TableHead>Spécialité</TableHead>
                       <TableHead className="text-center">Vues</TableHead>
                       <TableHead className="text-center">Clics</TableHead>
-                      <TableHead className="text-center">Note</TableHead>
+                      <TableHead className="text-center">
+                        <div className="flex items-center justify-center gap-1 text-gray-400" title="Bientôt disponible">
+                          <Clock className="w-3 h-3" />
+                          <span>Note</span>
+                        </div>
+                      </TableHead>
                       <TableHead className="text-center">Badge</TableHead>
                       <TableHead className="text-center">Visible</TableHead>
                       <TableHead className="text-center">Statut</TableHead>
@@ -257,9 +263,9 @@ export const AdminPractitioners = () => {
                         <TableCell className="text-center font-medium">{(practitioner.profile_views || 0).toLocaleString()}</TableCell>
                         <TableCell className="text-center font-medium">{practitioner.profile_clicks || 0}</TableCell>
                         <TableCell className="text-center">
-                          <div className="flex items-center justify-center gap-1 text-gold">
-                            <Star className="w-4 h-4 fill-current" />
-                            {practitioner.rating || "N/A"}
+                          <div className="flex items-center justify-center gap-1 text-gray-300" title="Bientôt disponible">
+                            <Star className="w-4 h-4" />
+                            <span className="text-gray-400">-</span>
                           </div>
                         </TableCell>
                         <TableCell className="text-center">

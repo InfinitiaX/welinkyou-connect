@@ -55,7 +55,7 @@ const faqs = [
       {
         question: 'Que signifie le badge "Profil vérifié" ?',
         answer:
-          "Le badge \"Profil vérifié\" atteste que WeLinkYou a contrôlé les informations administratives du professionnel (identité, statut d'activité, diplômes ou équivalents). Ce n'est pas une évaluation de la qualité du service rendu, mais une garantie de fiabilité et de transparence.",
+          "Le badge « Profil vérifié » indique que le professionnel a suivi un processus de vérification administrative documentaire (identité, statut d'activité, diplômes ou équivalents déclarés), reposant sur les informations transmises, et a adhéré à la charte WeLinkYou. Ce dispositif contribue à instaurer un cadre de transparence, sans constituer une garantie ni une évaluation de la qualité des prestations.",
       },
     ],
   },
@@ -65,12 +65,12 @@ const faqs = [
       {
         question: "WeLinkYou intervient-il dans la relation entre le professionnel et le client ?",
         answer:
-          "Non. WeLinkYou met simplement à disposition un espace de visibilité et de confiance. Les échanges, prestations et conditions relèvent exclusivement du professionnel et du client.",
+          "Non. WeLinkYou facilite et structure la mise en relation entre utilisateurs et professionnels, en proposant un cadre clair et transparent. Les échanges, prestations et conditions sont ensuite définis directement entre le professionnel et le client, sans intervention de WeLinkYou.",
       },
       {
         question: "Est-ce que WeLinkYou prend une commission ?",
         answer:
-          "Non. WeLinkYou ne prend aucune commission sur les échanges, contacts ou prestations réalisés entre les utilisateurs et les professionnels. Notre modèle repose sur un abonnement professionnel transparent destiné à soutenir la visibilité et la vérification des profils.",
+          "WeLinkYou fonctionne sans commission sur les échanges, contacts ou prestations réalisés entre utilisateurs et professionnels. Notre modèle repose sur un abonnement professionnel transparent, qui permet aux professionnels d'intégrer le réseau WeLinkYou, d'accéder à des mises en relation ciblées et de bénéficier du processus de vérification.",
       },
     ],
   },
@@ -259,24 +259,29 @@ const FAQ = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-background-soft">
-          <div className="container mx-auto px-4 lg:px-8">
+        {/* CTA Section - Premium Dark with Vibrant Gradient */}
+        <section className="py-24 bg-[#0d0d18] relative overflow-hidden">
+          {/* Background gradient effects */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gradient-start/10 via-transparent to-gradient-end/10" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-start/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-end/20 rounded-full blur-3xl" />
+
+          <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="max-w-2xl mx-auto text-center"
+              className="max-w-2xl mx-auto"
             >
-              <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
                 Vous n'avez pas trouvé votre réponse ?
               </h2>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-white/70 text-lg mb-10 leading-relaxed">
                 Notre équipe est disponible pour répondre à toutes vos questions.
               </p>
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full gradient-vibrant-horizontal text-white font-medium hover:brightness-110 transition-all shadow-lg"
+                className="inline-flex items-center gap-2 px-10 py-4 gradient-vibrant-horizontal text-white rounded-full font-semibold hover:brightness-110 hover:scale-[1.02] transition-all shadow-xl shadow-gradient-start/25"
               >
                 Nous contacter
               </a>

@@ -8,14 +8,12 @@ import {
   ChevronLeft,
   ChevronRight,
   LogOut,
-  Bell,
   FileText,
   MessageSquare,
   BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/logo.png";
 
@@ -66,7 +64,6 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const notifications = 5;
 
   const handleLogout = () => {
     logout();
@@ -157,26 +154,6 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
         })}
       </nav>
 
-      {/* Notifications */}
-      <div className="px-3 py-2">
-        <div className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-lg bg-white/5 text-white/70 hover:bg-white/10 transition-colors cursor-pointer",
-          collapsed && "justify-center"
-        )}>
-          <div className="relative">
-            <Bell className="w-5 h-5 text-[#ce4af7]" />
-            {notifications > 0 && (
-              <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-[#ce4af7] text-white text-xs border-0">
-                {notifications}
-              </Badge>
-            )}
-          </div>
-          {!collapsed && (
-            <span className="text-sm font-medium">Notifications</span>
-          )}
-        </div>
-      </div>
-
       {/* User Profile & Logout */}
       <div className="p-4 border-t border-white/5">
         <div className={cn(
@@ -198,7 +175,6 @@ export const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 <p className="text-[#ce4af7] text-sm font-medium truncate">
                   {user ? `${user.first_name} ${user.last_name}` : "Super Admin"}
                 </p>
-                <p className="text-white/50 text-xs truncate">Administrateur</p>
               </motion.div>
             )}
           </AnimatePresence>
