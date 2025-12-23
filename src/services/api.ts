@@ -18,6 +18,7 @@ import type {
   ChangePasswordData
 } from "@/types/api";
 
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8001/api";
 
 class ApiService {
