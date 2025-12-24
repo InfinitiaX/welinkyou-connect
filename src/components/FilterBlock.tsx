@@ -88,9 +88,9 @@ export const FilterBlock = () => {
                   openDropdown === "country" ? "border-primary bg-primary/5" : "border-gray-200 hover:border-primary/50 bg-white"
                 )}
               >
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  <span className={cn("text-sm font-medium", selectedCountry ? "text-black" : "text-gray-500")}>
+                <div className="flex items-center gap-3 min-w-0">
+                  <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className={cn("text-sm font-medium whitespace-nowrap", selectedCountry ? "text-black" : "text-gray-500")}>
                     {selectedCountry ? countries.find(c => c.id === selectedCountry)?.name : "Pays du professionnel"}
                   </span>
                 </div>
@@ -103,7 +103,8 @@ export const FilterBlock = () => {
                     <button onClick={() => { setSelectedCountry(""); setSelectedCity(""); setOpenDropdown(null); }}
                       className={cn("w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors",
                         !selectedCountry ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-gray-500")}>
-                      <span className="text-sm font-medium">Pays du professionnel</span>
+                      <span className="text-xl">🌍</span>
+                      <span className="text-sm font-medium">Tous les pays</span>
                     </button>
                     {countries.map(country => (
                       <button key={country.id} onClick={() => { setSelectedCountry(country.id); setSelectedCity(""); setOpenDropdown(null); }}
