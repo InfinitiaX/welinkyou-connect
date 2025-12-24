@@ -338,28 +338,31 @@ export const AdminDocuments = () => {
                           <Eye className="w-4 h-4 mr-1" />
                           Voir
                         </Button>
-                        {doc.status === 'pending' && (
-                          <>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="text-green-600 border-green-300 hover:bg-green-50"
-                              onClick={() => handleValidateDocument(doc)}
-                            >
-                              <Check className="w-4 h-4 mr-1" />
-                              Valider
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="text-red-600 border-red-300 hover:bg-red-50"
-                              onClick={() => handleRejectDocument(doc)}
-                            >
-                              <X className="w-4 h-4 mr-1" />
-                              Rejeter
-                            </Button>
-                          </>
-                        )}
+                        {/* Boutons toujours visibles pour permettre la modification du statut */}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className={doc.status === 'validated' 
+                            ? "text-green-600 border-green-300 bg-green-50" 
+                            : "text-green-600 border-green-300 hover:bg-green-50"}
+                          onClick={() => handleValidateDocument(doc)}
+                          title={doc.status === 'validated' ? "Déjà validé - Cliquer pour re-valider" : "Valider ce document"}
+                        >
+                          <Check className="w-4 h-4 mr-1" />
+                          {doc.status === 'validated' ? 'Validé' : 'Valider'}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className={doc.status === 'rejected' 
+                            ? "text-red-600 border-red-300 bg-red-50" 
+                            : "text-red-600 border-red-300 hover:bg-red-50"}
+                          onClick={() => handleRejectDocument(doc)}
+                          title={doc.status === 'rejected' ? "Déjà rejeté - Cliquer pour modifier le motif" : "Rejeter ce document"}
+                        >
+                          <X className="w-4 h-4 mr-1" />
+                          {doc.status === 'rejected' ? 'Rejeté' : 'Rejeter'}
+                        </Button>
                         <Button
                           variant="destructive"
                           size="sm"

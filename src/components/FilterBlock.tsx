@@ -74,7 +74,7 @@ export const FilterBlock = () => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.6, duration: 0.5 }}
-        className="w-full max-w-5xl mx-auto relative z-50"
+        className="w-full max-w-6xl mx-auto relative z-50"
       >
         <div className="bg-white rounded-2xl p-4 md:p-6 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.4)] border-2 border-gold">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.3fr_1.3fr_auto] gap-4">
@@ -91,7 +91,7 @@ export const FilterBlock = () => {
                 <div className="flex items-center gap-3">
                   <MapPin className="w-5 h-5 text-primary" />
                   <span className={cn("text-sm font-medium", selectedCountry ? "text-black" : "text-gray-500")}>
-                    {selectedCountry ? countries.find(c => c.id === selectedCountry)?.name : "Pays"}
+                    {selectedCountry ? countries.find(c => c.id === selectedCountry)?.name : "Pays du professionnel"}
                   </span>
                 </div>
                 <ChevronDown className={cn("w-5 h-5 text-gray-400 transition-transform", openDropdown === "country" && "rotate-180")} />
@@ -103,8 +103,7 @@ export const FilterBlock = () => {
                     <button onClick={() => { setSelectedCountry(""); setSelectedCity(""); setOpenDropdown(null); }}
                       className={cn("w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors",
                         !selectedCountry ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-gray-500")}>
-                      <span className="text-xl">🌍</span>
-                      <span className="text-sm font-medium">Tous les pays</span>
+                      <span className="text-sm font-medium">Pays du professionnel</span>
                     </button>
                     {countries.map(country => (
                       <button key={country.id} onClick={() => { setSelectedCountry(country.id); setSelectedCity(""); setOpenDropdown(null); }}

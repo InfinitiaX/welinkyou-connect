@@ -768,37 +768,39 @@ export const AdminRegistrations = () => {
                           <Eye className="w-4 h-4 mr-1" />
                           Voir
                         </Button>
-                        {doc.status === 'pending' && (
-                          <>
-                            <Button
-                              size="sm"
-                              className="bg-green-500 hover:bg-green-600"
-                              onClick={() => handleValidateDocument(doc.id)}
-                              disabled={isProcessingDoc}
-                            >
-                              {isProcessingDoc ? (
-                                <Loader2 className="w-4 h-4 animate-spin" />
-                              ) : (
-                                <>
-                                  <CheckCircle className="w-4 h-4 mr-1" />
-                                  Valider
-                                </>
-                              )}
-                            </Button>
-                            <Button
-                              variant="destructive"
-                              size="sm"
-                              onClick={() => {
-                                setRejectDocumentId(doc.id);
-                                setIsRejectDocDialogOpen(true);
-                              }}
-                              disabled={isProcessingDoc}
-                            >
-                              <XCircle className="w-4 h-4 mr-1" />
-                              Rejeter
-                            </Button>
-                          </>
-                        )}
+                        {/* Boutons toujours visibles pour permettre la modification du statut */}
+                        <Button
+                          size="sm"
+                          className={doc.status === 'validated' 
+                            ? "bg-green-500 hover:bg-green-600 opacity-70" 
+                            : "bg-green-500 hover:bg-green-600"}
+                          onClick={() => handleValidateDocument(doc.id)}
+                          disabled={isProcessingDoc}
+                          title={doc.status === 'validated' ? "Déjà validé" : "Valider ce document"}
+                        >
+                          {isProcessingDoc ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <>
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              {doc.status === 'validated' ? 'Validé' : 'Valider'}
+                            </>
+                          )}
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          className={doc.status === 'rejected' ? "opacity-70" : ""}
+                          onClick={() => {
+                            setRejectDocumentId(doc.id);
+                            setIsRejectDocDialogOpen(true);
+                          }}
+                          disabled={isProcessingDoc}
+                          title={doc.status === 'rejected' ? "Déjà rejeté" : "Rejeter ce document"}
+                        >
+                          <XCircle className="w-4 h-4 mr-1" />
+                          {doc.status === 'rejected' ? 'Rejeté' : 'Rejeter'}
+                        </Button>
                       </div>
                     </div>
                   ))}
