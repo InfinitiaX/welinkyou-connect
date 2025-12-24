@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Search, MapPin, Briefcase, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { countries, cities } from "@/data/categories";
-import { api } from "@/services/api";
+import api from "@/services/api";
 import { cn } from "@/lib/utils";
 import type { ApiDomaine } from "@/types/api";
 

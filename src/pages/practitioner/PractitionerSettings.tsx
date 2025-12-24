@@ -144,7 +144,7 @@ export const PractitionerSettings = () => {
           apiErrors.push(...(Array.isArray(err.data.confirm_password) ? err.data.confirm_password : [err.data.confirm_password]));
         }
         if (err.data.detail) {
-          apiErrors.push(err.data.detail);
+          apiErrors.push(String(err.data.detail));
         }
         if (err.data.non_field_errors) {
           apiErrors.push(...(Array.isArray(err.data.non_field_errors) ? err.data.non_field_errors : [err.data.non_field_errors]));
@@ -175,7 +175,7 @@ export const PractitionerSettings = () => {
     } catch (err) {
       console.error("Erreur lors de la demande de suppression:", err);
       if (err instanceof ApiError && err.data?.error) {
-        toast.error(err.data.error);
+        toast.error(String(err.data.error));
       } else {
         toast.error("Erreur lors de l'envoi de la demande");
       }
