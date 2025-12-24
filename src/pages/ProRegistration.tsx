@@ -975,6 +975,10 @@ const ProRegistration = () => {
                           ))}
                         </ul>
                       </div>
+
+                      <p className="text-xs text-muted-foreground text-center mt-4">
+                        La période d'accès sans frais et les modalités de l'offre Freemium sont précisées dans les Conditions Générales Professionnels WeLinkYou applicables.
+                      </p>
                     </div>
                   )}
 
