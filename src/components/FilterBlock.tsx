@@ -100,12 +100,6 @@ export const FilterBlock = () => {
                 {openDropdown === "country" && (
                   <motion.div variants={dropdownVariants} initial="hidden" animate="visible" exit="exit"
                     className="absolute z-[100] top-full mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-2xl overflow-hidden">
-                    <button onClick={() => { setSelectedCountry(""); setSelectedCity(""); setOpenDropdown(null); }}
-                      className={cn("w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors",
-                        !selectedCountry ? "bg-primary/10 text-primary" : "hover:bg-gray-50 text-gray-500")}>
-                      <span className="text-xl">🌍</span>
-                      <span className="text-sm font-medium">Tous les pays</span>
-                    </button>
                     {countries.map(country => (
                       <button key={country.id} onClick={() => { setSelectedCountry(country.id); setSelectedCity(""); setOpenDropdown(null); }}
                         className={cn("w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors",
